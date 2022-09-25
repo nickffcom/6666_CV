@@ -43,10 +43,10 @@
                     <!-- loop -->
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
                         <div class="custom-control custom-block custom-control-primary">
-                            <input type="checkbox" class="custom-control-input service-checked" id="bm_id_<?= $x['id']; ?>" name="type" value="<?= $x['id']; ?>">
+                            <input type="checkbox" class="custom-control-input service-checked" id="bm_id_$x['id'];" name="type" value=" $x['id'];">
                             <label class="custom-control-label p-2" for="bm_id_<?= $x['id']; ?>">
                                 <span class="d-flex align-items-center">
-                          <div class="item item-circle bg-black-5 text-primary-light" style="min-width: 60px;"><strong><?= number_format($x['count_max']); ?></strong></div>
+                          <div class="item item-circle bg-black-5 text-primary-light" style="min-width: 60px;"><strong>$x['count_max'];</strong></div>
                             <span class="hcss ml-2">
                                 <span class="font-w700"><?= $x['name']; ?></span>
                                     <!--<span class="d-block font-size-sm text-muted"><?= $x['description']; ?></span>-->
@@ -87,7 +87,7 @@
             <div class="block-content">
                 {{-- <?php if (empty($services['via'])) { ?> --}}
                 <div class="text-center" style="font-size:20px;color:red;font-weight: bold;">KHU VỰC NÀY CHƯA CÓ HÀNG !</div>
-                <?php } else { ?>
+                {{-- <?php } else { ?> --}}
                 <div class="row">
                     {{-- <?php foreach ($services['via'] as $x) { ?> --}}
                     <!-- loop -->
@@ -137,7 +137,7 @@
             <div class="block-content">
                 {{-- <?php if (empty($services['clone'])) { ?> --}}
                 <div class="text-center" style="font-size:20px;color:red;font-weight: bold;">KHU VỰC NÀY CHƯA CÓ HÀNG !</div>
-                <?php } else { ?>
+                {{-- <?php } else { ?> --}}
                 <div class="row">
                     {{-- <?php foreach ($services['clone'] as $x) { ?> --}}
                     <!-- loop -->
@@ -204,7 +204,7 @@
                     </span>
                 </div>
                 <!-- /loop -->
-                <?php } ?>
+                {{-- <?php } ?> --}}
             </div>
         </div>
     </div>
