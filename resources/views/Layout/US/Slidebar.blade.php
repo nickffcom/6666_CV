@@ -3,7 +3,7 @@
         <div class="content-header bg-white-10">
             <a class="link-fx font-w600 font-size-lg text-white" href="/">
                 <span style="font-size: 30px;font-weight: bold;letter-spacing: 3px;color:white;">
-                    Logo text
+                    {{ LOGO_TEXT }}
                 </span>
             </a>
             <div>
@@ -46,43 +46,37 @@
                   <span class="nav-main-link-name">Lịch sử hoạt động</span>
                 </a>
             </li>
-            {{-- <?php foreach (array('bm', 'via', 'clone') as $x) { ?> --}}
-                <li class="nav-main-item">
-                    <a class="nav-main-link nav-main-link-submenu active" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                        <i class="nav-main-link-icon fa fa-plus-circle"></i>
-                        <span class="nav-main-link-name">Quản lý  cái biến gì ở đây ấy</span>
-                    </a>
-                    <ul class="nav-main-submenu">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/add?type=">
-                                <i class="nav-main-link-icon fa fa-plus-circle"></i>
-                                <span class="nav-main-link-name">Thêm</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/manage?type=&status=0">
-                                <i class="nav-main-link-icon fa fa-list"></i>
-                                <span class="nav-main-link-name">Quản lý</span>
-                            </a>
-                        </li>
-                        {{-- <?php if ($x == 'via') { ?> --}}
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/upload?type=">
-                                <i class="nav-main-link-icon fa fa-upload"></i>
-                                <span class="nav-main-link-name">Upload Backup</span>
-                            </a>
-                        </li>
-                        {{-- <?php } ?> --}}
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/type?type=">
-                                <i class="nav-main-link-icon fa fa-book"></i>
-                                <span class="nav-main-link-name">Phân loại</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            {{-- <?php } ?> --}}
-            {{-- <?php } ?> --}}
+
+            @foreach ( SERVICE as $item)
+            <li class="nav-main-item">
+                <a class="nav-main-link nav-main-link-submenu active" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                    <span class="nav-main-link-name">Quản lý {{ mb_strtoupper($item) }}</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="/admin/{{ $item }}/create">
+                            <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                            <span class="nav-main-link-name">Thêm</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="/admin/{{ $item }}?status={{ HET_HANG }}">    
+                            <i class="nav-main-link-icon fa fa-list"></i>
+                            <span class="nav-main-link-name">Quản lý</span>
+                        </a>
+                    </li>
+             
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="/admin/type/{{ $item }}">
+                            <i class="nav-main-link-icon fa fa-book"></i>
+                            <span class="nav-main-link-name">Phân loại</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endforeach
+              
 
             <li class="nav-main-heading">BUSINESS MANAGER</li>
             <li class="nav-main-item">

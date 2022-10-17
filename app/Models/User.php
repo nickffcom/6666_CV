@@ -17,11 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
+    protected $table="user";
+    public $fillable = [
+        'username',
         'email',
         'password',
     ];
+    public $timestamps = true;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +43,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function order_service(){
+        return $this->hasMany(Order_service::class);
+    }
+    public function history(){
+        return $this->hasMany(History::class);
+    }
+    public function proxy(){
+        return $this->hasMany(Proxy::class);
+    }
 }

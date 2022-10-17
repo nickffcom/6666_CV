@@ -1,3 +1,5 @@
+@extends('Layout.US.Out')
+@section('content')
 <div id="page-container">
     <main id="main-container">
         <div class="bg-image">
@@ -12,7 +14,8 @@
                                 <span style="font-size: 30px;font-weight: bold;letter-spacing: 1px;color:black;"><?= $logo_text; ?></span>
                                 <p class="text-uppercase font-w700 font-size-sm text-muted">Đăng Nhập</p>
                             </div>
-                            <form class="js-validation-signin" name="login" method="POST">
+                            <form class="js-validation-signin" id="form_login" name="" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="username" name="username" placeholder="Tài khoản" required="">
@@ -46,29 +49,29 @@
         </div>
     </main>
 </div>
+@endsection
+
+@section('script')
 <script>
-    $('form').bind('submit', function (e) {
-        showNotify({
-            type: 'info',
-            text: 'Đang đăng nhập...',
-            hide: false,
-            clickToClose: false
+    $( document ).ready(function() {
+        $('#form_login').bind('submit', function (e) {
+            e.preventDefault();
+            showNotify({
+                type: 'info',
+                text: 'Đang đăng nhập...',
+                hide: false,
+                clickToClose: false
+            });
+            $.post('/login', $(this).serializeArray(), function (a) {
+                if (a.status == true) {
+                    setTimeout(function () {
+                        location.href='/';
+                    }, 100);
+                }
+                showNotify((a.status ==true ? 'success' : 'error'), a.message);
+            });
+           
         });
-        $.post(api('login'), $(this).serializeArray(), function (a) {
-            console.log("DKm nha");
-            console.log(a);
-            if (a.status > 0) {
-                localStorage.setItem('edenhazard',a.edenhazard);
-                localStorage.setItem('chelsea_fc',a.chelsea_fc);
-                setTimeout(function () {
-                    location.reload();
-                }, 1500);
-            }else{
-                console.log("VÔ out");
-               
-            }
-            showNotify((a.status > 0 ? 'success' : 'error'), a.message);
-        });
-        e.preventDefault();
     });
 </script>
+@endsection

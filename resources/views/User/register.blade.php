@@ -1,4 +1,5 @@
-
+@extends('Layout.US.Out')
+@section('content')
 <div id="page-container">
     <main id="main-container">
         <div class="bg-image">
@@ -10,7 +11,8 @@
                                 <span style="font-size: 30px;font-weight: bold;letter-spacing: 1px;color:black;"><?= $logo_text; ?></span>
                                 <p class="text-uppercase font-w700 font-size-sm text-muted">Tạo Tài Khoản</p>
                             </div>
-                            <form class="js-validation-signin" name="register" method="POST">
+                            <form class="js-validation-signin" id="form_register" name="" method="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="username" name="username" placeholder="Tài khoản" required="">
@@ -29,7 +31,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Xác nhận mật khẩu" required="">
+                                        <input type="password" class="form-control" id="password" name="password_confirmation" placeholder="Xác nhận mật khẩu" required="">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fa fa-asterisk"></i></span>
                                         </div>
@@ -42,7 +44,7 @@
                         </div>
                         <div class="block-content bg-body">
                             <div class="d-flex justify-content-center text-center push">
-                                <div class="font-w600 font-size-sm py-1 text-center">Đã có tài khoản? <a href="/">Đăng nhập</a>
+                                <div class="font-w600 font-size-sm py-1 text-center">Đã có tài khoản? <a href="/login">Đăng nhập</a>
                                 </div>
                             </div>
                         </div>
@@ -52,22 +54,31 @@
         </div>
     </main>
 </div>
+@endsection
+
+@section('head')
 <script>
-    $('form').bind('submit', function (e) {
+$( document ).ready(function() {
+
+$('#form_register').bind('submit', function (e) {
+
+        e.preventDefault();
         showNotify({
             type: 'info',
             text: 'Đang đăng ký...',
             hide: false,
             clickToClose: false
         });
-        $.post(api('register'), $(this).serializeArray(), function (a) {
-            if (a.status > 0) {
+        $.post('/register', $(this).serializeArray(), function (a) {
+            if (a.status == true) {
                 setTimeout(function () {
-                    location.reload();
+                    location.href="/login";
                 }, 1500);
             }
-            showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+            showNotify((a.status ==true ? 'success' : 'error'), a.message);
         });
-        e.preventDefault();
+       
     });
+});
 </script>
+@endsection
