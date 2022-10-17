@@ -39,11 +39,13 @@ class DataRepo extends BaseRepo{
         //           return $rs;
 
         // $rs = $this->model->select("data.*",DB::raw("(SELECT COUNT(*) FROM service where service.id = data.service_id) AS Countmax "))
-        $rs = $this->model->where('status',$status)
-                          ->with('service',function($query) use ($type){
+      
+        $rs = $this->model->whereHas('service',function($query) use ($type){
                             $query->where('type',$type);
                           })
-        //   ->dd()
+                          ->where('status',$status)
+                          // ->where('type',$type)
+          // ->dd()
           ->get();
         // $sql = "SELECT data.*, service.price, service.name FROM data INNER JOIN service ON (data.service_id = service.id) WHERE service.type = '$type' AND data.status ='$status' ORDER BY data.status ASC";
         // $rs =DB::select($sql);

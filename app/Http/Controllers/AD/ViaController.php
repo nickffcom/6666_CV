@@ -43,9 +43,7 @@ class ViaController extends Controller
         ]);
     }
 
-    public function type(){   // phân loại
-
-    }
+  
 
     public function store(Request $request)
     {
@@ -99,7 +97,7 @@ class ViaController extends Controller
     {
         $result = $this->dataRepo->find($id);
         return response()->json($result);
-        // dd("show id");
+
     }
 
     
@@ -111,12 +109,23 @@ class ViaController extends Controller
     
     public function update(Request $request, $id)
     {
-        dd('update');
+        $uid = $request->input('uid');
+        $pass= $request->input('pass');
+        $key2fa = $request->input('key2fa');
+        $email= $request->input('email');
+        $passmail= $request->input('passmail');
+        $note= $request->input('note');
+
+        $this->dataRepo->find($id)->update([
+            'attr'=>json_encode(DB_VIA($uid,$pass,$key2fa,$email,$passmail,$note))
+        ]);
+        return response()->json(["status"=>true,"message"=>"Cập nhật thành công"]);
     }
 
   
     public function destroy($id)
     {
-        dd('destroy');
+        $rs = $this->dataRepo->delete($id);
+        return response()->json(["status"=>true,"message"=>"Xóa thành công".$rs]);
     }
 }

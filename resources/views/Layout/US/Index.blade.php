@@ -28,7 +28,7 @@
     <script src="{{ asset('/js/context.js') }}"></script>
     <script src="{{ asset('/js/vue.min.js') }}"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    @yield('head')
+    @yield('header')
 </head>
 <body>
     <div id="Ads69.net">

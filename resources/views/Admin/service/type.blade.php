@@ -1,31 +1,36 @@
+
+@extends('Layout.US.Index')
+@section('header')
 <style>
     th, td {
         text-align: center;
     }
 </style>
+@endsection
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
             <div class="block-header bg-info">
-                <h3 class="block-title">Phân loại <?= mb_strtoupper($type); ?></h3>
+                <h3 class="block-title">Phân loại {{ mb_strtoupper($type) }}</h3>
             </div>
             <div class="block-content">
                 <form id="add" method="POST">
-                	<input type="hidden" name="t" value="add">
-                    <input type="hidden" name="type" value="<?= $type; ?>">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                     <input type="hidden" name="type" value="{{ $type }} ">
                     <div class="form-group">
-                        <label>Tên <?= mb_strtoupper($type); ?> :</label>
-                        <input type="text" name="name" placeholder="Nhập tên <?= mb_strtoupper($type); ?>" class="form-control" required="">
+                        <label>Tên {{ mb_strtoupper($type) }} :</label>
+                        <input type="text" name="name" placeholder="Nhập tên {{ mb_strtoupper($type) }}" class="form-control" required="">
                     </div>
                     <div class="form-group">
-                        <label>Mô tả <?= mb_strtoupper($type); ?> :</label>
-                        <textarea name="description" placeholder="Mô tả <?= mb_strtoupper($type); ?>" class="form-control" rows="4" required=""></textarea>
+                        <label>Mô tả {{ mb_strtoupper($type)}} :</label>
+                        <textarea name="description" placeholder="Mô tả {{ mb_strtoupper($type) }}" class="form-control" rows="4" required=""></textarea>
                     </div>
                     <div class="form-group">
                         <label>Giá tiền :</label>
-                        <input type="number" name="price" placeholder="Giá tiền <?= mb_strtoupper($type); ?>" class="form-control" required="">
+                        <input type="number" name="price" placeholder="Giá tiền {{ mb_strtoupper($type) }}" class="form-control" required="">
                     </div>
-                	<button type="submit" class="btn btn-danger"><i class="fa fa-plus-circle"></i> Thêm <?= mb_strtoupper($type); ?></button>
+                	<button type="submit" class="btn btn-danger"><i class="fa fa-plus-circle"></i> Thêm {{ mb_strtoupper($type) }} </button>
                 </form>
             </div>
             <br>
@@ -36,7 +41,7 @@
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
             <div class="block-header bg-info">
-                <h3 class="block-title">Danh sách <?= mb_strtoupper($type); ?></h3>
+                <h3 class="block-title">Danh sách {{ mb_strtoupper($type)}}</h3>
             </div>
             <div class="block-content">
                 <div class="table-responsive">
@@ -52,23 +57,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $lists = $db->where('type', $type)->orderBy('id', 'DESC')->get('service');
-                            foreach ($lists as $k => $x) {
-                            	$description = $x['description'];
-                            ?>
+                          
+                            @foreach ($services[$type] as $key => $data )
+                                
+                           
                             <tr>
-                                <td class="d-sm-table-cell"><?= ($k + 1); ?></td>
-                                <td class="d-sm-table-cell"><?= $x['name']; ?></td>
-                                <td class="d-sm-table-cell" style="font-weight: bold;"><?= $description; ?></td>
-                                <td class="d-sm-table-cell"><?= number_format($x['price']); ?> VNĐ</td>
-                                <td class="d-sm-table-cell"><?= date('H:i:s - d/m/Y', $x['time']); ?></td>
+                                <td class="d-sm-table-cell">{{ $key + 1 }}</td>
+                                <td class="d-sm-table-cell">{{  $data->name}}</td>
+                                <td class="d-sm-table-cell" style="font-weight: bold;">{{  $data->description}}</td>
+                                <td class="d-sm-table-cell">{{ number_format( $data->price) }} VNĐ</td>
+                                <td class="d-sm-table-cell">{{ date('H:i:s - d/m/Y', strtotime($data->created_at)) }}</td>
                                 <td class="d-sm-table-cell">
-                                    <button data-update="<?= $x['id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i></button>
-                                	<button data-delete="<?= $x['id']; ?>" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                    <button data-update="{{  $data->id}}" class="btn btn-info"><i class="fa fa-edit"></i></button>
+                                	<button data-delete="{{  $data->id}}" class="btn btn-danger"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
-                            <?php } ?>
+                             @endforeach
+                     
                         </tbody>
                     </table>
                 </div><br>
@@ -93,16 +98,16 @@
                         <input type="hidden" name="t" value="update">
                         <input type="hidden" name="id">
                         <div class="form-group">
-                            <label>Tên <?= mb_strtoupper($type); ?> :</label>
-                            <input type="text" name="name" placeholder="Nhập tên <?= mb_strtoupper($type); ?>" class="form-control" required="">
+                            <label>Tên {{ mb_strtoupper($type) }} :</label>
+                            <input type="text" name="name" placeholder="Nhập tên {{ mb_strtoupper($type) }}" class="form-control" required="">
                         </div>
                         <div class="form-group">
-                            <label>Mô tả <?= mb_strtoupper($type); ?> :</label>
-                            <textarea name="description" placeholder="Mô tả <?= mb_strtoupper($type); ?>" class="form-control" rows="4" required=""></textarea>
+                            <label>Mô tả {{ mb_strtoupper($type) }}:</label>
+                            <textarea name="description" placeholder="Mô tả {{ mb_strtoupper($type) }}" class="form-control" rows="4" required=""></textarea>
                         </div>
                         <div class="form-group">
                             <label>Giá tiền :</label>
-                            <input type="number" name="price" placeholder="Giá tiền <?= mb_strtoupper($type); ?>" class="form-control" required="">
+                            <input type="number" name="price" placeholder="Giá tiền {{ mb_strtoupper($type) }}" class="form-control" required="">
                         </div>
                         <button type="submit" class="btn btn-success btn-block"><i class="fa fa-check"></i> Lưu cập nhật</button>
                     </form><br>
@@ -111,10 +116,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('form#add').bind('submit', function (e) {
-        $.post(api('admin/service'), $(this).serializeArray(), function (a) {
-            showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+       
+        $.post(`/admin/service/add/{{$type}}`, $(this).serializeArray(), function (a) {
+            showNotify((a.status == true ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
@@ -122,18 +131,19 @@
     	if (confirm('Chắc chắn xóa loại này ?')) {
     		$that = $(this);
 	    	$id = $that.data('delete');
-	    	$.post(api('admin/service'), {t: 'delete', id: $id}, function (a) {
-	    		if (a.status > 0) {
+	    	$.post('/admin/service/delete', {t: 'delete', id: $id}, function (a) {
+	    		if (a.status ==  true) {
 	    			$that.parent().parent().fadeOut();
 	    		}
-	    		showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+	    		showNotify((a.status == true ? 'success' : 'error'), a.message);
 	    	});
     	}
     });
     $('[data-update]').bind('click', function () {
         $that = $(this);
         $id = $that.data('update');
-        $.post(api('admin/service'), {t: 'info', id: $id}, function (a) {
+        let idnek = $that.data('update');
+        $.post(`/admin/service/show/${idnek}`, {t: 'info', id: $id}, function (a) {
             $.each(a, (k, v) => {
                 $('form#update_service').find('[name="' + k + '"]').val(v);
             });
@@ -141,9 +151,11 @@
         });
     });
     $('form#update_service').bind('submit', function (e) {
-        $.post(api('admin/service'), $(this).serializeArray(), function (a) {
+        $.post('/admin/service/update', $(this).serializeArray(), function (a) {
             showNotify((a.status > 0 ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
 </script>
+
+@endsection

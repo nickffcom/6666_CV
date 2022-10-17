@@ -34,6 +34,9 @@
                         Vui lòng chỉ cập nhật sản phẩm chứ không xóa sản phẩm, vì xóa sản phẩm khách hàng sẽ không thể
                         xem/check khi mua hoặc đã mua xong!
                     </div>
+                    @isset($listData)
+                        
+                   
                     <div class="table-responsive">
                         <table class="table table-hover table-vcenter">
                             <thead>
@@ -75,7 +78,9 @@
 
                             </tbody>
                         </table>
-                    </div><br>
+                    </div>
+                    @endisset
+                    <br>
                     <div style="display: table; margin:0 auto;">
                         <nav>
                         </nav>
@@ -94,6 +99,7 @@
                     </div>
                     <div class="block-content">
                         <form action="" id="update_data" method="POST">
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="t" value="update">
                             <input type="hidden" name="id">
                             @foreach (explode('|', FORMAT_UPDATE[$type]) as $key => $value)
@@ -118,16 +124,16 @@
             if (confirm('Chắc chắn xóa này ?')) {
                 $that = $(this);
                 $id = $that.data('delete');
-                $.post(api('admin/action_data'), {
-                    t: 'delete',
-                    id: $id
-                }, function(a) {
-                    if (a.status > 0) {
-                        $that.parent().parent().fadeOut();
-                    }
-                    showNotify((a.status > 0 ? 'success' : 'error'), a.message);
-                });
-            }
+                let idnek = $that.data('delete');
+                 $.ajax({
+                url: `/admin/{{ $type}}/${idnek}`,
+                type: 'DELETE',
+                data:$('form#update_data').serialize(),
+                success: function (result) {
+                    showNotify((result.status == true ? 'success' : 'error'), result.message);
+                }
+            });
+    	}
         });
         $('[data-update]').bind('click', function() {
             $that = $(this);
@@ -136,21 +142,24 @@
             console.log("id",idnek);
             $.get(`/admin/{{ $type }}/${idnek}`,function(a) {
                 console.log("a",a);
+                 $('form#update_data').find('[name="id"]').val(a.id);
                 $.each(a.attr, (k, v) => {
-                    console.log("a=>>attr",a.attr);
-                    console.log("k",k);
-                    console.log("v",v);
                     $('form#update_data').find('[name="' + k + '"]').val(v);
                 });
                 $('#modal-update-data').modal('show');
             });
-            // $('#modal-update-data').modal('show'); [name="id"]  [name="password"]
         });
         $('form#update_data').bind('submit', function(e) {
-            
-            $.post(api('admin/action_data'), $(this).serializeArray(), function(a) {
-                showNotify((a.status > 0 ? 'success' : 'error'), a.message);
-            });
+            let idnek= $('form#update_data input[name=id]').val();
+            $.ajax({
+            url: `/admin/{{ $type}}/${idnek}`,
+            type: 'PATCH',
+            data:$('form#update_data').serialize(),
+            success: function (result) {
+                console.log("rs nek",result);
+                showNotify((result.status == true ? 'success' : 'error'), result.message);
+            }
+        });
             e.preventDefault();
         });
         $(function() {

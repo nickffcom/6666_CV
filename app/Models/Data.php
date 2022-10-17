@@ -12,6 +12,7 @@ class Data extends Model
     public $timestamps = true;
     // protected $fillable = ['name'];
     protected $guarded=[];
+    
     public function service(){
         return $this->belongsTo(Service::class);
     }
