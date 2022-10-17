@@ -42,8 +42,4 @@ class ServiceRepo extends BaseRepo
         return isset($service) ? $service : null;
     }
 
-    public function addService($arrData){
-        $this->model->create($arrData);
-        return true; 
-    }
 }

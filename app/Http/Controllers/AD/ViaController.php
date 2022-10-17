@@ -19,9 +19,10 @@ class ViaController extends Controller
         $this->serviceRepo = $serviceRepo;
         $this->dataRepo = $dataRepo;
     }
-    public function index()   // quản lí via
+    public function index(Request $request)   // quản lí via
     {
-        $listData = $this->dataRepo->getDataWithStatus(CON_HANG,'via');
+        $stt = $request->query('status',CON_HANG);
+        $listData = $this->dataRepo->getDataWithStatus($stt,'via');
         $type='via';
         return view('Admin.Service.manage',[
             'listData'=>$listData,

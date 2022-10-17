@@ -14,9 +14,9 @@
                         Danh sách sản phẩm {{ mb_strtoupper($type) }}
                         <span style="width: 250px;">
                             <select id="status" class="form-control">
-                                <option value="{{ CON_HANG }}"<?= $_GET['status'] == 1 ? 'selected' : '' ?>>Hiển thị sản
+                                <option value="{{ HET_HANG }}"<?= $_GET['status'] == HET_HANG  ? 'selected' : '' ?>>Hiển thị sản
                                     phẩm đã bán</option>
-                                <option value="{{ HET_HANG }}"<?= $_GET['status'] == 0 ? 'selected' : '' ?>>Hiển thị sản
+                                <option value="{{ CON_HANG }}"<?= $_GET['status'] == CON_HANG ? 'selected' : '' ?>>Hiển thị sản
                                     phẩm chưa bán</option>
                                 <option value="all"<?= $_GET['status'] == 'all' ? 'selected' : '' ?>>Hiển thị tất cả
                                 </option>
@@ -26,7 +26,10 @@
                 </div>
                 <script>
                     $('#status').bind('change', function() {
-                        window.location.href = '?type=<?= $type ?>&status=' + $(this).val();
+                        
+                     
+                            window.location.href ='{{$type}}?status=' + $(this).val();
+                        
                     });
                 </script>
                 <div class="block-content">

@@ -43,14 +43,18 @@ class DataRepo extends BaseRepo{
         $rs = $this->model->whereHas('service',function($query) use ($type){
                             $query->where('type',$type);
                           })
-                          ->where('status',$status)
+                          ;
                           // ->where('type',$type)
           // ->dd()
-          ->get();
+          
+          if(!$status =='all'){
+            // dd("zpp");
+            $rs = $rs->where('status',$status);
+          }
         // $sql = "SELECT data.*, service.price, service.name FROM data INNER JOIN service ON (data.service_id = service.id) WHERE service.type = '$type' AND data.status ='$status' ORDER BY data.status ASC";
         // $rs =DB::select($sql);
-        // dd($rs);
-          return $rs;
+        // dd($rs->dd());
+          return $rs->get();
 
 
     }

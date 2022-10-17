@@ -10,12 +10,12 @@ const LOGO_TEXT ="Ads69.Net";
 const FORMAT_DATA=[
     'via'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
     'clone'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
-    'BM'=>'IDBM*|Link1*|Link2*|Note*( * :Nếu có )',
+    'bm'=>'IDBM*|Link1*|Link2*|Note*( * :Nếu có )',
 ];
 const FORMAT_UPDATE=[
     'via'=>'uid|pass|key2fa|email|passmail|note',
     'clone'=>'uid|pass|key2fa|email|passmail|note',
-    'BM'=>'idbm|linkbm1|linkbm2|note',
+    'bm'=>'idbm|linkbm1|linkbm2|note',
 ];
 const SERVICE = [
     'bm', 'via', 'clone'
