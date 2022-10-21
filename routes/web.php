@@ -3,6 +3,7 @@
 use App\Http\Controllers\US\BuyController;
 use App\Http\Controllers\US\HomeController;
 use App\Http\Controllers\US\LoginController;
+use App\Http\Controllers\US\OrderController;
 use App\Http\Controllers\US\RegisterController;
 use App\Http\Controllers\US\TestController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,8 @@ Route::middleware('auth')->group(function(){
     Route::prefix('/api')->group(function(){
         Route::post('/buy',[BuyController::class,'BuyDataAds']);
     });
-   
+    
+    Route::get('/order/',[OrderController::class,'view']);
 });
 
 
