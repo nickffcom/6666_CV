@@ -1,3 +1,5 @@
+@extends("Layout.US.Index")
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -11,13 +13,13 @@
                         <div class="form-group row">
                             <label class="col-sm-4">Tài khoản</label>
                             <div class="col-sm-8">
-                                <span><?= $me->username; ?></span>
+                                <span>{{  $me->username }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4">Số dư</label>
                             <div class="col-sm-8">
-                                <span><?= number_format($me->money); ?> VNĐ</span>
+                                <span>{{ number_format($me->money) }} VNĐ</span>
                             </div>
                         </div>
                     </div>
@@ -56,16 +58,20 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('form#change_pwd').bind('submit', function (e) {
-        $.post(api('change_password'), $(this).serializeArray(), function (a) {
+        $.post('/change_password', $(this).serializeArray(), function (a) {
             if (a.status > 0) {
                 setTimeout(function () {
                     location.reload();
                 }, 1500);
             }
-            showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+            showNotify((a.status == true 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
 </script>
+@endsection

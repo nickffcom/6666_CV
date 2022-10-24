@@ -1,4 +1,4 @@
-@extends("Layout.US.Index")
+@extends("Layout.AD.Index")
 
 @section('content')
 <div class="row justify-content-center">

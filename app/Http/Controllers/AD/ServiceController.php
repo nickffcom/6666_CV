@@ -113,6 +113,7 @@ class ServiceController extends Controller
 
     public function LichSuHoatDong(Request $request){
         $lists = $this->historyRepo->getAllHistoryToManage();
+        // dd($lists);
         return view('Admin.history',[
             'lists'=>$lists
         ]);

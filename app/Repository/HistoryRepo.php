@@ -15,8 +15,8 @@ class HistoryRepo extends BaseRepo{
     }
 
    
-    public function getHistory($type){
-        return $this->model->where('type',$type)->orderBy("created_at","desc")->take(10)->get();
+    public function getHistory($type,$amount=10){
+        return $this->model->where('type',$type)->orderBy("created_at","desc")->take($amount)->get();
     }
 
     public function getHistoryByUser($userId,$type){
@@ -32,7 +32,11 @@ class HistoryRepo extends BaseRepo{
     }
 
    public function getAllHistoryToManage(){ 
-    
-        $value = $this->model->with('user')->get();
+
+        $value = $this->model->join('user','user.id','history.user_id')
+                             ->select('history.*','user.username')
+                             ->orderBy('updated_at','desc')
+                             ->get();
+        return $value;
    }
 }

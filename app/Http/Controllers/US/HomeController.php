@@ -54,4 +54,17 @@ class HomeController extends Controller
     public function Hotro(){
         return view('User.support');
     }
+    public function getTaiKhoan(){
+        $me = Auth::user();
+        return view('User.profile',[
+            'me'=>$me
+        ]);
+     }
+    public function LichSuThanhToan(){
+        $list = $this->historyRepo->getHistory('service',20);
+        return view('User.history_buy',[
+            'lists'=>$list,
+            'count'=>count($list)
+        ]);
+    }
 }

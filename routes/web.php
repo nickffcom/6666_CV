@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/nap-tien',[HomeController::class,"napTien"]);
     Route::get('/lich-su-nap-tien',[HomeController::class,"lichSuNapTien"]);
     Route::get('/ho-tro',[HomeController::class,"Hotro"]);
+    Route::get('/tai-khoan',[HomeController::class,'getTaiKhoan']);
+    Route::get('/lich-su-thanh-toan',[HomeController::class,'LichSuThanhToan']);
 
 });
 
