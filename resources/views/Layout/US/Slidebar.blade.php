@@ -37,12 +37,12 @@
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/statics"><i class="nav-main-link-icon fa fa-money-bill-alt"></i>
+                <a class="nav-main-link" href="/admin/thong-ke"><i class="nav-main-link-icon fa fa-money-bill-alt"></i>
                   <span class="nav-main-link-name">Thống kê doanh thu</span>
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/history"><i class="nav-main-link-icon fa fa-history"></i>
+                <a class="nav-main-link" href="/admin/lich_su_hoat_dong"><i class="nav-main-link-icon fa fa-history"></i>
                   <span class="nav-main-link-name">Lịch sử hoạt động</span>
                 </a>
             </li>

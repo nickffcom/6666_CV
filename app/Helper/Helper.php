@@ -5,8 +5,11 @@ use Carbon\Carbon;
 const CON_HANG=1;
 const HET_HANG = 0;
 const IS_ADMIN = 1999;
-
+const NAP_TIEN = 'payment';
+const GIAO_DICH = 'transaction';
 const LOGO_TEXT ="Ads69.Net";
+const TRU_TIEN = 'minus';
+const CONG_TIEN = 'plus';
 const FORMAT_DATA=[
     'via'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
     'clone'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
@@ -68,7 +71,7 @@ function cURL ($url, $data = NULL, $cookie = NULL, $headers = NULL, $proxy = NUL
     return $result;
 }
 
-function text_style ($t) {
+function text_style($t) {
     $t = str_replace("\n", '<br>', $t);
     $t = preg_replace_callback('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', function ($a) {
         return '<a href="' . $a[0] . '" target="_blank">' . $a[0] . '</a>';

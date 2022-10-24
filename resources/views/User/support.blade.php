@@ -1,3 +1,7 @@
+@extends('Layout.US.Index')
+@section('content')
+
+
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -12,14 +16,14 @@
                     <div class="col-md-6 col-xl-3 text-center">
                         <a class="block block-rounded bg-gd-sublime text-center" href="https://www.facebook.com/100027903801302" target="_blank">
                             <div class="block-content block-content-full">
-                                <img class="img-avatar img-avatar-thumb img-avatar-circle" src="https://graph.fb.me/100027903801302/picture?type=large" alt="">
+                                <img class="img-avatar img-avatar-thumb img-avatar-circle" src="/images/main.jpg" alt="">
                             </div>
                             <div class="block-content block-content-full bg-black-10">
-                                <p class="font-w600 text-white mb-0">Lưu Văn An</p>
-                                <p class="font-size-sm font-italic text-white-75 mb-0">fb.com/100027903801302</p>
+                                <p class="font-w600 text-white mb-0">Văn An & Hà Nguyễn</p>
+                                <p class="font-size-sm font-italic text-white-75 mb-0">https://www.facebook.com/profile.php?id=100035132290472</p>
                             </div>
                             <p class="font-size-sm text-white-75 mb-0">Facebook</p>
-                            <a class="btn btn-sm btn-light" href="https://www.facebook.com/100029247630686" target="_blank"> <i class="far fa-hand-point-right"></i> Liên hệ</a>
+                            <a class="btn btn-sm btn-light" href="https://www.facebook.com/profile.php?id=100035132290472" target="_blank"> <i class="far fa-hand-point-right"></i> Liên hệ</a>
                         </a>
                     </div>
                 </div>
@@ -108,3 +112,4 @@
         </div>
     </div>
 </div>
+@endsection

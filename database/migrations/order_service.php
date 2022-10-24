@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('order_service', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ref_id');
+            $table->integer('ref_id')->unsigned()->nullable();
             $table->string('code')->nullable();
             $table->integer('price_buy');
             $table->integer("user_id")->unsigned()->nullable();

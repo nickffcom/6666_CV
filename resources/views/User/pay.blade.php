@@ -1,3 +1,6 @@
+@extends('Layout.US.Index')
+@section('content')
+    
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -11,7 +14,7 @@
                         <div class="row">
                             <div class="col-lg-6" style="padding: 10px;">
                                 <div class="text-center">
-                                    <img src="/assets/images/vcb.png" width="210px">
+                                    <img src="/images/vcb.png" width="210px">
                                 </div><br>
                                 <div class="row mb-1">
                                     <div class="col-6 text-right">Tên tài khoản:</div>
@@ -27,7 +30,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-6 text-right">Nội dung chuyển khoản:</div>
-                                    <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger">nap tien <?= $me->username; ?></span>
+                                    <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger">nap tien {{ Auth::user()->username }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +52,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-6 text-right">Nội dung chuyển khoản:</div>
-                                    <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger"><?= $me->username; ?> nap tien</span>
+                                    <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger">{{ Auth::user()->username}} nap tien</span>
                                     </div>
                                 </div>
                             </div>
@@ -73,6 +76,5 @@
         </div>
     </div>
 </div>
-<script>
-    
-</script>
+@endsection
+

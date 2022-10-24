@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\AD;
 
 use App\Http\Controllers\Controller;
+use App\Models\Data;
 use App\Repository\DataRepo;
 use App\Repository\ServiceRepo;
+use Exception;
 use Illuminate\Http\Request;
 
 class CloneController extends Controller
@@ -42,7 +44,51 @@ class CloneController extends Controller
     
     public function store(Request $request)
     {
-        //
+        $dataInput = $request->input('data',null);
+        $typeId = $request->input('type_id',null);
+        if(!isset($dataInput) || !is_numeric($typeId) ){
+            return response()->json(["status"=>false,"message"=>"Phải có dữ liệu và chọn loại "]);
+        }
+        $checkService = $this->serviceRepo->checkSerViceExits($typeId);
+        if(!isset($checkService)){
+            return response()->json(["status"=>false,"message"=>"Vui lòng chọn loại hợp lệ"]);
+        }
+        $data=trim($dataInput);
+        $data = explode("\n", $data);
+	    $data = array_map('trim', $data);
+
+        $success = 0;
+        $error = 0;
+        $dataErr=[];
+        try{
+            foreach($data as $item){
+                list($uid, $password,$twofa,$email, $password_email,$note) = explode('|', $item);
+
+                if(strlen($uid)< 0){
+                    $error++;
+                    array_push($dataErr,$uid);
+                }
+                
+                $resultAdd = Data::create([
+                    'status'=>CON_HANG,
+                    'service_id'=>$typeId,
+                    'attr'=>json_encode(DB_VIA($uid,$password,$twofa,$email,$password_email,$note))
+                ]);
+                if($resultAdd){
+                    $success++;
+                }else{
+                    $error++;
+                    array_push($dataErr,$uid);
+                }
+            }
+            $count=[
+                "error"=>$error,
+                "success"=>$success
+            ];
+            return response()->json(["status"=>true,"count"=>$count,"message"=>$dataErr]);
+        }catch(Exception $e){
+            return response()->json(['status'=>false,"message"=>"Error".$error."--".$success."=>Message:".$e]);
+        }
     }
 
    

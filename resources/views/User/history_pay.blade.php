@@ -1,3 +1,8 @@
+
+@extends('Layout.US.Index')
+@section('content')
+    
+
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -15,17 +20,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $lists = $db->where('uid', $me->uid)->where('type', 'payment')->orderBy('id', 'DESC')->get('history');
-                            foreach ($lists as $x) {
-                                $action_id = (!empty($x['action_id']) ? $x['action_id'] : $x['id']);
-                            ?>
+                         
+                            @foreach($historyPayment as $x)
                             <tr>
-                                <td class="d-sm-table-cell" style="width: 30%;"><?= date('H:i:s - d/m/Y', $x['time']); ?></td>
-                                <td class="d-sm-table-cell text-center" style="width: 30%;"><?= $action_id; ?></td>
-                                <td class="d-sm-table-cell text-center" style="width: 30%;"><?= number_format($x['total_money']); ?> VNĐ</td>
+                                <td class="d-sm-table-cell" style="width: 30%;">{{   date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}</td>
+                                <td class="d-sm-table-cell text-center" style="width: 30%;">{{  (!empty($x['action_id']) ? $x['action_id'] : $x['id']) }}</td>
+                                <td class="d-sm-table-cell text-center" style="width: 30%;">{{  number_format($x['total_money']) }} VNĐ</td>
                             </tr>
-                            <?php } ?>
+                            @endforeach
+                          
+                          
                         </tbody>
                     </table>
                 </div>
@@ -37,3 +41,4 @@
         </div>
     </div>
 </div>
+@endsection

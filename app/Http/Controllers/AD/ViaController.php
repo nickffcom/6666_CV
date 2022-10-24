@@ -62,7 +62,7 @@ class ViaController extends Controller
         $data = explode("\n", $data);
 	    $data = array_map('trim', $data);
 
-        $succes = 0;
+        $success = 0;
         $error = 0;
         $dataErr=[];
         try{
@@ -80,15 +80,19 @@ class ViaController extends Controller
                     'attr'=>json_encode(DB_VIA($uid,$password,$twofa,$email,$password_email,$note))
                 ]);
                 if($resultAdd){
-                    $succes++;
+                    $success++;
                 }else{
                     $error++;
                     array_push($dataErr,$uid);
                 }
             }
-            return response()->json(["status"=>true,"message"=>"Thành công nhé:".$succes." & thất bại:".$error ." & ".$dataErr]);
+            $count=[
+                "error"=>$error,
+                "success"=>$success
+            ];
+            return response()->json(["status"=>true,"count"=>$count,"message"=>$dataErr]);
         }catch(Exception $e){
-            return response()->json(['status'=>false,"message"=>"Error".$error."--".$succes]);
+            return response()->json(['status'=>false,"message"=>"Error".$error."--".$success."=>Message:".$e]);
         }
        
     }

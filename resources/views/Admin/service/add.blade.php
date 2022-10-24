@@ -46,9 +46,7 @@
     </div>
 </div>
 @endsection
-@php    
-    $url="admin/$type";
-@endphp
+
 @section('script')
 <script  type="text/javascript">
     $('[name="data"]').bind('keyup', function () {
@@ -60,8 +58,10 @@
                 $('div.count .' + k).text(v);
             });
             if (a.message) {
-                showNotify((a.status === true ? 'success' : 'error'), a.message);
+                showNotify((a.status === true ? 'success' : 'error'),"Thêm thành công");
+              
             }
+            console.log(a.message);
         });
         e.preventDefault();
     });

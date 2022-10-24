@@ -1,15 +1,6 @@
-<?php 
-$id = s($_GET['id']);
-$type = s($_GET['type']);
-if (empty($type) || !in_array($type, $typeVaild)) {
-    exit();
-}
+@extends('Layout.US.Index')
 
-$lists_order = $db->where('type', $type)->get('service', NULL, array(
-    'service.*',
-    '(SELECT COUNT(DISTINCT code) FROM order_service INNER JOIN data_service ON (order_service.ref_id = data_service.id) WHERE service.id = data_service.type_id AND order_service.uid = '. $me->uid .') as total_count'
-));
-?>
+@section('content')
 <style>
     th, td {
         text-align: center;
@@ -19,26 +10,29 @@ $lists_order = $db->where('type', $type)->get('service', NULL, array(
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
             <div class="block-header bg-gd-dusk">
-                <h3 class="block-title">Lọc <?= mb_strtoupper($type); ?> đã mua</h3>
+                <h3 class="block-title">Lọc  {{  mb_strtoupper($type) }} đã mua</h3>
             </div>
             <div class="block-content">
-                <?php if (empty($lists_order)) { ?>
+                @if( empty($lists_order) )
+                
                 <div class="text-center" style="font-size:20px;color:red;font-weight: bold;">KHU VỰC NÀY CHƯA CÓ HÀNG !</div>
-                <?php } else { ?>
+                
+                @else
+
                 <div class="row">
-                    <?php foreach ($lists_order as $x) { ?>
+                    @foreach($lists_order as $x)
                     <!-- loop -->
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
                         <div class="custom-control custom-block custom-control-primary">
-                            <input type="checkbox" class="custom-control-input service-checked" id="<?= $type; ?>_id_<?= $x['id']; ?>" name="type" value="<?= $x['id']; ?>"<?= ($id == $x['id'] ? 'checked' : ''); ?>>
-                            <label class="custom-control-label p-2" for="<?= $type; ?>_id_<?= $x['id']; ?>">
+                            <input type="checkbox" class="custom-control-input service-checked" id="{{ $type }}_id_{{ $x['id'] }}" name="type" value="{{ $x['id'] }}" {{   ( Request::query('a') == $x['id']) ? 'checked' : ''}} >
+                            <label class="custom-control-label p-2" for="{{ $type}}_id_{{ $x['id'] }}">
                                 <span class="d-flex align-items-center">
-                          <div class="item item-circle bg-black-5 text-primary-light" style="min-width: 60px;"><strong><?= number_format($x['total_count']); ?> bộ</strong></div>
+                          <div class="item item-circle bg-black-5 text-primary-light" style="min-width: 60px;"><strong>{{ number_format($x['total_count'])}} lần</strong></div>
                             <span class="hcss ml-2">
-                                <span class="font-w700"><?= $x['name']; ?></span>
+                                <span class="font-w700">{{ $x['name'] }}</span>
                                     <!--<span class="d-block font-size-sm text-muted"><?= $x['description']; ?></span>-->
-                                    <i style="position:absolute;right:5px;bottom:10px;" class="fa fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<?= $x['description']; ?>"></i>
-                                    <span class="d-block font-size-sm text-muted"><!-- <i class="font-w400" style="font-size: 0.77rem;"><del>0 VNĐ</del></i> --><strong class="text-danger"> <?= number_format($x['price']); ?> VNĐ</strong></span>
+                                    <i style="position:absolute;right:5px;bottom:10px;" class="fa fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="{{  $x['description'] }}"></i>
+                                    <span class="d-block font-size-sm text-muted"><!-- <i class="font-w400" style="font-size: 0.77rem;"><del>0 VNĐ</del></i> --><strong class="text-danger"> {{  number_format($x['price'])}} VNĐ</strong></span>
                                     </span>
                                 </span>
                             </label>
@@ -47,17 +41,18 @@ $lists_order = $db->where('type', $type)->get('service', NULL, array(
                             </span>
                         </div>
                     </div>
-                    <!-- /loop -->
-                    <?php } ?>
+                    @endforeach
                 </div>
-                <?php } ?>
+                @endif
+                
+              
                 <div style="border-bottom: 1px solid #e6ebf4;margin:1.1rem 0 1.75rem 0;"></div>
                 <div class="table-responsive">
                     <table id="bm-table" class="table table-hover table-bordered table-vcenter">
                         <thead>
                             <tr>
                                 <th style="width: 90px;">#</th>
-                                <th>Loại <?= mb_strtoupper($type); ?></th>
+                                <th>Loại {{   mb_strtoupper($type) }}</th>
                                 <th class="d-sm-table-cell text-center">Số lượng</th>
                                 <th class="d-sm-table-cell text-center">Giá</th>
                                 <th class="d-sm-table-cell text-center">Ngày mua</th>
@@ -65,36 +60,22 @@ $lists_order = $db->where('type', $type)->get('service', NULL, array(
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-
-                            $sql = "SELECT order_service.*, service.name, service.type, COUNT(*) AS total_buy, SUM(order_service.price) AS total_price FROM order_service INNER JOIN data_service ON (data_service.id = order_service.ref_id) INNER JOIN service ON (service.id = data_service.type_id) WHERE service.type = '$type' AND order_service.uid = {$me->uid}";
-                            if (!empty($id) && is_numeric($id)) {
-                                $sql .= " AND service.id = '$id'";
-                            }
-                            $sql .= " GROUP BY order_service.code ORDER BY order_service.id DESC";
-                            if(strpos($type,'proxy')!==false){
-                                $sql="SELECT * FROM PROXY WHERE proxy.uid={$me->uid}";
-                            }
-                            $lists = $db->rawQuery($sql);
-                            $counts = count($lists);
-                            foreach ($lists as $x) {
-                                $counts--;
-                            ?>
+                           
                             <!-- loop -->
 
-
+                            @foreach($list as $key=> $x)
                             <tr>
-                                <td style="width: 90px;"><?= $counts; ?></td>
-                                <td><?= $x['name']; ?></td>
-                                <td><?= number_format($x['total_buy']); ?></td>
-                                <td><?= number_format($x['total_price']); ?></td>
-                                <td class="d-sm-table-cell" style="width: 200px;"><?= date('H:i:s - d/m/Y', $x['time']); ?></td>
+                                <td style="width: 90px;">{{   $key }}</td>
+                                <td>{{ $x->name }}</td>
+                                <td>{{ number_format($x->total_buy) }}</td>
+                                <td>{{ number_format($x->total_price) }}</td>
+                                <td class="d-sm-table-cell" style="width: 200px;">{{   date('H:i:s - d/m/Y',strtotime($x->created_at)) }}</td>
                                 <td>
-                                    <a href="" data-order="<?= $x['code']; ?>">Xem đơn hàng</a>
+                                    <a href="" data-order="{{ $x->code }}">Xem đơn hàng</a>
                                 </td>
                             </tr>
                             <!-- /loop -->
-                            <?php } ?>
+                          @endforeach
                         </tbody>
                     </table>
                 </div><br>
@@ -127,6 +108,9 @@ $lists_order = $db->where('type', $type)->get('service', NULL, array(
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('input.service-checked').bind('click', function () {
         $that = $(this);
@@ -140,7 +124,7 @@ $lists_order = $db->where('type', $type)->get('service', NULL, array(
     });
     $('[data-order]').bind('click', function (e) {
         $code = $(this).data('order');
-        $.get(api('view_order'), {t: 'view', code: $code}, function (a) {
+        $.get('/order/view_order', {t: 'view', code: $code}, function (a) {
             $('[data-download]').attr('data-download', $code);
             $('[data-xcontent]').html(a); 
             $('#modal-view-order').modal('show');
@@ -148,6 +132,7 @@ $lists_order = $db->where('type', $type)->get('service', NULL, array(
         e.preventDefault();
     });
     $('[data-download]').bind('click', function () {
-        window.location = '/api/view_order?t=download&code=' + $(this).data('download');
+        window.location = '/order/download_order?code=' + $(this).data('download');
     });
 </script>
+@endsection

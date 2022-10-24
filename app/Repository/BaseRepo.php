@@ -23,10 +23,12 @@ abstract class BaseRepo
 
 
     public function getAll() {
-        return $this->model->orderByDesc('id')->paginate(20);
+        return $this->model->orderByDesc('id')->get();
     }
 
-
+    public function getAllandPaginate() {
+        return $this->model->orderByDesc('id')->paginate(20);
+    }
     public function find($id) {
         $result = $this->model->find($id);
         return $result;

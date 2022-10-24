@@ -37,8 +37,7 @@ class BuyController extends Controller
 
             return response()->json(["status"=>false,"message"=>"Dịch vụ không hợp lệ"]);
         }
-        $get_service = $this->dataRepo->getdataSeviceLive($idBuy, $type); // get data service status live còn hàng
-
+        $get_service = $this->dataRepo->getdataSeviceLive($idBuy, $quantity); // get data service status live còn hàng
         if ($quantity > count($get_service)) {
            
             return response()->json(["status"=>false,"message"=>'Không đủ số lượng ' . $service['type'] . ' ! Chọn số lượng ít hơn đi ck iuu']);
@@ -76,11 +75,11 @@ class BuyController extends Controller
             ]);
             $moneyRemain = $me->money  - $total_money;
             $resultMoney = $this->userRepo->updateMoney($moneyRemain);
-
-             return response()->json(["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem"]);
+            $move_location='/order?type='.$service->type;
+             return response()->json(["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location]);
         } else {
            
-            return response()->json(["status"=>true,"message"=>'Bạn không đủ ' . number_format($total_money) . ' VNĐ để thực hiện giao dịch!']);
+            return response()->json(["status"=>false,"message"=>'Bạn không đủ ' . number_format($total_money) . ' VNĐ để thực hiện giao dịch!']);
         }
 
         // $rs = $this->service->buyData($idBuy,$type,$quantity);

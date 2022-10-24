@@ -1,8 +1,8 @@
-<style>
-    th, td {
-        text-align: center;
-    }
-</style>
+@extends('Layout.US.Index')
+
+@section('content')
+    
+
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -59,12 +59,15 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('[data-delete]').bind('click', function () {
     	if (confirm('Chắc chắn xóa lịch sử này ?')) {
     		$that = $(this);
 	    	$id = $that.data('delete');
-	    	$.post(api('admin/action'), {t: 'delete_history', id: $id}, function (a) {
+	    	$.post('/admin/action', {t: 'delete_history', id: $id}, function (a) {
 	    		if (a.status > 0) {
 	    			$that.parent().parent().fadeOut();
 	    		}
@@ -115,3 +118,4 @@
         });
     });
 </script>
+@endsection

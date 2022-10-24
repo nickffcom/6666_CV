@@ -1,31 +1,6 @@
-<?php 
-$time_day = date('H') . ' hour';
-$time_month = date('d') . ' day';
-if (date('d') == 1) {
-    $time_month = date('H') . ' hour';
-}
 
-$count_today = statistic($time_day);
-$count_month = statistic($time_month);
-$count_all = statistic();
-
-function statistic ($time = '') {
-    global $db;
-    if (!empty($time)) {
-        $db->where('time', strtotime("- $time"), '>=');
-    }
-    $value = $db->where('type', 'payment')->getValue('history', 'SUM(total_money)');
-    return $value;
-}
-?>
-<style>
-    th, td {
-        text-align: center;
-    }
-    .badge {
-        font-size: 17px;
-    }
-</style>
+@extends('Layout.US.Index')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -37,21 +12,21 @@ function statistic ($time = '') {
                     <table class="DataTable table table-hover table-vcenter">
                         <thead>
                             <tr>
-                                <th class="d-sm-table-cell">Doanh thu hôm nay ( <?= date('d'); ?> )</th>
-                                <th class="d-sm-table-cell">Doanh thu tháng này ( <?= date('m/Y'); ?> )</th>
+                                <th class="d-sm-table-cell">Doanh thu hôm nay ( {{  date('d') }} )</th>
+                                <th class="d-sm-table-cell">Doanh thu tháng này ( {{ date('m/Y') }} )</th>
                                 <th class="d-sm-table-cell">Doanh thu toàn bộ</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="d-sm-table-cell">
-                                    <span class="badge badge-info">+ <?= number_format($count_today); ?> VNĐ</span> 
+                                    <span class="badge badge-info">+ {{ number_format($count_today->TONG_TIEN) }} VNĐ</span> 
                                 </td>
                                 <td class="d-sm-table-cell">
-                                    <span class="badge badge-danger">+ <?= number_format($count_month); ?> VNĐ</span> 
+                                    <span class="badge badge-danger">+ {{ number_format($count_month->TONG_TIEN) }} VNĐ</span> 
                                 </td>
                                 <td class="d-sm-table-cell">
-                                    <span class="badge badge-success">+ <?= number_format($count_all); ?> VNĐ</span> 
+                                    <span class="badge badge-success">+ {{ number_format($count_all->TONG_TIEN) }} VNĐ</span> 
                                 </td>
                             </tr>
                         </tbody>
@@ -65,3 +40,4 @@ function statistic ($time = '') {
         </div>
     </div>
 </div>
+@endsection

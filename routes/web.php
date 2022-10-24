@@ -3,6 +3,7 @@
 use App\Http\Controllers\US\BuyController;
 use App\Http\Controllers\US\HomeController;
 use App\Http\Controllers\US\LoginController;
+use App\Http\Controllers\US\OrderController;
 use App\Http\Controllers\US\RegisterController;
 use App\Http\Controllers\US\TestController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,13 @@ Route::middleware('auth')->group(function(){
         Route::post('/buy',[BuyController::class,'BuyDataAds']);
     });
    
+    Route::get('/order',[OrderController::class,"getviewOrder"]);
+    Route::get('/order/view_order',[OrderController::class,"getViewOrderDetailByCode"]);
+    Route::get('/order/download_order',[OrderController::class,"downloadOrderByCode"]);
+    Route::get('/nap-tien',[HomeController::class,"napTien"]);
+    Route::get('/lich-su-nap-tien',[HomeController::class,"lichSuNapTien"]);
+    Route::get('/ho-tro',[HomeController::class,"Hotro"]);
+
 });
 
 

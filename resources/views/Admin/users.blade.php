@@ -1,8 +1,6 @@
-<style>
-    th, td {
-        text-align: center;
-    }
-</style>
+
+@extends('Layout.US.Index')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -23,28 +21,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $lists_users = $db->orderBy('uid', 'DESC')->get('users');
-                            foreach ($lists_users as $k => $x) {
-                                $roleText = 'Thành viên';
-                                if ($x['is_admin'] > 0) {
-                                    $roleText = 'Admin';
-                                }
-                            ?>
+                           
+                            @foreach($list_user as $k=>$x)
                             <tr>
-                                <td class="d-sm-table-cell"><?= $x['uid']; ?></td>
-                                <td class="d-sm-table-cell" style="font-weight: bold;"><?= $x['username']; ?></td>
+                                <td class="d-sm-table-cell">{{ $x['id'] }}</td>
+                                <td class="d-sm-table-cell" style="font-weight: bold;">{{ $x['username'] }}</td>
                                 <td class="d-sm-table-cell">
-                                    <span class="badge badge-success"><?= number_format($x['money']); ?> VNĐ</span> 
+                                    <span class="badge badge-success">{{ number_format($x['money']) }} VNĐ</span> 
                                 </td>
-                                <td class="d-sm-table-cell"><?= $roleText; ?></td>
-                                <td class="d-sm-table-cell"><?= time_text($x['create_time']); ?></td>
+                                <td class="d-sm-table-cell">{{ ($x['is_admin'] == IS_ADMIN) ? 'ADMIN' : 'Thành viên' }}</td>
+                                <td class="d-sm-table-cell">{{ time_ads($x['updated_at']) }}</td>
                                 <td class="d-sm-table-cell">
-                                    <button data-update="<?= $x['uid']; ?>" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                	<button data-delete="<?= $x['uid']; ?>" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                    <button data-update="{{ $x['id'] }}" class="btn btn-info"><i class="fa fa-eye"></i></button>
+                                	<button data-delete="{{ $x['id'] }}" class="btn btn-danger"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            @endforeach
+                         
                         </tbody>
                     </table>
                 </div><br>
@@ -90,6 +83,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $(function () {
         $('table').DataTable({
@@ -137,7 +133,7 @@
     	if (confirm('Chắc chắn xóa thành viên này ?')) {
     		$that = $(this);
 	    	$id = $that.data('delete');
-	    	$.post(api('admin/users'), {t: 'delete', uid: $id}, function (a) {
+	    	$.post('/admin/users', {t: 'delete', uid: $id}, function (a) {
 	    		if (a.status > 0) {
 	    			$that.parent().parent().fadeOut();
 	    		}
@@ -148,7 +144,7 @@
     $('[data-update]').bind('click', function () {
         $that = $(this);
         $id = $that.data('update');
-        $.post(api('admin/users'), {t: 'info', uid: $id}, function (a) {
+        $.post('/admin/users/detail', {t: 'info', uid: $id}, function (a) {
             $.each(a, (k, v) => {
                 $('form#update_users').find('[name="' + k + '"]').val(v);
             });
@@ -160,9 +156,10 @@
         });
     });
     $('form#update_users').bind('submit', function (e) {
-        $.post(api('admin/users'), $(this).serializeArray(), function (a) {
+        $.post('/admin/users/update', $(this).serializeArray(), function (a) {
             showNotify((a.status > 0 ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
 </script>
+@endsection
