@@ -28,6 +28,7 @@
                 <div class="row">
                     <div class="offset-2 col-lg-8">
                         <form class="mb-5" id="change_pwd" method="POST">
+                            @csrf
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Mật khẩu hiện tại</label>
                                 <div class="col-sm-8">
@@ -43,7 +44,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Xác nhận mật khẩu</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Xác nhận mật khẩu" required="">
+                                    <input type="password" class="form-control" id="confirm_password" name="new_password_confirmation" placeholder="Xác nhận mật khẩu" required="">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -64,12 +65,12 @@
 <script>
     $('form#change_pwd').bind('submit', function (e) {
         $.post('/change_password', $(this).serializeArray(), function (a) {
-            if (a.status > 0) {
+            if (a.status ==  true) {
                 setTimeout(function () {
                     location.reload();
                 }, 1500);
             }
-            showNotify((a.status == true 'success' : 'error'), a.message);
+            showNotify((a.status == true ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });

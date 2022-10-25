@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/tai-khoan',[HomeController::class,'getTaiKhoan']);
     Route::get('/lich-su-thanh-toan',[HomeController::class,'LichSuThanhToan']);
 
+    Route::post('/change_password',[LoginController::class,'UpdateInfoUser']);
 
 });
 

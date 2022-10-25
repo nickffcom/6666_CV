@@ -99,10 +99,10 @@
                     <div class="table-responsive" data-xcontent></div>
                 </div>
                 <div class="block-content block-content-full text-right bg-light">
-                    <a href="javascript:;" id="xdownload">
-                        <button type="button" data-download="" type-download="txt" class="btn btn-primary">Tải xuống .Txt</button>
+                    <a href="javascript:;" id="xdownload" class='ml-3'>
+                        <button type="button" data-download=""  type-download="txt" class="btn btn-primary">Tải xuống .Txt</button>
                     </a>
-                     <a href="javascript:;" id="xdownload">
+                     <a href="javascript:;" id="xdownload" class="ml-3">
                         <button type="button" data-download="" type-download="zip" class="btn btn-primary">Tải xuống .Zip</button>
                     </a>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>

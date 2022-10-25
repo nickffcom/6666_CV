@@ -8,7 +8,7 @@
             </div>
             <div class="block-content">
                 <form id="notify" method="POST">
-                	<input type="hidden" name="t" value="add">
+                   @csrf
                 	<div class="form-group">
                 		<label>Nội dung thông báo :</label>
                 		<textarea name="content" class="form-control" placeholder="Nhập nội dung thông báo...." rows="6"></textarea>
@@ -42,7 +42,7 @@
                             @foreach($lists as $x)
                             <tr>
                                 <td class="d-sm-table-cell">{{   $x['id'] }}</td>
-                                <td class="d-sm-table-cell" style="font-weight: bold;">{{ text_style( (mb_strlen($content) > 50) ? substr($content, 0, 50) . '...' : $content ) }}</td>
+                                <td class="d-sm-table-cell" style="font-weight: bold;">{{ text_style( (mb_strlen( $x['content'] ) > 50) ? substr($x['content'], 0, 50) . '...' : $x['content'] ) }}</td>
                                 <td class="d-sm-table-cell">{{ date('H:i:s - d/m/Y', strtotime($x['updated_at'])) }}</td>
                                 <td class="d-sm-table-cell">
                                     <button data-update="{{ $x['id'] }}" class="btn btn-info"><i class="fa fa-edit"></i></button>
@@ -72,11 +72,11 @@
                 </div>
                 <div class="block-content">
                     <form action="" id="update_notify" method="POST">
-                        <input type="hidden" name="t" value="update">
+                        @csrf
                         <input type="hidden" name="id">
                         <div class="form-group">
                             <label>Nội dung thông báo :</label>
-                            <textarea name="content" class="form-control" placeholder="Nhập nội dung thông báo...." rows="6"></textarea>
+                            <textarea name="content" class="form-control" placeholder="Nhập nội dung thông báo...." rows="6"  ></textarea>
                         </div>
                         <button type="submit" class="btn btn-info btn-block"><i class="fa fa-check"></i> Lưu</button>
                     </form><br>
@@ -90,8 +90,8 @@
 @section('script')
 <script>
     $('form#notify').bind('submit', function (e) {
-        $.post('/admin/notify', $(this).serializeArray(), function (a) {
-            showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+        $.post('/admin/notify/add', $(this).serializeArray(), function (a) {
+            showNotify((a.status == true ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
@@ -99,27 +99,29 @@
     	if (confirm('Chắc chắn xóa thông báo này ?')) {
     		$that = $(this);
 	    	$id = $that.data('delete');
-	    	$.post('/admin/notify', {t: 'delete', id: $id}, function (a) {
-	    		if (a.status > 0) {
+	    	$.post('/admin/notify/delete', {t: 'delete', id: $id}, function (a) {
+	    		if (a.status == true) {
 	    			$that.parent().parent().fadeOut();
 	    		}
-	    		showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+	    		showNotify((a.status == true ? 'success' : 'error'), a.message);
 	    	});
     	}
     });
     $('[data-update]').bind('click', function () {
-        $that = $(this);
+       
+      $that = $(this);
         $id = $that.data('update');
-        $.post('/admin/notify', {t: 'info', id: $id}, function (a) {
+        $.post('/admin/notify/detail', {t: 'info', id: $id}, function (a) {
             $.each(a, (k, v) => {
                 $('form#update_notify').find('[name="' + k + '"]').val(v);
             });
             $('#modal-update-notify').modal('show');
         });
+
     });
     $('form#update_notify').bind('submit', function (e) {
-        $.post('/admin/notify', $(this).serializeArray(), function (a) {
-            showNotify((a.status > 0 ? 'success' : 'error'), a.message);
+        $.post('/admin/notify/update', $(this).serializeArray(), function (a) {
+            showNotify((a.status == true ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });

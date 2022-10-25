@@ -3,6 +3,7 @@
 use App\Http\Controllers\AD\BMController;
 use App\Http\Controllers\AD\CloneController;
 use App\Http\Controllers\AD\ManageUserController;
+use App\Http\Controllers\AD\NotifyController;
 use App\Http\Controllers\AD\ServiceController;
 use App\Http\Controllers\AD\ViaController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,12 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function () {
 
     Route::get('/users',[ManageUserController::class,'ManageUsers']);
     Route::post('/users/detail',[ManageUserController::class,'detailUser']);
+
+    Route::post('/notify/add', [NotifyController::class,"addThongBao"]);
+    Route::post('/notify/update', [NotifyController::class,"CapNhatThongBao"]);
+    Route::post('/notify/delete', [NotifyController::class,"XoaThongBao"]);
+    Route::post('/notify/detail', [NotifyController::class,"getDetailNotify"]);
+    
 
 
 

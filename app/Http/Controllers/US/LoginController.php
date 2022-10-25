@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\US;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUser;
 use App\Models\Notify;
+use App\Repository\UserRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    protected $userRepo;
+    public function __construct(UserRepo $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
     public function login(Request $request){
 
         $credentials = $request->only('username','password');
@@ -30,5 +38,21 @@ class LoginController extends Controller
         Auth::logout();
         Session::flush();
         return redirect('/login');
+    }
+    public function UpdateInfoUser(UpdateUser $request){
+        $me = Auth::user();
+        $pass =$request->input('password');
+        if(  Hash::check($pass, $me->password )   !==false  ) {
+
+            $result = $this->userRepo->update($me->id,[
+                'password'=>Hash::make($request->input('password')),
+    
+            ]);
+            return response()->json(["status"=>true,"message"=>"Đổi mk thành công pass mới là :$pass"]);
+
+        }else{
+            return response()->json(["status"=>false,"message"=>"Cập nhật thất bại =>>MK cũ không hợp lệ"]);
+        }
+        
     }
 }
