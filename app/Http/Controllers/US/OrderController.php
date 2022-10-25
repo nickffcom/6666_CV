@@ -49,6 +49,8 @@ class OrderController extends Controller
     public function downloadOrderByCode(Request $request){ // file Txt
         $code = $request->query("code");
         $type = $request->query("type");
+
+        $typeFile = $request->query('typeFile','txt');
         $lists = $this->dataRepo->getAllDataOrder($code,$type)->map(function($item,$key){
             if(isset($item->attr)){
                 $data = $item->attr->uid . '|' . $item->attr->pass . '|' . $item->attr->key2fa.'|' . $item->attr->email . '|' . $item->attr->passmail. '|'.$item->attr->note    ;
@@ -56,15 +58,29 @@ class OrderController extends Controller
             }
             return null;
         });
-        // format('h:i d/m/Y')
         $now=Carbon::now();
-        $fileName = date_format($now,'d-m-Y H:i')."-Ads69.Net";
-        $headers=[
-            'Content-Type' => 'text/plain',
-            'Cache-Control' => 'no-store, no-cache',
-            'Content-Disposition' =>'attachment; filename='.$fileName.".txt",
-        ];
-     
-        return response()->make(implode("\n", $lists->toArray()), 200, $headers);
+       
+        if($typeFile =='txt'){
+            $fileName = date_format($now,'d-m-Y H:i')."-Ads69.Net";
+            $headers=[
+                'Content-Type' => 'text/plain',
+                'Cache-Control' => 'no-store, no-cache',
+                'Content-Disposition' =>'attachment; filename='.$fileName.".txt",
+            ];
+         
+            return response()->make(implode("\n", $lists->toArray()), 200, $headers);
+        }else if($typeFile =='zip'){
+            $time = date('d-m-Y',strtotime($now));
+            $fileNameZip = $time. "-Ads69.zip";
+            $zip = new \ZipArchive();
+            $zip->open($fileNameZip, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+            $zip->addFromString($fileNameZip.'.txt',$lists);
+            $zip->close();
+            return response()->download($fileNameZip)->deleteFileAfterSend();
+        }
+ 
     }
+
+    
+
 }

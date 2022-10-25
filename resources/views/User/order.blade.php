@@ -100,7 +100,10 @@
                 </div>
                 <div class="block-content block-content-full text-right bg-light">
                     <a href="javascript:;" id="xdownload">
-                        <button type="button" data-download="" class="btn btn-primary">Tải xuống</button>
+                        <button type="button" data-download="" type-download="txt" class="btn btn-primary">Tải xuống .Txt</button>
+                    </a>
+                     <a href="javascript:;" id="xdownload">
+                        <button type="button" data-download="" type-download="zip" class="btn btn-primary">Tải xuống .Zip</button>
                     </a>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
                 </div>
@@ -132,7 +135,8 @@
         e.preventDefault();
     });
     $('[data-download]').bind('click', function () {
-        window.location = '/order/download_order?code=' + $(this).data('download');
+
+        window.location = '/order/download_order?code=' + $(this).data('download')+ "&typeFile=" +$(this).attr('type-download');
     });
 </script>
 @endsection
