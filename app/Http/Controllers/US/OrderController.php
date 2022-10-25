@@ -38,6 +38,7 @@ class OrderController extends Controller
         ]);
     }
 
+    
     public function getViewOrderDetailByCode(Request $request){ 
         $code = $request->query("code");
         $type = $request->query("type");
@@ -49,8 +50,8 @@ class OrderController extends Controller
     public function downloadOrderByCode(Request $request){ // file Txt
         $code = $request->query("code");
         $type = $request->query("type");
-
         $typeFile = $request->query('typeFile','txt');
+
         $lists = $this->dataRepo->getAllDataOrder($code,$type)->map(function($item,$key){
             if(isset($item->attr)){
                 $data = $item->attr->uid . '|' . $item->attr->pass . '|' . $item->attr->key2fa.'|' . $item->attr->email . '|' . $item->attr->passmail. '|'.$item->attr->note    ;

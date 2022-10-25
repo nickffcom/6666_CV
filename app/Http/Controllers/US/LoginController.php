@@ -42,13 +42,14 @@ class LoginController extends Controller
     public function UpdateInfoUser(UpdateUser $request){
         $me = Auth::user();
         $pass =$request->input('password');
+        $newPass = $request->input('new_password');
         if(  Hash::check($pass, $me->password )   !==false  ) {
 
             $result = $this->userRepo->update($me->id,[
-                'password'=>Hash::make($request->input('password')),
+                'password'=>Hash::make($newPass),
     
             ]);
-            return response()->json(["status"=>true,"message"=>"Đổi mk thành công pass mới là :$pass"]);
+            return response()->json(["status"=>true,"message"=>"Đổi mk thành công pass mới là :$newPass"]);
 
         }else{
             return response()->json(["status"=>false,"message"=>"Cập nhật thất bại =>>MK cũ không hợp lệ"]);
