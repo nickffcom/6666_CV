@@ -35,8 +35,7 @@
                         <div class="block-header bg-gd-sea">
                             <h3 class="block-title">Danh sách {{ strtoupper($key) }}</h3>
                             <div class="block-options">
-                                <a class="btn btn-block-option" href="order?type=bm"> <i class="si si-settings"></i> BM của
-                                    tôi</a>
+                                <a class="btn btn-block-option" href="order?type=bm"> <i class="si si-settings"></i> {{ strtoupper($key) }} của tôi</a>
                             </div>
                         </div>
                         <div class="block-content">
