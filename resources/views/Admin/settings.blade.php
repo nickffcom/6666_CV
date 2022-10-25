@@ -1,8 +1,5 @@
-<style>
-    th, td {
-        text-align: center;
-    }
-</style>
+@extends('Layout.AD.Index')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -23,7 +20,10 @@
         </div>
     </div>
 </div>
-<script>
+@endsection
+
+
+{{-- <script>
     const $settings = <?= json_encode($settings); ?>;
     $.each($settings, (k, v) => {
         $('form#settings').find('[name="' + k + '"]').val(v);
@@ -34,4 +34,4 @@
         });
         e.preventDefault();
     });
-</script>
+</script> --}}

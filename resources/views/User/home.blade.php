@@ -15,8 +15,7 @@
                 </div>
                 <div class="block-content">
                     @foreach ($notify as $noty)
-                        <div
-                            class="font-w600 animated fadeIn bg-body-light border-3x px-3 py-2 mb-2 shadow-sm mw-100 border-left border-success rounded-right">
+                        <div class="font-w600 animated fadeIn bg-body-light border-3x px-3 py-2 mb-2 shadow-sm mw-100 border-left border-success rounded-right">
                             {{ text_style($noty) }}
                         </div>
                     @endforeach
@@ -115,7 +114,7 @@
                                 class="font-w600 animated fadeIn bg-body-light border-3x px-3 py-2 mb-2 shadow-sm mw-100 border-left border-success rounded-right">
                                 <b>
                                     <font color="green">
-                                        <img src="./assets/images/new.gif" height="18">id***}
+                                        <img src="/images/new.gif" height="18"> {{ 'id***' . substr($payment['user_id'], 0, 2); }}
                                     </font> đã nạp số tiền + <font color="red">
                                         <em>{{ number_format($payment->total_money) }} VNĐ</em>
                                     </font>
@@ -123,7 +122,7 @@
                                 <span style="float: right;">
                                     <span class="badge badge-info" data-toggle="tooltip" data-placement="top"
                                         title="{{ date('H:i:s - d/m/Y', $payment->time) }}">
-                                        <em>{{ time_text($payment->created_at) }}</em>
+                                        <em>{{ time_ads($payment->created_at) }}</em>
                                     </span>
                                 </span>
                             </div>
@@ -157,7 +156,8 @@
                                     {{ number_format($transaction->total_money) }} VNĐ
                                 </font>
                             </b>
-                            <span style="float: right;">
+                            {{-- float: right; --}}
+                            <span style=""> 
                                 <span class="badge badge-info" data-toggle="tooltip" data-placement="top"
                                     title="{{ $transaction->created_at }}">
                                     <em>{{ time_ads($transaction->created_at) }}</em>
@@ -193,7 +193,7 @@
             if (!$type) {
                 return showNotify('error', 'Vui lòng chọn một loại ' + $(this).text().split(" ")[1]);
             }
-            $quantity = prompt('Nhập số lượng muốn mua : ', 100);
+            $quantity = prompt('Nhập số lượng muốn mua : ', 5);
             if ($quantity < 1 || isNaN($quantity)) {
                 return showNotify('error', 'Vui lòng nhập số lượng hợp lệ');
             }

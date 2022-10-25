@@ -26,5 +26,18 @@ class UserRepo extends BaseRepo{
     return $check;
    }
 
+   public function updateMoneyByUserName($userName,$money,$action){
+        $moneyCaculate = Auth::user()->money;
+        if($action == CONG_TIEN){
+            $moneyCaculate = $moneyCaculate + $money;
+        }else if ($action == TRU_TIEN){
+            $moneyCaculate = $moneyCaculate - $money;
+        }
+        $check = $this->model->where('username',$userName)->update([
+            'money'=> $moneyCaculate
+        ]);
+        return $check;
+   }
+
    
 }

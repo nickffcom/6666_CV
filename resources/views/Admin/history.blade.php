@@ -1,8 +1,8 @@
-<style>
-    th, td {
-        text-align: center;
-    }
-</style>
+@extends('Layout.AD.Index')
+
+@section('content')
+    
+
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -23,31 +23,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $lists = $db->join('users', '(users.uid = history.uid)', 'INNER')->get('history', NULL, array(
-                                'history.*',
-                                'users.username'
-                            ));
-                            foreach ($lists as $k => $x) {
-                                $money = $x['total_money'];
-                                if ($x['type'] == 'service') {
-                                    $lab_money = '<span class="badge badge-danger">- '. number_format($money) .' VNĐ</span>';
-                                }
-                                if ($x['type'] == 'payment') {
-                                    $lab_money = '<span class="badge badge-success">+ '. number_format($money) .' VNĐ</span>';
-                                }
-                            ?>
+                         
+                            @foreach($lists as $k=>$x)
                             <tr>
-                                <td class="d-sm-table-cell"><?= ($k + 1); ?></td>
-                                <td class="d-sm-table-cell"><?= $x['username']; ?></td>
-                                <td class="d-sm-table-cell"><?= $x['content']; ?></td>
-                                <td class="d-sm-table-cell"><?= $lab_money; ?></td>
-                                <td class="d-sm-table-cell" data-toggle="tooltip" title="<?= date('H:i:s - d/m/Y', $x['time']); ?>"><?= time_text($x['time']); ?></td>
+                                <td class="d-sm-table-cell">{{   ($k + 1) }}</td>
+                                <td class="d-sm-table-cell">{{  $x['username'] }}</td>
+                                <td class="d-sm-table-cell">{{  $x['content'] }}</td>
+                             
+                                <td class="d-sm-table-cell"><span class="badge badge-success">{{ number_format( $x['total_money']) }} VND </span></td>
+
+                                <td class="d-sm-table-cell" data-toggle="tooltip" title="{{  date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}">{{   date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}</td>
                                 <td class="d-sm-table-cell">
-                                	<button data-delete="<?= $x['id']; ?>" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                	<button data-delete="{{  $x['id'] }}" class="btn btn-danger"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            @endforeach
+                           
                         </tbody>
                     </table>
                 </div><br>
@@ -59,12 +50,15 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('[data-delete]').bind('click', function () {
     	if (confirm('Chắc chắn xóa lịch sử này ?')) {
     		$that = $(this);
 	    	$id = $that.data('delete');
-	    	$.post(api('admin/action'), {t: 'delete_history', id: $id}, function (a) {
+	    	$.post('/admin/action', {t: 'delete_history', id: $id}, function (a) {
 	    		if (a.status > 0) {
 	    			$that.parent().parent().fadeOut();
 	    		}
@@ -115,3 +109,4 @@
         });
     });
 </script>
+@endsection

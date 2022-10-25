@@ -21,18 +21,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.css" />
-    <link rel="stylesheet" href="{{ asset('/css/dataTables.bootstrap4.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/context.bootstrap.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('/css/context.standalone.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('/css/context.standalone.css') }}"/> --}}
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}"/>
     
-    <script src="{{ asset('/js/context.js') }}"></script>
-    <script src="{{ asset('/js/vue.min.js') }}"></script> 
+    {{-- <script src="{{ asset('/js/context.js') }}"></script>
+    <script src="{{ asset('/js/vue.min.js') }}"></script>  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    @yield('head')
+    @yield('header')
 </head>
 <body>
     <div id="Ads69.net">
         <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-fixed page-header-dark main-content-narrow side-trans-enabled">
+            
             @include('Layout.US.Slidebar')
             @include('Layout.US.header')
             <main id="main-container">
@@ -43,17 +45,18 @@
             @include('Layout.US.footer')
         </div>
     </div>
-    {{-- <?php if (!$is_log) { ?> --}}
         <script src="{{ asset('/js/dashmix.app.js') }}"></script>
-        {{-- <?php } ?> --}}
-        <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script> --}}
+        
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> --}}
         <script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('/js/table.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.js"></script>
+        @include("Layout.US.script")
         @yield('script')
+
 </body>
 </html>

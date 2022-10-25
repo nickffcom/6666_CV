@@ -1,3 +1,6 @@
+@extends("Layout.AD.Index")
+
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -7,15 +10,14 @@
             <div class="block-content">
                 <form id="users" method="POST">
                 	<input type="hidden" name="t" value="add">
+                    @csrf
                     <div class="form-group">
                         <label>Chọn tài khoản :</label>
                         <datalist id="list_users">
-                            <?php 
-                            $lists_users = $db->orderBy('uid', 'DESC')->get('users');
-                            foreach ($lists_users as $x) {
-                            ?>
-                            <option value="<?= $x['username']; ?>">Số dư : <?= number_format($x['money']); ?> VNĐ</option>
-                            <?php } ?>
+                          
+                            @foreach($lists_users as $x)
+                            <option value="{{ $x['username'] }}">Số dư : {{  number_format($x['money']) }} VNĐ</option>
+                            @endforeach
                         </datalist>
                         <input type="text" name="username" class="form-control" list="list_users" placeholder="Chọn tài khoản" autocomplete="off">
                     </div>
@@ -37,14 +39,17 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('form#users').bind('submit', function (e) {
     
-        $.post(api('admin/trans'), $(this).serializeArray(), function (a) {
-            console.log(a);
+        $.post('/admin/trans', $(this).serializeArray(), function (a) {
 
             showNotify((a.status > 0 ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
 </script>
+@endsection

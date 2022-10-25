@@ -28,8 +28,17 @@ Route::middleware('auth')->group(function(){
     Route::prefix('/api')->group(function(){
         Route::post('/buy',[BuyController::class,'BuyDataAds']);
     });
-    
-    Route::get('/order/',[OrderController::class,'view']);
+
+    Route::get('/order',[OrderController::class,"getviewOrder"]);
+    Route::get('/order/view_order',[OrderController::class,"getViewOrderDetailByCode"]);
+    Route::get('/order/download_order',[OrderController::class,"downloadOrderByCode"]);
+    Route::get('/nap-tien',[HomeController::class,"napTien"]);
+    Route::get('/lich-su-nap-tien',[HomeController::class,"lichSuNapTien"]);
+    Route::get('/ho-tro',[HomeController::class,"Hotro"]);
+    Route::get('/tai-khoan',[HomeController::class,'getTaiKhoan']);
+    Route::get('/lich-su-thanh-toan',[HomeController::class,'LichSuThanhToan']);
+
+
 });
 
 

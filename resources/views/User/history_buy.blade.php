@@ -1,3 +1,6 @@
+@extends('Layout.US.Index')
+@section('content')
+
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -16,19 +19,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $lists = $db->where('uid', $me->uid)->where('type', 'service')->orderBy('id', 'DESC')->get('history');
-                            $counts = count($lists);
-                            foreach ($lists as $k => $x) {
-                                $counts--;
-                            ?>
+                           
+                            @foreach($lists as $k=>$x)
                             <tr>
-                                <td class="d-sm-table-cell"><?= $counts; ?></td>
-                                <td class="d-sm-table-cell"><?= $x['content']; ?></td>
-                                <td class="d-sm-table-cell text-center"><?= number_format($x['total_money']); ?> VNĐ</td>
-                                <td class="d-sm-table-cell"><?= date('H:i:s - d/m/Y', $x['time']); ?></td>
+                                <td class="d-sm-table-cell">{{   $counts }}</td>
+                                <td class="d-sm-table-cell">{{ $x['content'] }}</td>
+                                <td class="d-sm-table-cell text-center">{{ number_format($x['total_money']) }} VNĐ</td>
+                                <td class="d-sm-table-cell">{{ date('H:i:s - d/m/Y', strtotime($x['time'])) }}</td>
                             </tr>
-                            <?php } ?>
+                            @endforeach
+                      
                         </tbody>
                     </table>
                 </div>
@@ -40,3 +40,4 @@
         </div>
     </div>
 </div>
+@endsection

@@ -1,8 +1,5 @@
-<style>
-    th, td {
-        text-align: center;
-    }
-</style>
+@extends('Layout.AD.Index')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
@@ -41,24 +38,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $lists = $db->orderBy('id', 'DESC')->get('notify');
-                            foreach ($lists as $k => $x) {
-                            	$content = $x['content'];
-                            	if (mb_strlen($content) > 50) {
-                            		$content = substr($content, 0, 50) . '...';
-                            	}
-                            ?>
+                            
+                            @foreach($lists as $x)
                             <tr>
-                                <td class="d-sm-table-cell"><?= $x['id']; ?></td>
-                                <td class="d-sm-table-cell" style="font-weight: bold;"><?= text_style($content); ?></td>
-                                <td class="d-sm-table-cell"><?= date('H:i:s - d/m/Y', $x['time']); ?></td>
+                                <td class="d-sm-table-cell">{{   $x['id'] }}</td>
+                                <td class="d-sm-table-cell" style="font-weight: bold;">{{ text_style( (mb_strlen($content) > 50) ? substr($content, 0, 50) . '...' : $content ) }}</td>
+                                <td class="d-sm-table-cell">{{ date('H:i:s - d/m/Y', strtotime($x['updated_at'])) }}</td>
                                 <td class="d-sm-table-cell">
-                                    <button data-update="<?= $x['id']; ?>" class="btn btn-info"><i class="fa fa-edit"></i></button>
-                                	<button data-delete="<?= $x['id']; ?>" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                    <button data-update="{{ $x['id'] }}" class="btn btn-info"><i class="fa fa-edit"></i></button>
+                                	<button data-delete="{{ $x['id'] }}" class="btn btn-danger"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            @endforeach
+        
                         </tbody>
                     </table>
                 </div><br>
@@ -93,9 +85,12 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 <script>
     $('form#notify').bind('submit', function (e) {
-        $.post(api('admin/notify'), $(this).serializeArray(), function (a) {
+        $.post('/admin/notify', $(this).serializeArray(), function (a) {
             showNotify((a.status > 0 ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
@@ -104,7 +99,7 @@
     	if (confirm('Chắc chắn xóa thông báo này ?')) {
     		$that = $(this);
 	    	$id = $that.data('delete');
-	    	$.post(api('admin/notify'), {t: 'delete', id: $id}, function (a) {
+	    	$.post('/admin/notify', {t: 'delete', id: $id}, function (a) {
 	    		if (a.status > 0) {
 	    			$that.parent().parent().fadeOut();
 	    		}
@@ -115,7 +110,7 @@
     $('[data-update]').bind('click', function () {
         $that = $(this);
         $id = $that.data('update');
-        $.post(api('admin/notify'), {t: 'info', id: $id}, function (a) {
+        $.post('/admin/notify', {t: 'info', id: $id}, function (a) {
             $.each(a, (k, v) => {
                 $('form#update_notify').find('[name="' + k + '"]').val(v);
             });
@@ -123,9 +118,10 @@
         });
     });
     $('form#update_notify').bind('submit', function (e) {
-        $.post(api('admin/notify'), $(this).serializeArray(), function (a) {
+        $.post('/admin/notify', $(this).serializeArray(), function (a) {
             showNotify((a.status > 0 ? 'success' : 'error'), a.message);
         });
         e.preventDefault();
     });
 </script>
+@endsection
