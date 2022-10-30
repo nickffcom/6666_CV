@@ -18,7 +18,7 @@
                             <a class="dropdown-item" href="/tai-khoan"><i class="far fa-fw fa-user mr-1"></i> Tài khoản</a>
                             <a class="dropdown-item" href="/lich-su-thanh-toan"> <i class="far fa-fw fa-file-alt mr-1"></i> Lịch sử</a>
                             <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout"> <i class="far fa-fw fa-arrow-alt-circle-left mr-1"></i> Đăng xuất</a>
+                            <a class="dropdown-item" href="/dang-xuat"> <i class="far fa-fw fa-arrow-alt-circle-left mr-1"></i> Đăng xuất</a>
                         </div>
                     </div>
                 </div>

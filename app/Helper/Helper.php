@@ -21,7 +21,7 @@ const FORMAT_UPDATE=[
     'bm'=>'idbm|linkbm1|linkbm2|note',
 ];
 const SERVICE = [
-    'bm', 'via', 'clone'
+    'BM', 'VIA', 'CLONE'
 ];
 function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
