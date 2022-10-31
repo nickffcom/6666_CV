@@ -26,12 +26,12 @@ class ServiceRepo extends BaseRepo
         if (isset($type)) {
             $rs = $this->model->where('type', $type)->orderBy('id', 'ASC')->get();
         } else {
-            $rs = Service::select('service.*', DB::raw('(SELECT COUNT(*) FROM data WHERE data.service_id = service.id AND data.status = 1) AS count_max'))->get();
+            $rs = Service::select('service.*', DB::raw('(SELECT COUNT(*) FROM data WHERE data.service_id = service.id AND data.status = 1) AS amount'))->get();
         }
 
         $lists = array();
         foreach ($rs as $x) {
-            $lists[$x['type']][] = $x;
+            $lists[strtoupper($x['type'])][] = $x;
         }
         return $lists;
     }

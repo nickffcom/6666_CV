@@ -52,11 +52,11 @@
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
                                         <div class="custom-control custom-block custom-control-primary">
                                             <input type="checkbox" class="custom-control-input service-checked"
-                                                id="bm_id_{{ $item->id }}" name="type" value="{{ $item->id }}">
-                                            <label class="custom-control-label p-2" for="bm_id_{{ $item->id }}">
+                                                id="{{ $key }}_id_{{ $item->id }}" name="type" value="{{ $item->id }}">
+                                            <label class="custom-control-label p-2" for="{{ $key }}_id_{{ $item->id }}">
                                                 <span class="d-flex align-items-center">
                                                     <div class="item item-circle bg-black-5 text-primary-light"
-                                                        style="min-width: 60px;"><strong>{{ $item->count_max }}</strong></div>
+                                                        style="min-width: 60px;"><strong>{{ $item->amount }}</strong></div>
                                                     <span class="hcss ml-2">
                                                         <span class="font-w700">{{ $item->name }}</span>
 
