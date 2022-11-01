@@ -10,6 +10,7 @@ const GIAO_DICH = 'transaction';
 const LOGO_TEXT ="Ads69.Net";
 const TRU_TIEN = 'minus';
 const CONG_TIEN = 'plus';
+const API_MUAFB = "muafb.net";
 const FORMAT_DATA=[
     'via'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
     'clone'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
@@ -25,7 +26,8 @@ const SERVICE = [
 ];
 function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
-return $VIA=['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
+    return $VIA=['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
+
 }
 
 function DB_BM($uid,$pass,$key2fa,$email,$passMail,$note=''){

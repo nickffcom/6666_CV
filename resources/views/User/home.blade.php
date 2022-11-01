@@ -52,13 +52,13 @@
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
                                         <div class="custom-control custom-block custom-control-primary">
                                             <input type="checkbox" class="custom-control-input service-checked"
-                                                id="{{ $key }}_id_{{ $item->id }}" name="type" value="{{ $item->id }}">
+                                                id="{{ $key }}_id_{{ $item->id }}" name="type"  @if(isset($item->country)) data-type={{ $key }} @endif value="{{ $item->id }}">
                                             <label class="custom-control-label p-2" for="{{ $key }}_id_{{ $item->id }}">
                                                 <span class="d-flex align-items-center">
                                                     <div class="item item-circle bg-black-5 text-primary-light"
                                                         style="min-width: 60px;"><strong>{{ $item->amount }}</strong></div>
                                                     <span class="hcss ml-2">
-                                                        <span class="font-w700">{{ $item->name }}</span>
+                                                        <span class="font-w700">{{ $item->name }} ✅</span>
 
                                                         <i style="position:absolute;right:5px;bottom:10px;"
                                                             class="fa fa-question-circle text-muted" data-toggle="tooltip"
@@ -105,9 +105,6 @@
                 </div>
                 <div class="block-content">
 
-                  
-                    {{-- @isset($payments)
-                        {{ dd($payment) }} --}}
                         @foreach ($payments as $payment)
                             <div
                                 class="font-w600 animated fadeIn bg-body-light border-3x px-3 py-2 mb-2 shadow-sm mw-100 border-left border-success rounded-right">
@@ -127,7 +124,6 @@
                             </div>
                         @endforeach
                     {{-- @endisset --}}
-
 
 
                 </div>
@@ -188,8 +184,9 @@
         });
 
         $('.buy_service').bind('click', function() {
-            $type = $('[name="type"]:checked').val();
-            if (!$type) {
+            $id = $('[name="type"]:checked').val();
+            $dataType = $('[name="type"]:checked').attr("data-type");
+            if (!$id) {
                 return showNotify('error', 'Vui lòng chọn một loại ' + $(this).text().split(" ")[1]);
             }
             $quantity = prompt('Nhập số lượng muốn mua : ', 5);
@@ -203,8 +200,9 @@
                 clickToClose: false
             });
             $.post(api('buy'), {
-                id: $type,
-                quantity: $quantity
+                id: $id,
+                quantity: $quantity,
+                type:$dataType
             }, function(a) {
                 if (a.status > 0) {
                     setTimeout(function() {

@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/',[HomeController::class,'home']);
     Route::prefix('/api')->group(function(){
-        Route::post('/buy',[BuyController::class,'BuyDataAds']);
+        Route::post('/buy',[BuyController::class,'HandleBuy']);
     });
 
     Route::get('/order',[OrderController::class,"getviewOrder"]);

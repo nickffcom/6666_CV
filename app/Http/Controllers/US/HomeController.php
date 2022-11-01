@@ -33,11 +33,6 @@ class HomeController extends Controller
         $HistoryPayment = $this->historyRepo->getHistory(NAP_TIEN);   // lịch sử nạp tiền
         $HistoryTransaction = $this->historyRepo->getHistory(GIAO_DICH);  // lịch sử giao dịch
         // dd($ListServiceAds69);
-        // $dataCuoiCung = [
-        //     'VIA'=>$ListService['VIA'],
-        //     'BM'=>$ListService['BM'],
-        //     'CLONE'=>$ListService['CLONE']
-        // ];
 
         $listServiceFromMuaFbNet = Cache::get('muafb.net');
 
@@ -92,7 +87,7 @@ class HomeController extends Controller
             }
         }
 
-        dd($ListServiceAds69);
+        // dd($ListServiceAds69);
         $me = Auth::user();
         return view('User.home', [
             'services' => $ListServiceAds69,
