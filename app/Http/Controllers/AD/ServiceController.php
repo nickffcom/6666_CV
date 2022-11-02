@@ -26,7 +26,7 @@ class ServiceController extends Controller
         $this->notifyRepo = $notifyRepo;
     }
 
-    public function type($type='via'){   // phân loại
+    public function type($type='VIA'){   // phân loại
         
         $service = $this->serviceRepo->getServiceWeb($type);
         return view('Admin.Service.type',[

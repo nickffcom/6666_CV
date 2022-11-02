@@ -20,7 +20,7 @@ class BMController extends Controller
    }
     public function index()
     {
-        $type='bm';
+        $type='BM';
         $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$type);
  
         return view('Admin.Service.manage',[
@@ -33,7 +33,7 @@ class BMController extends Controller
     public function create()
     {
         $services = $this->serviceRepo->getServiceWeb();
-        $type="bm";
+        $type="BM";
         return view('Admin.Service.add',[
             'services'=>$services,
             'type'=>$type

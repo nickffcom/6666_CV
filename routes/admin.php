@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'admin','middleware'=>'auth'], function () {
 
     Route::resources([
-        'via' => ViaController::class,
-        'bm' => BMController::class,
-        'clone' => CloneController::class,
+        'VIA' => ViaController::class,
+        'BM' => BMController::class,
+        'CLONE' => CloneController::class,
     ]);
     Route::get('/type/{type}',[ServiceController::class,'type']); // phân loại
 

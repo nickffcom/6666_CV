@@ -21,7 +21,7 @@ class CloneController extends Controller
     }
     public function index()
     {
-        $type='clone';
+        $type='CLONE';
         $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$type);
         // dd($listData);
         return view('Admin.Service.manage',[

@@ -12,27 +12,27 @@ const TRU_TIEN = 'minus';
 const CONG_TIEN = 'plus';
 const API_MUAFB = "muafb.net";
 const FORMAT_DATA=[
-    'via'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
-    'clone'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
-    'bm'=>'IDBM*|Link1*|Link2*|Note*( * :Nếu có )',
+    'VIA'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
+    'CLONE'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
+    'BM'=>'IDBM*|Link1*|Link2*|Note*( * :Nếu có )',
 ];
 const FORMAT_UPDATE=[
-    'via'=>'uid|pass|key2fa|email|passmail|note',
-    'clone'=>'uid|pass|key2fa|email|passmail|note',
-    'bm'=>'idbm|linkbm1|linkbm2|note',
+    'VIA'=>'uid|pass|key2fa|email|passmail|note',
+    'CLONE'=>'uid|pass|key2fa|email|passmail|note',
+    'BM'=>'idbm|linkbm1|linkbm2|note',
 ];
 const SERVICE = [
     'BM', 'VIA', 'CLONE'
 ];
 function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
-    return $VIA=['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
+    return $VIA = ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
 
 }
 
 function DB_BM($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
-    return $BM=['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email];
+    return $BM = ['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email];
 }
 
 

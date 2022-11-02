@@ -23,7 +23,7 @@ class ViaController extends Controller
     {
         $stt = $request->query('status',CON_HANG);
         $listData = $this->dataRepo->getDataWithStatus($stt,'via');
-        $type='via';
+        $type='VIA';
         return view('Admin.Service.manage',[
             'listData'=>$listData,
             'type'=>$type

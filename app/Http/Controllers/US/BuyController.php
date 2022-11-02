@@ -47,7 +47,6 @@ class BuyController extends Controller
                 $data = null;
                 $listServiceFromMuaFbNet = json_decode($listServiceFromMuaFbNet);
 
-                $temp = $listServiceFromMuaFbNet->$type;
                 foreach($listServiceFromMuaFbNet->$type as $value){
                     if((int)$value->id == $idBuy){
                         $data = $value;
@@ -75,26 +74,27 @@ class BuyController extends Controller
                 }
                 Log::log(1,"Đã gọi API thành công 1 lần".json_encode($getDataFromApi));
                 $giaSuData= $getDataFromApi->data;
-            
+                
+                $arrData = []; // data đã lưu;
                 foreach($giaSuData->lists as $itemData){
                     list($uid, $password,$twofa,$email, $password_email,$note) = explode('|', $itemData);
-                    DB::table('data')->create([
+                    $dataItem = DB::table('data')->create([
                         'status'=>HET_HANG,
                         'service_id '=>null,
+                        'from_api'=>API_MUAFB,
                         'attr'=>json_encode(DB_VIA($uid,$password,$twofa,$email,$password_email,$note)),
                     ]);
+                    array_push($arrData,$dataItem);
                 }
                 $ref_code = md5(rand(0, 999999) . time() . microtime() . base64_encode(time()) . base64_encode(microtime()) . rand(0, 999999));
-                foreach ($$giaSuData->lists as  $data) {
+                foreach ($arrData as  $datanek) {
 
                     $order_service = new Order_service();
-                    $order_service->ref_id = $data->id; // ref id = data_id
+                    $order_service->ref_id = $datanek->id; // ref id = data_id
                     $order_service->code = $ref_code;
-                    $order_service->price_buy = $data->price;
+                    $order_service->price_buy = $datanek->price;
                     $order_service->user_id = $me->id;
                     $order_service->save();
-                 
-                  $this->dataRepo->updateStatusData($data['id'],HET_HANG);
                   
                 }
     
