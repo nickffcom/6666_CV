@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function home()
     {
         $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
-        $ListNotify = $this->notify->all();
+        $ListNotify = $this->notify->select('content')->get();
         $HistoryPayment = $this->historyRepo->getHistory(NAP_TIEN);   // lịch sử nạp tiền
         $HistoryTransaction = $this->historyRepo->getHistory(GIAO_DICH);  // lịch sử giao dịch
         // dd($ListServiceAds69);
@@ -45,9 +45,7 @@ class HomeController extends Controller
            }
 
         }else{
-            $getDataFromApi = Http::withHeaders([
-                'Content-Type' => 'text/html; charset=UTF-8',
-            ])->get('https://muafb.net/api/ListResource.php?username=nickffcom&password=noname2d');
+            $getDataFromApi = Http::get('https://muafb.net/api/ListResource.php?username=nickffcom&password=noname2d');
            
             if($getDataFromApi->ok()){
                 $data = json_decode($getDataFromApi->body());
