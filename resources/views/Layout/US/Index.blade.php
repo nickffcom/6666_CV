@@ -24,7 +24,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/context.bootstrap.css') }}"/>
     <link rel="stylesheet" href="{{ asset('/css/context.standalone.css') }}"/> --}}
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}"/>
+    <link rel="stylesheet" href="/css/app.css"/>
     
     {{-- <script src="{{ asset('/js/context.js') }}"></script>
     <script src="{{ asset('/js/vue.min.js') }}"></script>  --}}

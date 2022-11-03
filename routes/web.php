@@ -6,9 +6,9 @@ use App\Http\Controllers\US\LoginController;
 use App\Http\Controllers\US\OrderController;
 use App\Http\Controllers\US\ProxyController;
 use App\Http\Controllers\US\RegisterController;
+use App\Http\Controllers\US\SocialController;
 use App\Http\Controllers\US\TestController;
 use Illuminate\Support\Facades\Route;
-
 
 //  View For User *******************************
 
@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function(){
     Route::post('/change_password',[LoginController::class,'UpdateInfoUser']);
     Route::get('/dang-xuat',[LoginController::class,'logout']);
 
+
+    Route::get('/auth/redirect',[SocialController::class,"rediRectSocial"]);
+    Route::get('/auth/facebook/callback',[SocialController::class,"handleSocial"]);
+    Route::get('/auth/google/callback',[SocialController::class,"handleSocial"]);
 });
 
 

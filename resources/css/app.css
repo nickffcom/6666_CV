@@ -4,3 +4,6 @@
 th, td {
     text-align: center;
 }
+#social{
+    display: flex;
+}

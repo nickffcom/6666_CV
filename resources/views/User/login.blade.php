@@ -36,13 +36,25 @@
                                     <button type="submit" class="btn btn-hero-primary"><i class="fa fa-fw fa-sign-in-alt mr-1"></i> Đăng Nhập</button>
                                 </div>
                             </form>
+                            <h3 class="bg-success mt-5" style="text-align: center">Đăng nhập với Facebook - Google </h3 >
+                                <div id="social" class="col">
+                                    <a href="/auth/redirect?type=facebook" class="fb btn">
+                                      <i class="icon-social-facebook"></i>
+                                    <span>Login với Facebook</span>
+                                     </a>
+                                    <a href="/auth/redirect?type=google" class="google btn"><i class="icon-social-google">
+                                        <span></i> Login với Google+</span>
+                                    </a>
+                                  </div>
                         </div>
+                       
                         <div class="block-content bg-body">
                             <div class="d-flex justify-content-center text-center push">
                                 <div class="font-w600 font-size-sm py-1 text-center">Chưa có tài khoản? <a href="/register">Đăng ký</a>
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
                 </div>
             </div>

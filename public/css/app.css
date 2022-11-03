@@ -1,3 +1,25 @@
+.badge {
+    font-size: 17px;
+}
 th, td {
     text-align: center;
+}
+#social{
+    display: flex;
+    gap:0 20px;
+    justify-content: space-around;
+}
+#social a{
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+#social a.fb{
+    background-color: #3B5998;
+    color: white;
+}
+#social a.google{
+    background-color: #dd4b39;
+    color: white;
 }
