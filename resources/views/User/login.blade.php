@@ -7,9 +7,8 @@
                 <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
                     <div class="block block-transparent block-rounded w-100 mb-0 overflow-hidden">
                         <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-white"> 
-                        <span style="color:#D84646; margin-left:55px; "> Hệ Thống Via Việt -Clone -Bm Uy Tín </span>
-                        <br>
-                        <span style="color:#D84646 ; margin-left:26px" > Vui Lòng Đăng Nhập or Đăng Kí Để Tiếp Tục</span>
+                        <h4 style="color:#D84646;text-align:center" class=""> Hệ Thống Via Việt -Clone -Bm Uy Tín </h4>
+                        <h6 style="color:#D84646;text-align:center" > Vui Lòng Đăng Nhập or Đăng Kí Để Tiếp Tục</h6>
                             <div class="mb-2 text-center">
                                 <span style="font-size: 30px;font-weight: bold;letter-spacing: 1px;color:black;"><?= $logo_text; ?></span>
                                 <p class="text-uppercase font-w700 font-size-sm text-muted">Đăng Nhập</p>
