@@ -25,7 +25,7 @@ Route::get('/test', [TestController::class,"index"]);
 
 Route::middleware('auth')->group(function(){
 
-    Route::get('/',[HomeController::class,'home']);
+    Route::get('/',[HomeController::class,'home'])->name('home');
     Route::prefix('/api')->group(function(){
         Route::post('/buy',[BuyController::class,'HandleBuy']);
     });
@@ -44,10 +44,14 @@ Route::middleware('auth')->group(function(){
     Route::get('/dang-xuat',[LoginController::class,'logout']);
 
 
-    Route::get('/auth/redirect',[SocialController::class,"rediRectSocial"]);
-    Route::get('/auth/facebook/callback',[SocialController::class,"handleSocial"]);
-    Route::get('/auth/google/callback',[SocialController::class,"handleSocial"]);
+    
+
+
 });
+Route::get('/auth/delete',[SocialController::class,"delete"]);
+Route::get('/auth/google/callback',[SocialController::class,"handleSocial"]);
+Route::get('/auth/redirect',[SocialController::class,"rediRectSocial"])->name('fb');
+Route::get('/auth/facebook/callback',[SocialController::class,"handleSocial"]);
 
 
 

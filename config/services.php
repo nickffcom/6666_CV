@@ -31,9 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'https://ads69.net/auth/facebook/callback',
+      'client_id' => env('FACEBOOK_CLIENT_ID'),
+      'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+      'redirect' => 'https://ebb0-2405-4802-9077-2b40-c1ba-e074-4772-3ccf.ap.ngrok.io/auth/facebook/callback/',
     ],
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),

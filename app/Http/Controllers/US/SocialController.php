@@ -14,13 +14,13 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialController extends Controller
 {
     protected $dataRepo;
-    public function __construct(DataRepo $dataRepo)
+    public function __construct()
     {
-        $this->dataRepo = $dataRepo;
+        // $this->dataRepo = $dataRepo;
     }
     public function rediRectSocial(Request $request){
-        dd($request);
-        // return Socialite::driver($request->query('type'))->redirect();
+        // dd($request);
+        return Socialite::driver('facebook')->redirect();
     }
     public function handleSocial(){
         try 
@@ -28,11 +28,13 @@ class SocialController extends Controller
             $user = Socialite::driver('facebook')->user();
      
             $saveUser = User::updateOrCreate([
-                'facebook_id' => $user->getId(),
+                'id' => $user->id,
             ],[
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
-                'password' => Hash::make($user->getName().'@'.$user->getId())
+                // 'username' => $user->name,
+                'email' => $user->email,
+                'avatar'=> $user->avatar,
+                'is_social'=>FACEBOOK,
+                'password' => Hash::make($user->name.'___'.$user->id)
                  ]);
      
             Auth::loginUsingId($saveUser->id);
@@ -42,6 +44,10 @@ class SocialController extends Controller
                
         }
 
+    }
+
+    public function delete(Request $request){
+        return "OK";
     }
     
 }

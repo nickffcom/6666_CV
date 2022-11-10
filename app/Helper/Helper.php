@@ -11,6 +11,9 @@ const LOGO_TEXT ="Ads69.Net";
 const TRU_TIEN = 'minus';
 const CONG_TIEN = 'plus';
 const API_MUAFB = "muafb.net";
+const FACEBOOK = 1;
+const GOOGLE = 2;
+
 const FORMAT_DATA=[
     'VIA'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
     'CLONE'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
