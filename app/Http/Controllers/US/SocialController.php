@@ -18,33 +18,39 @@ class SocialController extends Controller
     {
         // $this->dataRepo = $dataRepo;
     }
-    public function rediRectSocial(Request $request){
+    public function rediRectSocial($type){
         // dd($request);
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver($type)->redirect();
     }
-    public function handleSocial(){
+    public function handleSocial($type){
         try 
         {
-            $user = Socialite::driver('facebook')->user();
-            
+            $user = Socialite::driver($type)->user();
+            // 3362005910793713
             $numberRd = mt_rand(10000,99000);
-            $saveUser = User::updateOrCreate([
-                'facebook_id' => $user->id,
-            ],[
-                'id'=>$user->id,
-                'username' => $user->name.$user->id,
-                'email' => $user->email,
-                'avatar'=> $user->avatar,
-                'is_social'=>$user->id,
-                'facebook_id'=>(string)$user->id,
-                'password' => Hash::make($user->name.'___'.$user->id)
-                 ]);
-     
-            Auth::loginUsingId($saveUser->id);
-     
-            return redirect()->route('home');
+            $idUser = $user->getId();
+            $email = $user->getEmail();
+            $nickName = $user->getName();
+            $avatar = $user->getAvatar();
+            $typeSocial = ($type === 'facebook') ? FACEBOOK : GOOGLE;
+            $createUser = User::updateOrCreate(
+                    [
+                      'social_id' => $idUser,
+                    ],
+                    [
+                    'username' => $nickName." ".strtoupper($type)." ".$numberRd,
+                    'email' => $email,
+                    'social_id' => $idUser,
+                    'type_social'=>$typeSocial,
+                    'avatar'=>$avatar,
+                    'password' => Hash::make($email."999")
+                    ]
+            );
+                Auth::login($createUser);
+                return redirect('/');
+            
         } catch (Exception $e) {
-            return "Lỗi".$e;
+            return "Lỗi";
         }
 
     }

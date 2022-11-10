@@ -36,7 +36,7 @@ class RegisterController extends Controller
             $temp = User::create(
                [ 
                 'username'=>$request->username,
-                'is_admin'=>100,
+                'is_admin'=>1,
                 'password'=>Hash::make($request->password)
                ]
             );

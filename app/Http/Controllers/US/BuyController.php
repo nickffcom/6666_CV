@@ -66,10 +66,10 @@ class BuyController extends Controller
                 }
                 $getDataFromApi = json_decode($getDataFromApi);
                 if(!$getDataFromApi->status == "success"){
-                    Log::error($me->username."Gọi API trả về  thất bại hay sao ấy",$getDataFromApi);
+                    Log::error($me->username."Gọi API trả về  thất bại hay sao ấy",Conver_Object_to_Array($getDataFromApi));
                     return response()->json(["status"=>false,"message"=>"Lỗi server =>> Báo Admin liền giúp mình 0397619750"]);
                 }else if(!isset($getDataFromApi->data->trans_id)){
-                    Log::error($me->username."Gọi API mua thành công nhưng lại bị thất bại =>> Ko có mã giao dịch",$getDataFromApi);
+                    Log::error($me->username."Gọi API mua thành công nhưng lại bị thất bại =>> Ko có mã giao dịch",Conver_Object_to_Array($getDataFromApi));
                     return response()->json(["status"=>false,"message"=>"Lỗi server =>> Báo Admin liền giúp mình 0397619750"]);
                 }
                 Log::log(1,"Đã gọi API thành công 1 lần".json_encode($getDataFromApi));

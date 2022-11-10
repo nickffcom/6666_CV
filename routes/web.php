@@ -49,9 +49,8 @@ Route::middleware('auth')->group(function(){
 
 });
 Route::get('/auth/delete',[SocialController::class,"delete"]);
-Route::get('/auth/google/callback',[SocialController::class,"handleSocial"]);
-Route::get('/auth/redirect',[SocialController::class,"rediRectSocial"])->name('fb');
-Route::get('/auth/facebook/callback',[SocialController::class,"handleSocial"]);
+Route::get('/auth/{type}/callback',[SocialController::class,"handleSocial"])->where('type',['facebook', 'google']);
+Route::get('/auth/redirect/{type}',[SocialController::class,"rediRectSocial"])->name('fb');
 
 
 

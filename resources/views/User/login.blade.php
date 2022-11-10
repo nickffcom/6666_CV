@@ -37,11 +37,11 @@
                             </form>
                             <h3 class="bg-success mt-5" style="text-align: center">Đăng nhập với Facebook - Google </h3 >
                                 <div id="social" class="col">
-                                    <a href="{{ url('auth/redirect') }}" class="fb btn">
+                                    <a href="/auth/redirect/facebook" class="fb btn">
                                       <i class="icon-social-facebook"></i>
                                     <span>Login với Facebook</span>
                                      </a>
-                                    <a href="/auth/redirect?type=google" class="google btn"><i class="icon-social-google">
+                                    <a href="/auth/redirect/google" class="google btn"><i class="icon-social-google">
                                         <span></i> Login với Google+</span>
                                     </a>
                                   </div>

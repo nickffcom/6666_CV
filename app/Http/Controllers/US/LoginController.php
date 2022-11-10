@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function login(Request $request){
 
         $credentials = $request->only('username','password');
-        $credentials['is_social'] = null;
+        $credentials['type_social'] = null;
         $REMEMBER_ME = true;
         if(Auth::attempt($credentials,$REMEMBER_ME)){
             return response()->json(["status"=>true,"message"=>"Đăng nhập thành côngg"]);

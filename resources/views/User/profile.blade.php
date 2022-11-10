@@ -7,7 +7,15 @@
                 <h3 class="block-title">Cài đặt</h3>
             </div>
             <div class="block-content">
-                <h2 class="content-heading">Thông tin tài khoản</h2>
+                <div class="row">
+                    <div class="col-6">
+                        <h2 class="content-heading">Thông tin tài khoản</h2>
+                    </div>
+                    <div class="col-6">
+                        <img src="{{ $me->avatar }}" style="height:55px;width:55px;border-radius:50%;display:flex;justify-content:center;align-items: center;" alt="">
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="offset-2 col-lg-8">
                         <div class="form-group row">

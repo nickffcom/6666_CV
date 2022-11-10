@@ -37,7 +37,19 @@ function DB_BM($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
     return $BM = ['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email];
 }
+function Conver_Object_to_Array($data) {
 
+    if (is_object($data)) {
+        $data = get_object_vars($data);
+    }
+
+    if (is_array($data)) {
+        return array_map(__FUNCTION__, $data);
+    }
+    else {
+        return $data;
+    }
+}
 
 function cURL ($url, $data = NULL, $cookie = NULL, $headers = NULL, $proxy = NULL) {
     $ch = curl_init();

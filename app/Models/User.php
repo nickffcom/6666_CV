@@ -21,6 +21,9 @@ class User extends Authenticatable
     public $fillable = [
         'username',
         'email',
+        'facebook_id',
+        'avatar',
+        'is_social',
         'password',
     ];
     public $timestamps = true;
