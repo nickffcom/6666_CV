@@ -8,7 +8,7 @@
                     <div class="block block-transparent block-rounded w-100 mb-0 overflow-hidden">
                         <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-white">
                             <div class="mb-2 text-center">
-                                <span style="font-size: 30px;font-weight: bold;letter-spacing: 1px;color:black;"><?= $logo_text; ?></span>
+                                <span style="font-size: 30px;font-weight: bold;letter-spacing: 1px;color:black;">{{ LOGO_TEXT}}</span>
                                 <p class="text-uppercase font-w700 font-size-sm text-muted">Tạo Tài Khoản</p>
                             </div>
                             <form class="js-validation-signin" id="form_register" name="" method="POST">

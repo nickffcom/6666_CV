@@ -29,6 +29,7 @@ class HomeController extends Controller
     public function home()
     {
         $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
+        // dd($ListServiceAds69);
         $ListNotify = $this->notify->select('content')->get();
         $HistoryPayment = $this->historyRepo->getHistory(NAP_TIEN);   // lịch sử nạp tiền
         $HistoryTransaction = $this->historyRepo->getHistory(GIAO_DICH);  // lịch sử giao dịch
@@ -40,7 +41,10 @@ class HomeController extends Controller
            $listServiceFromMuaFbNet=json_decode($listServiceFromMuaFbNet);
            foreach($listServiceFromMuaFbNet as $key=>$value){
                 foreach($value as $valueTiep){
-                    array_push($ListServiceAds69[$key],$valueTiep);
+                    if(isset($valueTiep)){
+                        array_push($ListServiceAds69[$key],$valueTiep);
+                    }
+                  
                 }
            }
 

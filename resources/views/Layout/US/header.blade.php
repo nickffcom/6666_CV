@@ -10,7 +10,7 @@
                    
                     <button type="button" class="btn btn-hero-success d-none d-md-inline-block">Số dư: {{ number_format(Auth::user()->money) }} đ</button> <a href="/nap-tien" class="btn btn-hero-info">Nạp Tiền</a>
                     <button type="button" class="btn btn-dual" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-fw fa-user d-sm-none"></i>
-                        <span class="d-none d-sm-inline-block">{{ Auth::user()->username or Auth::user()->email }}</span>
+                        <span class="d-none d-sm-inline-block">{{ isset(Auth::user()->username) ? Auth::user()->username :  Auth::user()->email }}</span>
                         <i class="fa fa-fw fa-angle-down ml-1 d-none d-sm-inline-block"></i>
                     </button>
                   

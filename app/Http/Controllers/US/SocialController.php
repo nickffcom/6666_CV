@@ -26,14 +26,17 @@ class SocialController extends Controller
         try 
         {
             $user = Socialite::driver('facebook')->user();
-     
+            
+            $numberRd = mt_rand(10000,99000);
             $saveUser = User::updateOrCreate([
-                'id' => $user->id,
+                'facebook_id' => $user->id,
             ],[
-                // 'username' => $user->name,
+                'id'=>$user->id,
+                'username' => $user->name.$user->id,
                 'email' => $user->email,
                 'avatar'=> $user->avatar,
-                'is_social'=>FACEBOOK,
+                'is_social'=>$user->id,
+                'facebook_id'=>(string)$user->id,
                 'password' => Hash::make($user->name.'___'.$user->id)
                  ]);
      
@@ -41,7 +44,7 @@ class SocialController extends Controller
      
             return redirect()->route('home');
         } catch (Exception $e) {
-               
+            return "Lỗi".$e;
         }
 
     }

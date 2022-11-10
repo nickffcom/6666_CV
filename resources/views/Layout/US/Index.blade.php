@@ -7,7 +7,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="Hệ thống bán BM, Via & Clone VN uy tính">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Ads69.net - Hệ thống bán BM, Via & Clone VN uy tín - giá rẻ">
+    <meta property="og:title" content="{{LOGO_TEXT}} - Hệ thống bán BM, Via & Clone VN uy tín - giá rẻ">
     <meta property="og:description" content="Hệ thống bán BM, Via & Clone VN uy tính">
     {{-- logo web --}}
     <meta property="og:image" content="{{ asset('/images/banner.png') }}">

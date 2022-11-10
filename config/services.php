@@ -33,7 +33,7 @@ return [
     'facebook' => [
       'client_id' => env('FACEBOOK_CLIENT_ID'),
       'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-      'redirect' => 'https://ebb0-2405-4802-9077-2b40-c1ba-e074-4772-3ccf.ap.ngrok.io/auth/facebook/callback/',
+      'redirect' => 'https://4814-2001-ee0-5009-1cb0-5cd2-85e5-ad2d-cfb9.ap.ngrok.io/auth/facebook/callback/',
     ],
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
