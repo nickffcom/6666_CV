@@ -14,19 +14,21 @@ class CloneController extends Controller
  
     protected $serviceRepo;
     protected $dataRepo;
+    protected $type;
     public function __construct(ServiceRepo $serviceRepo, DataRepo $dataRepo)
     {
         $this->serviceRepo = $serviceRepo;
         $this->dataRepo = $dataRepo;
+        $this->type = "CLONE";
     }
     public function index()
     {
-        $type='CLONE';
-        $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$type);
+        
+        $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$this->type);
         // dd($listData);
         return view('Admin.Service.manage',[
             'listData'=>$listData,
-            'type'=>$type
+            'type'=> $this->type
         ]);
     }
 
@@ -34,10 +36,9 @@ class CloneController extends Controller
     public function create() // view thêm clone
     {
         $services = $this->serviceRepo->getServiceWeb();
-        $type="clone";
         return view('Admin.Service.add',[
             'services'=>$services,
-            'type'=>$type
+            'type'=>$this->type
         ]);
     }
 

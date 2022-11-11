@@ -13,19 +13,19 @@ class BMController extends Controller
 {
     protected $serviceRepo;
     protected $dataRepo;
+    protected $type;
    public function __construct(ServiceRepo $serviceRepo,DataRepo $dataRepo)
    {
         $this->serviceRepo = $serviceRepo;
         $this->dataRepo = $dataRepo;
+        $this->type = "BM";
    }
     public function index()
     {
-        $type='BM';
-        $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$type);
- 
+        $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$this->type);
         return view('Admin.Service.manage',[
             'listData'=>$listData,
-            'type'=>$type
+            'type'=>$this->type
         ]);
     }
 
@@ -33,10 +33,9 @@ class BMController extends Controller
     public function create()
     {
         $services = $this->serviceRepo->getServiceWeb();
-        $type="BM";
         return view('Admin.Service.add',[
             'services'=>$services,
-            'type'=>$type
+            'type'=>$this->type
         ]);
     }
     

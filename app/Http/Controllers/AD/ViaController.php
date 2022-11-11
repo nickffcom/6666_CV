@@ -14,19 +14,20 @@ class ViaController extends Controller
   
     protected $serviceRepo;
     protected $dataRepo;
+    protected $type;
     public function __construct(ServiceRepo $serviceRepo,DataRepo $dataRepo)
     {
         $this->serviceRepo = $serviceRepo;
         $this->dataRepo = $dataRepo;
+        $this->type = "VIA";
     }
     public function index(Request $request)   // quản lí via
     {
         $stt = $request->query('status',CON_HANG);
-        $listData = $this->dataRepo->getDataWithStatus($stt,'via');
-        $type='VIA';
+        $listData = $this->dataRepo->getDataWithStatus($stt, $this->type);
         return view('Admin.Service.manage',[
             'listData'=>$listData,
-            'type'=>$type
+            'type'=>$this->type
         ]);
         // dd($listData);
        
@@ -37,10 +38,9 @@ class ViaController extends Controller
     {
   
         $services = $this->serviceRepo->getServiceWeb();
-        $type="via";
         return view('Admin.Service.add',[
             'services'=>$services,
-            'type'=>$type
+            'type'=>$this->type
         ]);
     }
 
