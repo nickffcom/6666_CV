@@ -172,6 +172,8 @@
 @endsection
 
 @section('script')
+
+
     <script>
         $('input.service-checked').bind('click', function() {
             $that = $(this);

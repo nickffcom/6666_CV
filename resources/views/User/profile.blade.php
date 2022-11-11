@@ -12,7 +12,7 @@
                         <h2 class="content-heading">Thông tin tài khoản</h2>
                     </div>
                     <div class="col-6">
-                        <img src="{{ $me->avatar }}" style="height:55px;width:55px;border-radius:50%;display:flex;justify-content:center;align-items: center;" alt="">
+                        <img src="{{ $me->avatar ? $me->avatar : '/images/zalo-icon.png' }}" style="height:55px;width:55px;border-radius:50%;display:flex;justify-content:center;align-items: center;" alt="">
                     </div>
                 </div>
                 
@@ -40,7 +40,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Mật khẩu hiện tại</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required="">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu hiện tại" required="">
                                 </div>
                             </div>
                             <div class="form-group row">
