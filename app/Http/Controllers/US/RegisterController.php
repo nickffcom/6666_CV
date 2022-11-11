@@ -20,8 +20,8 @@ class RegisterController extends Controller
             "max"=>" :attribute tối đa :max kí tự thôi",
         ];
         $validation = Validator::make($request->all(),[
-            'username'=>'required|string|max:50|min:6',
-            'password'=>'required|confirmed|string|max:50|min:6',
+            'username'=>'required|string|max:50|min:6|alpha_dash|without_spaces|unique:username',
+            'password'=>'required|confirmed|string|max:50|min:6|alpha_dash|without_spaces',
         ],$customMessage);
         if($validation->fails()){
             $msg ="";

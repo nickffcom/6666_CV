@@ -13,13 +13,8 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
-    protected $dataRepo;
-    public function __construct()
-    {
-        // $this->dataRepo = $dataRepo;
-    }
+
     public function rediRectSocial($type){
-        // dd($request);
         return Socialite::driver($type)->redirect();
     }
     public function handleSocial($type){
@@ -32,10 +27,11 @@ class SocialController extends Controller
             $email = $user->getEmail();
             $nickName = $user->getName();
             $avatar = $user->getAvatar();
-            $typeSocial = ($type === 'facebook') ? FACEBOOK : GOOGLE;
+            $typeSocial = ($type == 'facebook') ? FACEBOOK : GOOGLE;
             $createUser = User::updateOrCreate(
                     [
                       'social_id' => $idUser,
+                      'type_social'=>$typeSocial
                     ],
                     [
                     'username' => $nickName." ".strtoupper($type)." ".$numberRd,

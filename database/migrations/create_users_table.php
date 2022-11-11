@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->unique()->default(null);
+            $table->string('username')->unique();
             $table->string('email')->nullable();
             $table->integer('is_admin')->default(1); // 1 là user thườngs
             $table->integer('money')->default(0); // k có tiền

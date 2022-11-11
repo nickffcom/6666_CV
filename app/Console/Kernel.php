@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Cache;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +16,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->command('run:momo')->cron('2 * * * *');  // cron job momo 2 phút lần
+        $schedule->command('run:momo')->withoutOverlapping()->everyTwoMinutes()->when(function(){
+            $listServices = Cache::get('muafb.net');
+            if(isset($listServices)){
+                return true;
+            }
+        })->runInBackground();  // cron job momo 2 phút lần   ->sendOutputTo($filePath);
+
+        
+
     }
 
     /**
