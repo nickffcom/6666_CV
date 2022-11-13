@@ -28,6 +28,7 @@ class HomeController extends Controller
     }
     public function home()
     {
+
         $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
         // dd($ListServiceAds69);
         $ListNotify = $this->notify->select('content')->get();
@@ -39,6 +40,7 @@ class HomeController extends Controller
 
         if(isset($listServiceFromMuaFbNet)){
            $listServiceFromMuaFbNet=json_decode($listServiceFromMuaFbNet);
+        //    dd($listServiceFromMuaFbNet);
            foreach($listServiceFromMuaFbNet as $key=>$value){
                 foreach($value as $valueTiep){
                     if(isset($valueTiep)){
@@ -120,10 +122,11 @@ class HomeController extends Controller
         ]);
      }
     public function LichSuThanhToan(){
-        $list = $this->historyRepo->getHistory('service',20);
+        $list = $this->historyRepo->getHistory(GIAO_DICH,20);
+        $count = count($list);
         return view('User.history_buy',[
             'lists'=>$list,
-            'count'=>count($list)
+            'counts'=>$count
         ]);
     }
 }

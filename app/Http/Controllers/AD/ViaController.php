@@ -46,7 +46,7 @@ class ViaController extends Controller
 
   
 
-    public function store(Request $request)
+    public function store(Request $request) // thêm via
     {
         // dd($request);
         $dataInput = $request->input('data',null);
@@ -98,7 +98,7 @@ class ViaController extends Controller
     }
 
     
-    public function show($id)
+    public function show($id)  // detail via
     {
         $result = $this->dataRepo->find($id);
         return response()->json($result);
@@ -112,7 +112,7 @@ class ViaController extends Controller
     }
 
     
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)  // update via
     {
         $uid = $request->input('uid');
         $pass= $request->input('pass');
@@ -128,7 +128,7 @@ class ViaController extends Controller
     }
 
   
-    public function destroy($id)
+    public function destroy($id) 
     {
         $rs = $this->dataRepo->delete($id);
         return response()->json(["status"=>true,"message"=>"Xóa thành công".$rs]);

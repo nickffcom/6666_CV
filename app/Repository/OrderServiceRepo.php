@@ -25,16 +25,26 @@ class OrderServiceRepo extends BaseRepo{
     public function getHistoryOrder($type){  // xem order bn lần và giá cả sao
         $me= Auth::user();
         DB::statement("SET SQL_MODE=''");
+        // $haha = DB::table('order_service')
+        //             ->join('data','data.id','=','order_service.ref_id')
+        //             ->join('service','service.id','=','data.service_id')
+        //             ->select('order_service.*','service.name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
+        //             ->where('service.type',$type)
+        //             ->whereRaw('order_service.user_id = ?',[$me->id])
+        //             ->groupByRaw('order_service.code')
+        //             ->orderByRaw('order_service.id DESC')
+        //             ->get()
+        //     ;
         $haha = DB::table('order_service')
                     ->join('data','data.id','=','order_service.ref_id')
-                    ->join('service','service.id','=','data.service_id')
-                    ->select('order_service.*','service.name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
-                    ->where('service.type',$type)
+                    // ->join('service','service.id','=','data.service_id')
+                    ->select('order_service.*',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
                     ->whereRaw('order_service.user_id = ?',[$me->id])
                     ->groupByRaw('order_service.code')
                     ->orderByRaw('order_service.id DESC')
                     ->get()
             ;
+        dd($haha);   
         return $haha;
     }
     

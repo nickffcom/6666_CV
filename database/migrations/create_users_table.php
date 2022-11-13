@@ -17,7 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('email')->nullable();
-            $table->integer('is_admin')->default(1); // 1 là user thườngs
+            $table->integer('is_admin')->default(ROLE_MEMBER); // 1 là user thườngs
+            $table->integer('role')->unsigned()->default(ROLE_MEMBER);
             $table->integer('money')->default(0); // k có tiền
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

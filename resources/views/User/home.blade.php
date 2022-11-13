@@ -16,7 +16,7 @@
                 <div class="block-content">
                     @foreach ($notify as $noty)
                         <div class="font-w600 animated fadeIn bg-body-light border-3x px-3 py-2 mb-2 shadow-sm mw-100 border-left border-success rounded-right">
-                            {{ text_style($noty) }}
+                            {{ text_style($noty->content) }}
                         </div>
                     @endforeach
 
@@ -220,13 +220,13 @@
     </script>
     <script type="text/javascript">
         swal({
-            title: "Ae yên tâm mua nhé...",
+            title: "Website mới làm lại từ đầu",
             html: true,
-            text: " Bảo hành 1-1  sai pass, login đầu , hàng chưa đụng gì đến Ads và ko bảo hành hạn chế ,,,khách hàng nạp trên 100k sẽ được Admin backup free (số lượng <10)<br>",
+            text: "Ae nếu gặp lỗi gì thì báo mình nhé ! Website đang được viết lại và hứa hẹn sẽ có các chức năng xịn xò nhất !!!<br>",
             showConfirmButton: true
 
         }, function() {
-
+            
 
         });
     </script>

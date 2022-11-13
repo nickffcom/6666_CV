@@ -23,7 +23,8 @@ class User extends Authenticatable
         'email',
         'facebook_id',
         'avatar',
-        'is_social',
+        'social_id',
+        'type_social',
         'password',
     ];
     public $timestamps = true;

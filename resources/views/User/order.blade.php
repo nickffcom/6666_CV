@@ -93,6 +93,7 @@
             <div class="block block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
                     <h3 class="block-title">Chi tiết đơn hàng</h3>
+                    <h5 class="block-title">Đôi khi định dạng trả về sai ! Ae chú ý nhé</h5>
                     <div class="block-options"></div>
                 </div>
                 <div class="block-content">

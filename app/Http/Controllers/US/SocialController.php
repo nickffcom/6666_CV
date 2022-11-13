@@ -33,8 +33,9 @@ class SocialController extends Controller
                       'social_id' => $idUser,
                       'type_social'=>$typeSocial
                     ],
+                    // $nickName." ".strtoupper($type)." ".$numberRd
                     [
-                    'username' => $nickName." ".strtoupper($type)." ".$numberRd,
+                    'username' => $email,
                     'email' => $email,
                     'social_id' => $idUser,
                     'type_social'=>$typeSocial,
@@ -42,11 +43,11 @@ class SocialController extends Controller
                     'password' => Hash::make($email."999")
                     ]
             );
-                Auth::login($createUser);
+                Auth::login($createUser,true);
                 return redirect('/');
             
         } catch (Exception $e) {
-            return "Lỗi";
+            return "Lỗi".$e;
         }
 
     }

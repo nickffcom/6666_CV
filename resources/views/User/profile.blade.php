@@ -15,7 +15,14 @@
                         <img src="{{ $me->avatar ? $me->avatar : '/images/zalo-icon.png' }}" style="height:55px;width:55px;border-radius:50%;display:flex;justify-content:center;align-items: center;" alt="">
                     </div>
                 </div>
-                
+                <div class="row">
+                    <div class="col-6">
+                    <h2 class="content-heading">Loại tài Khoản:</h2>
+                    </div>
+                    <div class="col-6">
+                        <h2 class="content-heading">{{ $me->type_social == null  ? 'Tài Khoản Thường': (($me->type_social == 1) ? 'Login with Facebook 🎁🎁🎁' : 'Login with Google 🍓🍓🍓' ) }}</h2>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="offset-2 col-lg-8">
                         <div class="form-group row">

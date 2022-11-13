@@ -33,13 +33,15 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-                Route::group([
+            Route::group([
                     'middleware' => 'web',
                     'namespace' => $this->namespace,
                   ], function ($router) {
                       require base_path('routes/admin.php');
                       require base_path('routes/web.php');
                   });
+            // Route::middleware('validateAdmin')
+            //       ->group(base_path('routes/admin.php'));
         });
     }
 
