@@ -1,3 +1,6 @@
+@php
+     $is_admin = (Auth::user()->is_admin === IS_ADMIN || Auth::user()->role ===  ROLE_ADMIN ) ? true : false
+@endphp
 <nav id="sidebar" aria-label="Main Navigation">
     <div class="bg-header-dark">
         <div class="content-header bg-white-10">
@@ -16,71 +19,74 @@
     <div class="content-side content-side-full">
         <ul class="nav-main">
             {{-- <?php if ($is_admin) { ?> --}}
-            <li class="nav-main-heading">QUẢN LÝ ADMIN</li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/settings"><i class="nav-main-link-icon fa fa-cog"></i>
-                    <span class="nav-main-link-name">Cài đặt chung</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/users"><i class="nav-main-link-icon far fa-user"></i>
-                    <span class="nav-main-link-name">Thành viên</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/trans"><i class="nav-main-link-icon fa fa-dollar-sign"></i>
-                    <span class="nav-main-link-name">Cộng/Trừ tiền</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/notify"><i class="nav-main-link-icon fa fa-bell"></i>
-                    <span class="nav-main-link-name">Thông báo</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/thong-ke"><i class="nav-main-link-icon fa fa-money-bill-alt"></i>
-                    <span class="nav-main-link-name">Thống kê doanh thu</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/admin/lich_su_hoat_dong"><i
-                        class="nav-main-link-icon fa fa-history"></i>
-                    <span class="nav-main-link-name">Lịch sử hoạt động</span>
-                </a>
-            </li>
-
-            @foreach (SERVICE as $item)
+            @if($is_admin)
+        
+                <li class="nav-main-heading">QUẢN LÝ ADMIN</li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link nav-main-link-submenu active" data-toggle="submenu" aria-haspopup="true"
-                        aria-expanded="false" href="#">
-                        <i class="nav-main-link-icon fa fa-plus-circle"></i>
-                        <span class="nav-main-link-name">Quản lý {{ mb_strtoupper($item) }}</span>
+                    <a class="nav-main-link" href="/admin/settings"><i class="nav-main-link-icon fa fa-cog"></i>
+                        <span class="nav-main-link-name">Cài đặt chung</span>
                     </a>
-                    <ul class="nav-main-submenu">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/{{ $item }}/create">
-                                <i class="nav-main-link-icon fa fa-plus-circle"></i>
-                                <span class="nav-main-link-name">Thêm</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/{{ $item }}?status={{ HET_HANG }}">
-                                <i class="nav-main-link-icon fa fa-list"></i>
-                                <span class="nav-main-link-name">Quản lý</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/admin/type/{{ $item }}">
-                                <i class="nav-main-link-icon fa fa-book"></i>
-                                <span class="nav-main-link-name">Phân loại</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-            @endforeach
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/admin/users"><i class="nav-main-link-icon far fa-user"></i>
+                        <span class="nav-main-link-name">Thành viên</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/admin/trans"><i class="nav-main-link-icon fa fa-dollar-sign"></i>
+                        <span class="nav-main-link-name">Cộng/Trừ tiền</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/admin/notify"><i class="nav-main-link-icon fa fa-bell"></i>
+                        <span class="nav-main-link-name">Thông báo</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/admin/thong-ke"><i class="nav-main-link-icon fa fa-money-bill-alt"></i>
+                        <span class="nav-main-link-name">Thống kê doanh thu</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/admin/lich_su_hoat_dong"><i
+                            class="nav-main-link-icon fa fa-history"></i>
+                        <span class="nav-main-link-name">Lịch sử hoạt động</span>
+                    </a>
+                </li>
 
+           
+                @foreach (SERVICE as $item)
+                    <li class="nav-main-item">
+                        <a class="nav-main-link nav-main-link-submenu active" data-toggle="submenu" aria-haspopup="true"
+                            aria-expanded="false" href="#">
+                            <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                            <span class="nav-main-link-name">Quản lý {{ mb_strtoupper($item) }}</span>
+                        </a>
+                        <ul class="nav-main-submenu">
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="/admin/{{ $item }}/create">
+                                    <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                                    <span class="nav-main-link-name">Thêm</span>
+                                </a>
+                            </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="/admin/{{ $item }}?status={{ HET_HANG }}">
+                                    <i class="nav-main-link-icon fa fa-list"></i>
+                                    <span class="nav-main-link-name">Quản lý</span>
+                                </a>
+                            </li>
 
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="/admin/type/{{ $item }}">
+                                    <i class="nav-main-link-icon fa fa-book"></i>
+                                    <span class="nav-main-link-name">Phân loại</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endforeach
+
+             @endif
             <li class="nav-main-heading">BUSINESS MANAGER</li>
             <li class="nav-main-item">
                 <a class="nav-main-link" href="/#mua-bm"><i class="nav-main-link-icon far fa-eye"></i>

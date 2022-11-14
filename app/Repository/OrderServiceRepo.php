@@ -44,7 +44,7 @@ class OrderServiceRepo extends BaseRepo{
                     ->orderByRaw('order_service.id DESC')
                     ->get()
             ;
-        dd($haha);   
+        // dd($haha);   
         return $haha;
     }
     

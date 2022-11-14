@@ -28,7 +28,7 @@ class HomeController extends Controller
     }
     public function home()
     {
-
+        
         $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
         // dd($ListServiceAds69);
         $ListNotify = $this->notify->select('content')->get();
@@ -40,7 +40,6 @@ class HomeController extends Controller
 
         if(isset($listServiceFromMuaFbNet)){
            $listServiceFromMuaFbNet=json_decode($listServiceFromMuaFbNet);
-        //    dd($listServiceFromMuaFbNet);
            foreach($listServiceFromMuaFbNet as $key=>$value){
                 foreach($value as $valueTiep){
                     if(isset($valueTiep)){
@@ -87,7 +86,7 @@ class HomeController extends Controller
                 }
 
             }else{
-                Log::error("Get API MuaFb.Net éo được ck ơi",now());
+                Log::error("Get API MuaFb.Net éo được ck ơi".now()->toString());
             }
         }
 
@@ -98,7 +97,8 @@ class HomeController extends Controller
             'notify' => $ListNotify,
             'payments' => $HistoryPayment,
             'transactions' => $HistoryTransaction,
-            'me'=>$me
+            'me'=>$me,
+           
         ]);
     }
 

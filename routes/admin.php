@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 //  View For admin *****************************
 
-Route::group(['prefix'=>'admin','middleware'=>'validateAdmin'], function () {
+Route::group(['prefix'=>'admin','middleware'=>'auth.Admin'], function () {
     Route::resources([
         'VIA' => ViaController::class,
         'BM' => BMController::class,

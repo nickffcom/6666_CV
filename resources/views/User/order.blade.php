@@ -66,7 +66,7 @@
                             @foreach($list as $key=> $x)
                             <tr>
                                 <td style="width: 90px;">{{   $key }}</td>
-                                <td>{{ $x->name }}</td>
+                                <td>{{ isset($x->name) ?  $x->name : "HAHHA" }}</td>
                                 <td>{{ number_format($x->total_buy) }}</td>
                                 <td>{{ number_format($x->total_price) }}</td>
                                 <td class="d-sm-table-cell" style="width: 200px;">{{   date('H:i:s - d/m/Y',strtotime($x->created_at)) }}</td>

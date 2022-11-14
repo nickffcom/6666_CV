@@ -43,13 +43,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/change_password',[LoginController::class,'UpdateInfoUser']);
     Route::get('/dang-xuat',[LoginController::class,'logout']);
 
-
-    
-
-
 });
 Route::get('/auth/delete',[SocialController::class,"delete"]);
-Route::get('/auth/{type}/callback',[SocialController::class,"handleSocial"])->where('type',['facebook', 'google']);
+Route::get('/auth/{type}/callback',[SocialController::class,"handleSocial"]); //->where('type',['facebook', 'google']);
 Route::get('/auth/redirect/{type}',[SocialController::class,"rediRectSocial"])->name('fb');
 
 

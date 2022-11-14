@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleWare extends Middleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
