@@ -58,7 +58,7 @@
                 $('div.count .' + k).text(v);
             });
             if (a.message) {
-                showNotify((a.status === true ? 'success' : 'error'),"Thêm thành công");
+                showNotify(a.status === true ? 'success' : 'error',"Thêm thành công");
               
             }
             console.log(a.message);

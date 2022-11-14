@@ -96,5 +96,21 @@ class DatabaseSeeder extends Seeder
             "attr" => json_encode(DB_VIA("100043625352335","haizzhuocnua","52532KHASFSKKKK@KFSFADS","hahahahhabun@outlook.com","kakashiii","Ok con vk")),
         ]);
 
+        DB::table('data')->insert([
+            'id'=>44,
+            "status" => CON_HANG,
+            "service_id" => "1",
+            'from_api'=>1,
+            "attr" => json_encode(DB_VIA("100087541020292","haizzhuocnua","52532KHASFSKKKK@KFSFADS","hahahahhabun@outlook.com","kakashiii","Ok con vk")),
+        ]);
+        //////
+
+        DB::table('order_service')->insert([
+            "ref_id" => 44,
+            "code"=>"GMED1668410261",
+            "price_buy"=>1900,
+            "user_id"=>1,
+        ]);
+
     }
 }

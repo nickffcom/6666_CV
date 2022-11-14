@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -28,7 +29,7 @@ class HomeController extends Controller
     }
     public function home()
     {
-        
+    
         $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
         // dd($ListServiceAds69);
         $ListNotify = $this->notify->select('content')->get();
@@ -40,12 +41,12 @@ class HomeController extends Controller
 
         if(isset($listServiceFromMuaFbNet)){
            $listServiceFromMuaFbNet=json_decode($listServiceFromMuaFbNet);
+           dd($listServiceFromMuaFbNet);
            foreach($listServiceFromMuaFbNet as $key=>$value){
                 foreach($value as $valueTiep){
                     if(isset($valueTiep)){
                         array_push($ListServiceAds69[$key],$valueTiep);
                     }
-                  
                 }
            }
 

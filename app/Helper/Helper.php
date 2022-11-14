@@ -34,13 +34,13 @@ const SERVICE = [
 ];
 function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
-    return $VIA = ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
+    return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
 
 }
 
 function DB_BM($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
-    return $BM = ['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email];
+    return  ['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email];
 }
 function Conver_Object_to_Array($data) {
 

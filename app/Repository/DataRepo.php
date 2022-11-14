@@ -59,12 +59,18 @@ class DataRepo extends BaseRepo
     $lists = $this->model->selectRaw('order_service.*, data.*')
     ->join('order_service', 'data.id', '=', 'order_service.ref_id')
     ->where('order_service.code', $code)
-    ->where('order_service.user_id', $me->id)
-    ->get();
+    ->where('order_service.user_id', $me->id);
+    // ->get();
+
+    $lists = $lists
+                    // ->join('service', 'service.id', '=', 'data.service_id')
+                  //->selectRaw('service.name, service.type')
+                   ->get();
+    // dd($lists);               
     return $lists;
   }
 
-  public function addServiceData(Request $request)
+  public function addServiceData($request)
   {
   }
 }

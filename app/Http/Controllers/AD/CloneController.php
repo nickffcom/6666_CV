@@ -64,7 +64,7 @@ class CloneController extends Controller
         try{
             foreach($data as $item){
                 list($uid, $password,$twofa,$email, $password_email,$note) = explode('|', $item);
-
+ 
                 if(strlen($uid)< 0){
                     $error++;
                     array_push($dataErr,$uid);
