@@ -25,7 +25,7 @@ class OrderController extends Controller
         $id =$request->query('id',null);
         $lists_order = $this->orderRepo->getOrder($type);
         $getHistoryOrder = $this->orderRepo->getHistoryOrder($type);
-        // dd($getHistoryOrder);
+        // dd($lists_order);
         return view('User.Order',[
             'lists_order'=>$lists_order,
             'type'=>$type,

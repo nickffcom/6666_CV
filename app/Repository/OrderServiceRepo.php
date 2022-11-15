@@ -25,51 +25,55 @@ class OrderServiceRepo extends BaseRepo{
     public function getHistoryOrder($type){  // xem order bn lần và giá cả sao
         $me= Auth::user();
         DB::statement("SET SQL_MODE=''");
-        // $haha = DB::table('order_service')
-        //             ->join('data','data.id','=','order_service.ref_id')
-        //             ->join('service','service.id','=','data.service_id')
-        //             ->select('order_service.*','service.name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
-        //             ->where('service.type',$type)
-        //             ->whereRaw('order_service.user_id = ?',[$me->id])
-        //             ->groupByRaw('order_service.code')
-        //             ->orderByRaw('order_service.id DESC')
-        //             ->get()
-        //     ;
-        // dd($type);
-        $haha = DB::table('data')
-                    // ->select('data.*','order_service.*',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
-                    ->join('order_service','data.id','=','order_service.ref_id')
-                    // ->join('service','service.id','=','data.service_id')
-                    // ->join('service',function($join) use($type){
-                    //     $join
-                    //         //  ->whereNotNull('data.service_id')  
-                    //          ->where('service.type',mb_strtoupper($type))
-                    //          ->orWhere('data.service_id',null)
-                    //          ->on('service.id','=','data.service_id');
-                    // })
+        $haha = DB::table('order_service')
+                    ->join('data','data.id','=','order_service.ref_id')
+                    ->join('service',function($join){
+                        $join->on('service.id','=','data.service_id')
+                             ->orOn('service.secret_api','=','data.service_id');
+                    })
+                    ->select('order_service.*','service.name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
+                    ->where('service.type',$type)
                     ->whereRaw('order_service.user_id = ?',[$me->id])
                     ->groupByRaw('order_service.code')
                     ->orderByRaw('order_service.id DESC')
-                    ->orwhere(function($query) use($type){
-                        $query->whereNotNull('data.service_id')
-                              ->where('service.type',mb_strtoupper($type))
-                            //   ->from('service')
-                            //   ->join('service','service.id','=','data.service_id')
-                            //   ->join('order_service','data.id','=','order_service.ref_id')
-                        ;
-                    })
-                    // ->orwhere(function($query) use($type){
-
-                    //     $query->whereJsonContains('attr->type',mb_strtolower($type));
-                    // })
-                    // ->orwhere(function($query){
-                    //     $query
-                    //           ->whereColumn('service.id','data.service_id');
-                    // })
-                    
                     ->get()
             ;
-        dd($haha);   
+        // dd($haha);
+        // $haha = DB::table('data')
+        //             // ->select('data.*','order_service.*',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
+        //             ->join('order_service','data.id','=','order_service.ref_id')
+        //             // ->join('service','service.id','=','data.service_id')
+        //             // ->join('service',function($join) use($type){
+        //             //     $join
+        //             //         //  ->whereNotNull('data.service_id')  
+        //             //          ->where('service.type',mb_strtoupper($type))
+        //             //          ->orWhere('data.service_id',null)
+        //             //          ->on('service.id','=','data.service_id');
+        //             // })
+        //             ->whereRaw('order_service.user_id = ?',[$me->id])
+        //             ->groupByRaw('order_service.code')
+        //             ->orderByRaw('order_service.id DESC')
+        //             ->orwhere(function($query) use($type){
+        //                 $query->whereNotNull('data.service_id')
+        //                     //   ->where('service.type',mb_strtoupper($type))
+        //                     //   ->from('service')
+        //                     //   ->join('service','service.id','=','data.service_id')
+        //                     //   ->join('order_service','data.id','=','order_service.ref_id')
+        //                 ;
+        //             })
+        //             // ->orwhere(function($query) use($type){
+
+        //             //     $query->whereJsonContains('attr->type',mb_strtolower($type));
+        //             // })
+        //             // ->orwhere(function($query){
+        //             //     $query
+        //             //           ->whereColumn('service.id','data.service_id');
+        //             // })
+                    
+        //             ->get()
+        //     ;
+                
+        // dd($haha);   
         return $haha;
     }
     

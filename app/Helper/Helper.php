@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Logg;
 use Carbon\Carbon;
 
 const CON_HANG=1;
@@ -19,6 +20,10 @@ const ROlE_CTV = 666;
 const VIA ='VIA';
 const CLONEE = 'CLONE';
 const BM = 'BM';
+const LEVEL_DEFAULT = 0;
+const LEVEL_EXCEPTION = 1;
+const LEVEL_BUG = 2;
+const LEVEL_PRIORITY = 100;
 const FORMAT_DATA=[
     'VIA'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
     'CLONE'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
@@ -32,6 +37,15 @@ const FORMAT_UPDATE=[
 const SERVICE = [
     'BM', 'VIA', 'CLONE'
 ];
+function addLogg($name,$descrip,$level,$varDump=[],$type=''){
+    return Logg::create([
+        'name'=>$name,
+        'description'=>$descrip,
+        'level'=>$level,
+        'var_dump'=>$varDump,
+        'type'=>$type
+    ]);
+}
 function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
     return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];

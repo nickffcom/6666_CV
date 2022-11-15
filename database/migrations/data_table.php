@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('data', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('status')->comment('1: còn , 0 là hết')->default(1);
-            $table->integer("service_id")->unsigned()->nullable();
             $table->json('attr')->nullable();
-            $table->integer('from_api')->unsigned()->nullable();
+            $table->integer("service_id")->unsigned()->nullable();
             $table->foreign('service_id')
                   ->references('id')
                   ->on('service');

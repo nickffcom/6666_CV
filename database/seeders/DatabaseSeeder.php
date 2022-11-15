@@ -100,7 +100,6 @@ class DatabaseSeeder extends Seeder
             'id'=>44,
             "status" => CON_HANG,
             "service_id" => "1",
-            'from_api'=>1,
             "attr" => json_encode(DB_VIA("100087541020292","haizzhuocnua","52532KHASFSKKKK@KFSFADS","hahahahhabun@outlook.com","kakashiii","Ok con vk")),
         ]);
         //////

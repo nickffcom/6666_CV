@@ -22,6 +22,7 @@
                 <div class="row">
                     @foreach($lists_order as $x)
                     <!-- loop -->
+                    @if($x->total_count >=1)
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
                         <div class="custom-control custom-block custom-control-primary">
                             <input type="checkbox" class="custom-control-input service-checked" id="{{ $type }}_id_{{ $x['id'] }}" name="type" value="{{ $x['id'] }}" {{   ( Request::query('a') == $x['id']) ? 'checked' : ''}} >
@@ -41,6 +42,7 @@
                             </span>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                 </div>
                 @endif

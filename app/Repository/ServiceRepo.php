@@ -26,7 +26,9 @@ class ServiceRepo extends BaseRepo
         if (isset($type)) {
             $rs = $this->model->where('type', $type)->orderBy('id', 'ASC')->get();
         } else {
-            $rs = Service::select('service.*', DB::raw('(SELECT COUNT(*) FROM data WHERE data.service_id = service.id AND data.status = 1) AS amount'))->get();
+            $rs = Service::select('service.*', DB::raw('(SELECT COUNT(*) FROM data WHERE data.service_id = service.id AND data.status = 1) AS amount'))
+                         ->whereNull('from_api')
+            ->get();
         }
 
         $lists = array();

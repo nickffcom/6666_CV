@@ -51,7 +51,6 @@ abstract class BaseRepo
         return false;
     }
 
-
     public function delete($id)
     {
         $result = $this->find($id);

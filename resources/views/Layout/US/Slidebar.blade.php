@@ -19,6 +19,7 @@
     <div class="content-side content-side-full">
         <ul class="nav-main">
             {{-- <?php if ($is_admin) { ?> --}}
+
             @if($is_admin)
         
                 <li class="nav-main-heading">QUẢN LÝ ADMIN</li>
@@ -54,7 +55,28 @@
                     </a>
                 </li>
 
-           
+                <li class="nav-main-item">
+                    <a class="nav-main-link nav-main-link-submenu active" data-toggle="submenu" aria-haspopup="true"
+                        aria-expanded="false" href="#">
+                        <svg with="18px" height="18px" style="margin-right:6%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"/></svg>
+                        <span class="nav-main-link-name">Quản Lý Thêm</span>
+                    </a>
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" href="/admin/manage/log">
+                                <i class="nav-main-link-icon fa fa-share-alt"></i>
+                                <span class="nav-main-link-name">Lịch sử Logg</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" href="/admin/manage/muafb">
+                                <i class="nav-main-link-icon fa fa-list"></i>
+                                <span class="nav-main-link-name">API MUAFB.NET</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 @foreach (SERVICE as $item)
                     <li class="nav-main-item">
                         <a class="nav-main-link nav-main-link-submenu active" data-toggle="submenu" aria-haspopup="true"

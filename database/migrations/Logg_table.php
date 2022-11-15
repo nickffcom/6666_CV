@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('service', function (Blueprint $table) {
+        Schema::create('Logg', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->integer('price');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('user');
+            $table->string('name')->nullable();
+            $table->string('description')->nullable();
+            $table->integer('level')->default(LEVEL_DEFAULT);
+            $table->json('var_dump')->nullable();
             $table->string('type');
-            $table->integer('from_api')->unsigned()->nullable();
-            $table->integer('secret_api')->unique()->unsigned()->nullable()->comment("Service id web người ta trả về , lấy cái này làm khóa chính để check");
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("service");
+        Schema::dropIfExists("Logg");
     }
 };

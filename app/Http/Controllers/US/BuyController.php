@@ -111,6 +111,7 @@ class BuyController extends Controller
             $note = isset($arrAccount[3]) ? $arrAccount[3] :'';
             $email = isset($arrAccount[4]) ? $arrAccount[4] :'';
             $password_email = isset($arrAccount[5]) ? $arrAccount[5] :'';
+            // 'from_api'=>API_MUAFB,
             $dataItem = Data::create([
                 'status'=>HET_HANG,
                 'from_api'=>API_MUAFB,

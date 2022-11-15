@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AD\BMController;
 use App\Http\Controllers\AD\CloneController;
+use App\Http\Controllers\AD\LogController;
 use App\Http\Controllers\AD\ManageUserController;
 use App\Http\Controllers\AD\NotifyController;
 use App\Http\Controllers\AD\ServiceController;
@@ -44,7 +45,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth.Admin'], function () {
     Route::post('/notify/delete', [NotifyController::class,"XoaThongBao"]);
     Route::post('/notify/detail', [NotifyController::class,"getDetailNotify"]);
     
-
+    Route::group(['prefix'=>'manage'],function(){
+        Route::get('/log',[LogController::class,'viewIndex']);
+    });
 
 
 });
