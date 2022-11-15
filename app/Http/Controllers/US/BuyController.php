@@ -68,7 +68,7 @@ class BuyController extends Controller
             return ["status"=>false,"message"=>"Vui lòng Load lại trang Home để ấn mua lại"];
         }
         $listServiceFromMuaFbNet = json_decode($listServiceFromMuaFbNet);
-
+        // dd($listServiceFromMuaFbNet->$type);
         $data = null;
         foreach($listServiceFromMuaFbNet->$type as $value){
             if((int)$value->id == $idBuy){
@@ -114,7 +114,7 @@ class BuyController extends Controller
             $dataItem = Data::create([
                 'status'=>HET_HANG,
                 'from_api'=>API_MUAFB,
-                'attr'=>json_encode(DB_VIA($uid,$password,$twofa,$email,$password_email,$note)),
+                'attr'=>json_encode(DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name)),
             ]);
             array_push($arrData,$dataItem);
         }

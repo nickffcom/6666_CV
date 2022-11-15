@@ -35,16 +35,41 @@ class OrderServiceRepo extends BaseRepo{
         //             ->orderByRaw('order_service.id DESC')
         //             ->get()
         //     ;
-        $haha = DB::table('order_service')
-                    ->join('data','data.id','=','order_service.ref_id')
+        // dd($type);
+        $haha = DB::table('data')
+                    // ->select('data.*','order_service.*',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
+                    ->join('order_service','data.id','=','order_service.ref_id')
                     // ->join('service','service.id','=','data.service_id')
-                    ->select('order_service.*',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
+                    // ->join('service',function($join) use($type){
+                    //     $join
+                    //         //  ->whereNotNull('data.service_id')  
+                    //          ->where('service.type',mb_strtoupper($type))
+                    //          ->orWhere('data.service_id',null)
+                    //          ->on('service.id','=','data.service_id');
+                    // })
                     ->whereRaw('order_service.user_id = ?',[$me->id])
                     ->groupByRaw('order_service.code')
                     ->orderByRaw('order_service.id DESC')
+                    ->orwhere(function($query) use($type){
+                        $query->whereNotNull('data.service_id')
+                              ->where('service.type',mb_strtoupper($type))
+                            //   ->from('service')
+                            //   ->join('service','service.id','=','data.service_id')
+                            //   ->join('order_service','data.id','=','order_service.ref_id')
+                        ;
+                    })
+                    // ->orwhere(function($query) use($type){
+
+                    //     $query->whereJsonContains('attr->type',mb_strtolower($type));
+                    // })
+                    // ->orwhere(function($query){
+                    //     $query
+                    //           ->whereColumn('service.id','data.service_id');
+                    // })
+                    
                     ->get()
             ;
-        // dd($haha);   
+        dd($haha);   
         return $haha;
     }
     

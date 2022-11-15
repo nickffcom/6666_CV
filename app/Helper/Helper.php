@@ -37,10 +37,19 @@ function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
     return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
 
 }
+function DB_VIA_API($uid,$pass,$key2fa,$email,$passMail,$note='',$type='',$service=''){
+
+    return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note,'type'=>$type,'service'=>$service];
+
+}
 
 function DB_BM($uid,$pass,$key2fa,$email,$passMail,$note=''){
 
     return  ['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email];
+}
+function DB_BM_API($uid,$pass,$key2fa,$email,$passMail,$note='',$type='',$service=''){
+
+    return  ['idbm'=>$uid,'linkbm1'=>$pass,'linkbm2'=>$key2fa,'note'=>$email,'type'=>$type,'service'=>$service];
 }
 function Conver_Object_to_Array($data) {
 
