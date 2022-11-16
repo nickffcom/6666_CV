@@ -20,7 +20,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('user');
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('level')->default(LEVEL_DEFAULT);
             $table->json('var_dump')->nullable();
             $table->string('type');

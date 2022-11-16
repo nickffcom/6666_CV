@@ -26,8 +26,7 @@ class HomeController extends Controller
     }
     public function home()
     {
-        try{
-
+        try{    
             $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
             // dd($ListServiceAds69);
             $ListNotify = $this->notify->select('content')->get();
@@ -115,7 +114,7 @@ class HomeController extends Controller
                 'me'=>$me,
             ]);
         }catch(Exception $e){
-            addLogg('HomeController',$e,LEVEL_EXCEPTION);
+            addLogg('HomeController',Conver_ToString($e),LEVEL_EXCEPTION);
         }
     }
 

@@ -6,6 +6,7 @@
     }
 </style>
 @section('content')
+<textarea class="description" name="description"></textarea>
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="block block-rounded block-themed block-fx-pop">
@@ -33,7 +34,7 @@
                         Vui lòng chỉ cập nhật sản phẩm chứ không xóa sản phẩm, vì xóa sản phẩm khách hàng sẽ không thể
                         xem/check khi mua hoặc đã mua xong!
                     </div> --}}
-                    @isset($listData)
+                    @isset($logs)
                         
                    
                     <div class="table-responsive">
@@ -52,15 +53,19 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($listData as $key => $item)
+                                @foreach ($logs as $key => $item)
                                 
                                     <tr>
                                         <td class="d-sm-table-cell">{{ $item->id }}</td>
                                         <td class="d-sm-table-cell">{{ $item->name }}</td>
-                                        <td class="d-sm-table-cell">{{ $item->description }}</td>
+                                        <td class="d-sm-table-cell">
+                                            <textarea id="w3review" name="w3review" rows="5" cols="20">
+                                            {{ $item->description }}
+                                            </textarea>
+                                        </td>
                                         <td class="d-sm-table-cell">{{ $item->var_dump }} VNĐ</td>
                                         <td class="d-sm-table-cell"><span class="badge badge-success">{{ $item->level }}</span></td>
-                                        <td class="d-sm-table-cell"></td>
+                                        <td class="d-sm-table-cell">{{ $item->user_id }}</td>
                                         <td class="d-sm-table-cell">
                                             <?= date('H:i:s - d/m/Y', strtotime($item->updated_at)) ?></td>
                                         <td class="d-sm-table-cell">
@@ -110,6 +115,17 @@
 @endsection
 
 @section('script')
+{{-- <script src="{{ asset('tinymce/tinymce.js') }}"></script>
+<script> --}}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>   
+<script>
+tinymce.init({
+    selector:'textarea.description',
+    width: 900,
+    height: 300
+});
+</script>
+</script>
     <script>
         $('[data-delete]').bind('click', function() {
             if (confirm('Chắc chắn xóa này ?')) {

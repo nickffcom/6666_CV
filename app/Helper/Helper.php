@@ -24,6 +24,9 @@ const LEVEL_DEFAULT = 0;
 const LEVEL_EXCEPTION = 1;
 const LEVEL_BUG = 2;
 const LEVEL_PRIORITY = 100;
+function RESULT($status,$message='',$data=[]){
+    return response()->json(['status'=>$status,'message'=>$message,'data'=>$data]);
+}
 const FORMAT_DATA=[
     'VIA'=>'UID|Pass|KEY2FA|Mail*|PassMail*|Note*( * :Nếu có )',
     'CLONE'=>'UID|Pass|KEY2FA|Mail|PassMail|Note( * :Nếu có )',
@@ -37,12 +40,20 @@ const FORMAT_UPDATE=[
 const SERVICE = [
     'BM', 'VIA', 'CLONE'
 ];
-function addLogg($name,$descrip,$level,$varDump=[],$type=''){
+function Conver_ToString($object){
+    $type = gettype($object);
+    if ($type =='array' || $type =="object"){
+        return json_encode($object);
+    }
+    return $object;
+}
+function addLogg($name,$descrip,$level,$user_id=null,$varDump=[],$type=''){
     return Logg::create([
         'name'=>$name,
         'description'=>$descrip,
         'level'=>$level,
-        'var_dump'=>$varDump,
+        'user_id'=>$user_id,
+        'var_dump'=>json_encode($varDump),
         'type'=>$type
     ]);
 }
