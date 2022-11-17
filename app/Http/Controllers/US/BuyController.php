@@ -82,7 +82,7 @@ class BuyController extends Controller
             }
             return response()->json($result);
         }catch(Exception $e){
-                Log::error("Lỗi ở handleBuy Main".$e);
+                addLogg("Func HandleBuy Main",$e->getMessage(),LEVEL_EXCEPTION,Auth::user()->id);
                 return RESULT(false,"Báo cho admin gấp nếu thấy có lỗi");
         }
        
@@ -109,6 +109,7 @@ class BuyController extends Controller
                 $password_email = isset($arrAccount[5]) ? $arrAccount[5] :'';
                 $dataItem = Data::create([
                     'status'=>HET_HANG,
+                    'service_api'=>$data->id, 
                     'attr'=>json_encode(DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name)),
                 ]);
                 array_push($arrData,$dataItem);
@@ -142,7 +143,7 @@ class BuyController extends Controller
             return ["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location];
         }catch(Exception $e){
             DB::rollBack();
-            addLogg("Funciton BuyDataFromMuaFbNet",$e,LEVEL_EXCEPTION);
+            addLogg("Funciton BuyDataFromMuaFbNet",$e->getMessage(),LEVEL_EXCEPTION);
             return ["status"=>false,"message"=>"Báo ngay cho Admin để xử lý gấp"];
         }
     }
@@ -200,7 +201,7 @@ class BuyController extends Controller
             }
         }catch(Exception $e){
             DB::rollBack();
-            addLogg("Funciton BuyData",Conver_ToString($e),LEVEL_EXCEPTION);
+            addLogg("Funciton BuyData",Conver_ToString($e->getMessage()),LEVEL_EXCEPTION);
             return ["status"=>false,"message"=>"Báo ngay cho Admin để xử lý gấp"];
         }
 

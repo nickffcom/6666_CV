@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
@@ -26,7 +27,13 @@ class HomeController extends Controller
     }
     public function home()
     {
-        try{    
+        try{ 
+            // DB::table('data')->insert([
+            //     'status'=>HET_HANG,
+            //     'service_api'=>221, 
+            //     'attr'=>json_encode(DB_VIA_API("vvv","vv","vv","vv","Vv","Vv","Vv","Vv")),
+            // ]);
+            
             $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
             // dd($ListServiceAds69);
             $ListNotify = $this->notify->select('content')->get();
@@ -114,7 +121,7 @@ class HomeController extends Controller
                 'me'=>$me,
             ]);
         }catch(Exception $e){
-            addLogg('HomeController',Conver_ToString($e),LEVEL_EXCEPTION);
+            addLogg('HomeController',Conver_ToString($e->getMessage()),LEVEL_EXCEPTION);
         }
     }
 

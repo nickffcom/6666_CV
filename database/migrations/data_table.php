@@ -18,6 +18,10 @@ return new class extends Migration
             $table->integer('status')->comment('1: còn , 0 là hết')->default(1);
             $table->json('attr')->nullable();
             $table->integer("service_id")->unsigned()->nullable();
+            $table->integer('service_api')->unsigned()->nullable();
+            $table->foreign('service_api')
+            ->references('secret_api')
+            ->on('service');
             $table->foreign('service_id')
                   ->references('id')
                   ->on('service');

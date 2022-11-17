@@ -29,7 +29,7 @@ class OrderServiceRepo extends BaseRepo{
                     ->join('data','data.id','=','order_service.ref_id')
                     ->join('service',function($join){
                         $join->on('service.id','=','data.service_id')
-                             ->orOn('service.secret_api','=','data.service_id');
+                             ->orOn('service.secret_api','=','data.service_api');
                     })
                     ->select('order_service.*','service.name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
                     ->where('service.type',$type)

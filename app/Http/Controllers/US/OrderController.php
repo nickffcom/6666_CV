@@ -38,6 +38,7 @@ class OrderController extends Controller
         $code = $request->query("code");
         $type = $request->query("type");
         $lists = $this->dataRepo->getAllDataOrder($code,$type);
+        // dd($lists);
         $view = view('User.view_order')->with('lists',$lists)->with('type',$type)->render();
         return $view;
     }
