@@ -28,12 +28,7 @@ class HomeController extends Controller
     public function home()
     {
         try{ 
-            // DB::table('data')->insert([
-            //     'status'=>HET_HANG,
-            //     'service_api'=>221, 
-            //     'attr'=>json_encode(DB_VIA_API("vvv","vv","vv","vv","Vv","Vv","Vv","Vv")),
-            // ]);
-            
+
             $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
             // dd($ListServiceAds69);
             $ListNotify = $this->notify->select('content')->get();

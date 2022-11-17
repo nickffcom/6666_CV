@@ -143,7 +143,7 @@ class BuyController extends Controller
             return ["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location];
         }catch(Exception $e){
             DB::rollBack();
-            addLogg("Funciton BuyDataFromMuaFbNet",$e->getMessage(),LEVEL_EXCEPTION);
+            addLogg("Funciton BuyDataFromMuaFbNet",$e->getMessage(),LEVEL_EXCEPTION,Auth::user()->id);
             return ["status"=>false,"message"=>"Báo ngay cho Admin để xử lý gấp"];
         }
     }

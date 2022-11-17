@@ -5,8 +5,8 @@
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
             <div class="block-header bg-gd-sea">
-                <h3 class="block-title">Nạp tiền Tự Động - Tự động cộng tiền sau 1 phút</h3>
-                <h4> Ae nếu bị lỗi vui lòng Call 039 7619 750 hoặc inbox Zalo cho mình nhé ! Buổi tối mình online đầy đủ</h4>
+                <h3 class="block-title">Nạp tiền Tự Động - Tự động cộng tiền sau 1 phút ! Ae nên nạp qua VietComBank nhé , momo hay lỗi !!! Nạp xong nên chát giúp mình</h3>
+
             </div>
             <div class="block-content">
                 <div class="kt-section mb-5">
@@ -34,9 +34,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6" style="padding: 10px;display:none">
+                            <div class="col-lg-6" style="padding: 10px;">
                                 <div class="text-center">
-                                    <img src="/assets/images/momo.png" width="65px">
+                                    <img src="/images/momo.png" width="65px">
                                 </div><br>
                                 <div class="row mb-1">
                                     <div class="col-6 text-right">Tên tài khoản:</div>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-6 text-right">Nội dung chuyển khoản:</div>
-                                    <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger">{{ Auth::user()->username}} nap tien</span>
+                                    <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger">nap tien {{ Auth::user()->username}} </span>
                                     </div>
                                 </div>
                             </div>

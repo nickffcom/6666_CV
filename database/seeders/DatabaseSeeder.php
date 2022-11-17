@@ -104,12 +104,6 @@ class DatabaseSeeder extends Seeder
         ]);
         //////
 
-        DB::table('order_service')->insert([
-            "ref_id" => 44,
-            "code"=>"GMED1668410261",
-            "price_buy"=>1900,
-            "user_id"=>1,
-        ]);
 
     }
 }
