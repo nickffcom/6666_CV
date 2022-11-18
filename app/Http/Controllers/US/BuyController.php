@@ -58,7 +58,7 @@ class BuyController extends Controller
 
                 $me = Auth::user();
                 $total_money = $quantity* (int)$data->price;
-                if(!$me->money > (int)$total_money){
+                if(!($me->money > (int)$total_money)){
                     return RESULT(false,"Không đủ tiền thì đừng mua shop ơiiiii");
                 }
                 $getDataFromApi = Http::get("https://muafb.net/api/BResource.php?username=nickffcom&password=noname2d&id=$idBuy&amount=$quantity");

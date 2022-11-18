@@ -86,7 +86,6 @@ class HomeController extends Controller
                                     'from_api'=>API_MUAFB,
                                     'secret_api'=>(int)$data->id,
                                     'price'=>(int)$data->price,
-                                    'name'=>$data->name,
                                 ],
                                 [
                                     'description'=>$data->description,

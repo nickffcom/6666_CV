@@ -1,4 +1,4 @@
-@extends('Layout.AD.Index')
+@extends('Layout.AD.index')
 
 @section('content')
     
