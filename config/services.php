@@ -33,12 +33,13 @@ return [
     'facebook' => [
       'client_id' => env('FACEBOOK_CLIENT_ID'),
       'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-      'redirect' => 'https://aa82-2405-4802-9077-2b40-d5b5-ea8a-e371-d0d0.ap.ngrok.io/auth/facebook/callback/',
+    //   'redirect' => 'https://aa82-2405-4802-9077-2b40-d5b5-ea8a-e371-d0d0.ap.ngrok.io/auth/facebook/callback/',
+    'redirect' => 'https://ads69.net/auth/facebook/callback/',
     ],
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://127.0.0.1:8000/auth/google/callback',
+        'redirect' => 'https://ads69.net/auth/google/callback',
     ],
 
 ];
