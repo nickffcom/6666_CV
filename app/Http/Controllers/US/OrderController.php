@@ -26,7 +26,7 @@ class OrderController extends Controller
         $lists_order = $this->orderRepo->getOrder($type);
         $getHistoryOrder = $this->orderRepo->getHistoryOrder($type);
         // dd($lists_order);
-        return view('User.Order',[
+        return view('User.order',[
             'lists_order'=>$lists_order,
             'type'=>$type,
             'list' => $getHistoryOrder

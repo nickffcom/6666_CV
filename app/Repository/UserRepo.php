@@ -27,13 +27,13 @@ class UserRepo extends BaseRepo{
    }
 
    public function updateMoneyByUserName($userName,$money,$action){
-        $moneyCaculate = Auth::user()->money;
+        $user = $this->model->where('username',$userName)->firstOrFail();
         if($action == CONG_TIEN){
-            $moneyCaculate = $moneyCaculate + $money;
+            $moneyCaculate = $user->money + (int)$money;
         }else if ($action == TRU_TIEN){
-            $moneyCaculate = $moneyCaculate - $money;
+            $moneyCaculate = $user->money - (int)$money;
         }
-        $check = $this->model->where('username',$userName)->update([
+            $check = $user->update([
             'money'=> $moneyCaculate
         ]);
         return $check;

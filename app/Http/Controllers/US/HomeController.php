@@ -90,6 +90,7 @@ class HomeController extends Controller
                                 [
                                     'description'=>$data->description,
                                     'type'=>$key,
+                                    'name'=>$data->name
                                 ]
                             );
                         }
