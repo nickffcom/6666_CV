@@ -36,49 +36,59 @@ class BuyController extends Controller
 
     public function HandleBuy(BuyRequest $request){
         $type = $request->input('type'); // trường hợp mua = API Muafb.net
-        $idBuy = $request->input('id');
-        $quantity = $request->input('quantity');
+        $type_API = (int)$request->input('type_secret');
+        $idBuy = (int)$request->input('id');
+        $quantity = (int)$request->input('quantity');
         $result = [];
         try{
-            if(isset($type)){
-                $listServiceFromMuaFbNet = Cache::get('muafb.net');
-                if (!isset($listServiceFromMuaFbNet)) {
-                    return RESULT(false,"Vui lòng Load lại trang Home để ấn mua lại");
-                }
-                $listServiceFromMuaFbNet = json_decode($listServiceFromMuaFbNet);
-                $data = null;
-                foreach($listServiceFromMuaFbNet->$type as $value){
-                    if((int)$value->id == $idBuy){
-                        $data = $value;
-                    }
-                }
-                if(!isset($data)){
-                    return RESULT(false,"Dữ liệu k hợp lệ =>> Cánh báo...");
-                }
-
-                $me = Auth::user();
-                $total_money = $quantity* (int)$data->price;
-                if(!($me->money > (int)$total_money)){
-                    return RESULT(false,"Không đủ tiền thì đừng mua shop ơiiiii");
-                }
-                $getDataFromApi = Http::get("https://muafb.net/api/BResource.php?username=nickffcom&password=noname2d&id=$idBuy&amount=$quantity");
-                if(!$getDataFromApi->ok()){
-                    addLogg("Failed Api MuaFB","Lỗi".Conver_ToString($getDataFromApi->body()),LEVEL_PRIORITY,$me->id);
-                    return RESULT(false,"Lỗi server =>> Báo Admin gấp nhé b ơii");
-                }
-
-                $getDataFromApi = json_decode($getDataFromApi);
-                addLogg("Call Api MuaFB",Conver_ToString($getDataFromApi),LEVEL_PRIORITY,$me->id);
-                if(!$getDataFromApi->status == "success"){
-                    return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
-                }else if(!isset($getDataFromApi->data->trans_id)){
-                    return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
-                }
-
-                $result = $this->BuyDataFromMuaFbNet($quantity,$type,$getDataFromApi,$total_money,$data);// mua từ API Muafb.Net 
-
-            }else{
+            switch ($type_API){
+                case 1;
                     $result = $this->BuyDataAds($idBuy,$quantity); // mua từ chính web của mình
+                    break;
+                case 2 || 3 :
+                    $listServiceFromMuaFbNet = Cache::get('muafb.net');
+                    $listServiceFromMuaViaBm = Cache::get('muaviabm.vn');
+                    if (!isset($listServiceFromMuaFbNet) || !isset($listServiceFromMuaViaBm)) {
+                        return RESULT(false,"Vui lòng Load lại trang Home để ấn mua lại");
+                    }
+                    $listServiceFromMuaFbNet = (array)json_decode($listServiceFromMuaFbNet);
+                    $listServiceFromMuaViaBm = (array)json_decode($listServiceFromMuaViaBm);
+                    $serviceAll = array_merge_recursive($listServiceFromMuaFbNet,$listServiceFromMuaViaBm);
+                    $data = null;
+                    foreach($serviceAll[$type] as $value){
+                        if((int)$value->id == $idBuy && $value->type_Api == $type_API ){
+                            $data = $value;
+                            break;
+                        }
+                    }
+                    if(!isset($data)){
+                        return RESULT(false,"Dữ liệu k hợp lệ =>> Cánh báo...");
+                    }
+    
+                    $me = Auth::user();
+                    $total_money = $quantity* (int)$data->price;
+                    if(!($me->money > (int)$total_money)){
+                        return RESULT(false,"Không đủ tiền thì đừng mua shop ơiiiii");
+                    }
+                    $domain = $type_API == 2 ? 'muafb.net' : 'muaviabm.vn';
+                    $getDataFromApi = Http::get("https://$domain/api/BResource.php?username=nickffcom&password=Nqdiencuboy99**&id=$idBuy&amount=$quantity");
+                    if(!$getDataFromApi->ok()){
+                        addLogg("Failed Api MuaFB","Lỗi".Conver_ToString($getDataFromApi->body()),LEVEL_PRIORITY,$me->id);
+                        return RESULT(false,"Lỗi server =>> Báo Admin gấp nhé b ơii");
+                    }
+    
+                    $getDataFromApi = json_decode($getDataFromApi);
+                    addLogg("Call Api MuaFB",Conver_ToString($getDataFromApi),LEVEL_PRIORITY,$me->id);
+                    if(!$getDataFromApi->status == "success"){
+                        return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
+                    }else if(!isset($getDataFromApi->data->trans_id)){
+                        return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
+                    }
+    
+                    $result = $this->BuyDataFromMuaFbNet($quantity,$type,$getDataFromApi,$total_money,$data,$type_API);// mua từ API Muafb.Net 
+                    break;
+                default:
+                    break;            
             }
             return response()->json($result);
         }catch(Exception $e){
@@ -90,7 +100,7 @@ class BuyController extends Controller
     }
     
 
-    public function BuyDataFromMuaFbNet($quantity,$type,$getDataFromApi,$total_money,$data){
+    public function BuyDataFromMuaFbNet($quantity,$type,$getDataFromApi,$total_money,$data,$typeOrder){
         DB::beginTransaction();
         try{
 
@@ -109,8 +119,7 @@ class BuyController extends Controller
                 $password_email = isset($arrAccount[5]) ? $arrAccount[5] :'';
                 $dataItem = Data::create([
                     'status'=>HET_HANG,
-                    'service_api'=>$data->id, 
-                    'attr'=>json_encode(DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name)),
+                    'attr'=>json_encode(DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name,$typeOrder)),
                 ]);
                 array_push($arrData,$dataItem);
             }
@@ -122,6 +131,7 @@ class BuyController extends Controller
                 $order_service->code = $trans_id;
                 $order_service->price_buy = (int)$data->price;
                 $order_service->user_id = $me->id;
+                $order_service->type = $typeOrder;
                 $order_service->save();
             
             }
@@ -167,7 +177,7 @@ class BuyController extends Controller
         DB::beginTransaction();
         try{
 
-            if ($me->money > $total_money) {
+            if ($me->money > $total_money && $total_money !=0 && $total_money > 0) {
                 $ref_code = md5(rand(0, 999999) . time() . microtime() . base64_encode(time()) . base64_encode(microtime()) . rand(0, 999999));
                 foreach ($get_service as  $data) {
 

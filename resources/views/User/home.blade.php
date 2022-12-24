@@ -52,14 +52,19 @@
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
                                         <div class="custom-control custom-block custom-control-primary">
                                             <input type="checkbox" class="custom-control-input service-checked"
-                                                id="{{ $key }}_id_{{ $item->id }}" name="type"  @if(isset($item->country)) data-type={{ $key }} @endif value="{{ $item->id }}">
+                                                id="{{ $key }}_id_{{ $item->id }}" name="type" value={{ $item->id }} data-type={{ $key }} type_secret={{ $item->type_Api }}>
                                             <label class="custom-control-label p-2" for="{{ $key }}_id_{{ $item->id }}">
                                                 <span class="d-flex align-items-center">
                                                     <div class="item item-circle bg-black-5 text-primary-light"
                                                         style="min-width: 60px;"><strong>{{ $item->amount }}</strong></div>
                                                     <span class="hcss ml-2">
-                                                        <span class="font-w700">{{ $item->name }} ✅</span>
-
+                                                        <span class="font-w700">{{ $item->name }} 
+                                                            @if($item->type_Api == 2 )
+                                                            ✅
+                                                            @elseif($item->type_Api == 3)
+                                                            🍅
+                                                            @endif
+                                                        </span>
                                                         <i style="position:absolute;right:5px;bottom:10px;"
                                                             class="fa fa-question-circle text-muted" data-toggle="tooltip"
                                                             data-placement="top" title="{{ $item->description }}"></i>
@@ -188,6 +193,7 @@
         $('.buy_service').bind('click', function() {
             $id = $('[name="type"]:checked').val();
             $dataType = $('[name="type"]:checked').attr("data-type");
+            $typeScret = $('[name="type"]:checked').attr("type_secret");
             if (!$id) {
                 return showNotify('error', 'Vui lòng chọn một loại ' + $(this).text().split(" ")[1]);
             }
@@ -204,7 +210,8 @@
             $.post(api('buy'), {
                 id: $id,
                 quantity: $quantity,
-                type:$dataType
+                type:$dataType,
+                type_secret:$typeScret
             }, function(a) {
                 if (a.status > 0) {
                     setTimeout(function() {

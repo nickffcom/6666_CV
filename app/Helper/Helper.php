@@ -8,18 +8,21 @@ const HET_HANG = 0;
 const IS_ADMIN = 1999;
 const NAP_TIEN = 'payment';
 const GIAO_DICH = 'transaction';
-const LOGO_TEXT ="Web Học";
+const LOGO_TEXT ="Ads69.net";
 const TRU_TIEN = 'minus';
 const CONG_TIEN = 'plus';
-const API_MUAFB = 1;
+const MAIN_SHOP = 1;
+const API_MUAFB = 2;
+const API_MUABMVIA = 3;
+const API_SERVICE_WEB =[API_MUAFB,API_MUABMVIA];
 const FACEBOOK = 1;
 const GOOGLE = 2;
-const ROLE_ADMIN = 2000;
-const ROLE_MEMBER = 1;
-const ROlE_CTV = 666;
 const VIA ='VIA';
 const CLONEE = 'CLONE';
 const BM = 'BM';
+const ROLE_ADMIN = 2000;
+const ROLE_MEMBER = 1;
+const ROlE_CTV = 666;
 const LEVEL_DEFAULT = 0;
 const LEVEL_EXCEPTION = 1;
 const LEVEL_BUG = 2;
@@ -62,9 +65,9 @@ function DB_VIA($uid,$pass,$key2fa,$email,$passMail,$note=''){
     return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note];
 
 }
-function DB_VIA_API($uid,$pass,$key2fa,$email,$passMail,$note='',$type='',$service=''){
+function DB_VIA_API($uid,$pass,$key2fa,$email,$passMail,$note='',$type='',$service='',$type_Api=null){
 
-    return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note,'type'=>$type,'service'=>$service];
+    return ['uid'=>$uid,'pass'=>$pass,'key2fa'=>$key2fa,'email'=>$email,'passmail'=>$passMail,'note'=>$note,'type'=>$type,'service'=>$service,'from_api'=>$type_Api];
 
 }
 

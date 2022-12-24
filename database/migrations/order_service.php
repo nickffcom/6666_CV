@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->integer('price_buy');
             $table->integer("user_id")->unsigned()->nullable();
+            $table->integer("type")->unsigned()->nullable()->default(MAIN_SHOP);
             $table->foreign('user_id')
                   ->references('id')
                   ->on('user');

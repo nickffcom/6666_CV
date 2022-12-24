@@ -24,9 +24,10 @@ class BuyRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'=>'nullable|in:VIA,BM,CLONE',
+            'type'=>'required|in:VIA,BM,CLONE',
+            'type_secret'=>'required|in:1,2,3',
             'id'=>'required|numeric',
-            'quantity'=>'required|numeric|max:100|min:1',
+            'quantity'=>'required|numeric|max:50|min:1',
         ];
     }
 }

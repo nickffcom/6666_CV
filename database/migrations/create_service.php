@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('description');
             $table->integer('price');
             $table->string('type');
-            $table->integer('from_api')->unsigned()->nullable();
-            $table->integer('secret_api')->unique()->unsigned()->nullable()->comment("Service id web người ta trả về , lấy cái này làm khóa chính để check");
             $table->timestamps();
         });
     }

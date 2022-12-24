@@ -27,13 +27,13 @@ class ServiceRepo extends BaseRepo
             $rs = $this->model->where('type', $type)->orderBy('id', 'ASC')->get();
         } else {
             $rs = Service::select('service.*', DB::raw('(SELECT COUNT(*) FROM data WHERE data.service_id = service.id AND data.status = 1) AS amount'))
-                         ->whereNull('from_api')
-            ->get();
+            ->get()->toArray();
         }
 
         $lists = array();
         foreach ($rs as $x) {
-            $lists[strtoupper($x['type'])][] = $x;
+            $x["type_Api"] = 1;
+            $lists[strtoupper($x['type'])][] = (object)$x;
         }
         return $lists;
     }

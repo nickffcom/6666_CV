@@ -4,7 +4,7 @@ namespace App\Http\Controllers\US;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUser;
-use App\Models\Notify;
+use App\Http\Traits\ThrottlesAttempts;
 use App\Repository\UserRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    use ThrottlesAttempts;
     protected $userRepo;
     public function __construct(UserRepo $userRepo)
     {
@@ -21,12 +22,15 @@ class LoginController extends Controller
     public function login(Request $request){
 
         $credentials = $request->only('username','password');
-        $credentials['type_social'] = null;
         $REMEMBER_ME = true;
+        if ($this->hasTooManyAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
         if(Auth::attempt($credentials,$REMEMBER_ME)){
+            $this->clearAttempts($request);
             return response()->json(["status"=>true,"message"=>"Đăng nhập thành côngg"]);
         }
-
+        $this->incrementAttempts($request);
         $msg= "Tài khoản / Mật khẩu không chính xác";
         Session::flash("error",$msg);
         Session::flash("username",$request->input('username'));

@@ -7,6 +7,7 @@ use App\Repository\DataRepo;
 use App\Repository\OrderServiceRepo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -21,15 +22,17 @@ class OrderController extends Controller
 
     public function getviewOrder(Request $request)
     {
+        $userId = Auth::user()->id;
         $type = $request->query('type','via');
-        $id =$request->query('id',null);
         $lists_order = $this->orderRepo->getOrder($type);
-        $getHistoryOrder = $this->orderRepo->getHistoryOrder($type);
-        // dd($lists_order);
+        $getHistoryOrder = $this->orderRepo->getHistoryOrder($type,$userId);
+        $haha = $this->orderRepo->getHistoryOrderAPI($type,$userId);
+        $rs = collect([$getHistoryOrder,$haha])->collapse();
+        // dd($getHistoryOrder,$haha,$rs);
         return view('User.order',[
             'lists_order'=>$lists_order,
             'type'=>$type,
-            'list' => $getHistoryOrder
+            'list' => $rs
         ]);
     }
 
