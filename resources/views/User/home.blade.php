@@ -49,7 +49,7 @@
 
                             <div class="row">
                                 @foreach ($service as $item)
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-2">
                                         <div class="custom-control custom-block custom-control-primary">
                                             <input type="checkbox" class="custom-control-input service-checked"
                                                 id="{{ $key }}_id_{{ $item->id }}" name="type" value={{ $item->id }} data-type={{ $key }} type_secret={{ $item->type_Api }}>
@@ -58,14 +58,14 @@
                                                     <div class="item item-circle bg-black-5 text-primary-light"
                                                         style="min-width: 60px;"><strong>{{ $item->amount }}</strong></div>
                                                     <span class="hcss ml-2">
-                                                        <span class="font-w700">{{ $item->name }} 
+                                                        <span id="nameAcc" data-name="{{ $item->name }}"" class="font-w700">{{ $item->name }} 
                                                             @if($item->type_Api == 2 )
                                                             ✅
                                                             @elseif($item->type_Api == 3)
                                                             🍅
                                                             @endif
                                                         </span>
-                                                        <i style="position:absolute;right:5px;bottom:10px;"
+                                                        <i style="right:0px;bottom:70px;"
                                                             class="fa fa-question-circle text-muted" data-toggle="tooltip"
                                                             data-placement="top" title="{{ $item->description }}"></i>
                                                         <span class="d-block font-size-sm text-muted"><strong
@@ -74,9 +74,16 @@
                                                     </span>
                                                 </span>
                                             </label>
-                                            <span class="custom-block-indicator">
+                                            <span class="custom-block-indicator" style="right:22rem!important;top:-0.35rem;left: -0.2rem;">
                                                 <i class="fa fa-check"></i>
                                             </span>
+                                           
+                                            <div style="position: absolute;
+                                            right: 0rem;
+                                            bottom:0rem;"
+                                            >
+                                                <button class="buyAds69 btn-success" id-buy-nek={{ $item->id }} style="border:none;border-radius:10px" >Mua</button>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
@@ -189,15 +196,23 @@
                 $that.prop('checked', 0);
             }
         });
+        
+        $('.buyAds69').bind('click', function() {
+            $divTo = $(this).parent().parent();
+            $('input.service-checked').prop('checked', 0);
+            $($divTo).children('input').prop('checked', 1);
 
-        $('.buy_service').bind('click', function() {
             $id = $('[name="type"]:checked').val();
+            $idBuy = $(this).attr('id-buy-nek');
+            console.log($id,$idBuy);
             $dataType = $('[name="type"]:checked').attr("data-type");
             $typeScret = $('[name="type"]:checked').attr("type_secret");
-            if (!$id) {
+            if (!$id || !$idBuy) {
                 return showNotify('error', 'Vui lòng chọn một loại ' + $(this).text().split(" ")[1]);
             }
-            $quantity = prompt('Nhập số lượng muốn mua : ', 5);
+            $infoSanpham = $($divTo).children("label").children('span').children('span').children('#nameAcc').attr('data-name');
+            $descriptionSanpham = $($divTo).children("label").children('span').children('span').children('i').attr('data-original-title');
+            $quantity = prompt('Nhập số lượng muốn mua : \n'+$infoSanpham+"\n Miêu tả: "+$descriptionSanpham, 5);
             if ($quantity < 1 || isNaN($quantity)) {
                 return showNotify('error', 'Vui lòng nhập số lượng hợp lệ');
             }
@@ -208,7 +223,7 @@
                 clickToClose: false
             });
             $.post(api('buy'), {
-                id: $id,
+                id: $idBuy,
                 quantity: $quantity,
                 type:$dataType,
                 type_secret:$typeScret
