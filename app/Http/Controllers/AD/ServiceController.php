@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AD;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CongTruTienRequest;
 use App\Models\User;
 use App\Repository\HistoryRepo;
 use App\Repository\NotifyRepo;
@@ -11,6 +12,7 @@ use App\Repository\UserRepo;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -64,7 +66,8 @@ class ServiceController extends Controller
         return view('Admin.trans')->with('lists_users',$lists_users);
     }
 
-    public function HandleCongTruTien(Request $request){
+    public function HandleCongTruTien(CongTruTienRequest $request){
+        DB::beginTransaction();
         try{
             $me = Auth::user();
             $userName = $request->input('username');
@@ -79,8 +82,10 @@ class ServiceController extends Controller
                 'type' => NAP_TIEN,
                 'user_id'=>$me->id
             ]);
+            DB::commit();
             return response()->json(["status"=>true,"message"=>"Cập nhật tiền thành công"]);
         }catch(Exception $e){
+            DB::rollBack();
             return response()->json(["status"=>false,"message"=>"Thất bại rồi người anh ơiii".$e]);
         }
         

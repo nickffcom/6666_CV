@@ -49,10 +49,10 @@ Route::middleware('auth')->group(function(){
 
 
 
-    Route::post('/tokens/create', function (Request $request) {
-        $token = $request->user()->createToken($request->token_name,['muahang']);  // if ($user->tokenCan('muahang')) {
-        return response()->json(['token' => $token->plainTextToken]);
-    });
+    // Route::post('/tokens/create', function (Request $request) {
+    //     $token = $request->user()->createToken($request->token_name,['muahang']);  // if ($user->tokenCan('muahang')) {
+    //     return response()->json(['token' => $token->plainTextToken]);
+    // });
 
 
 });

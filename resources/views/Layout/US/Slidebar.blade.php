@@ -18,7 +18,6 @@
     </div>
     <div class="content-side content-side-full">
         <ul class="nav-main">
-            {{-- <?php if ($is_admin) { ?> --}}
 
             @if($is_admin)
         
@@ -117,7 +116,7 @@
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="/order?type=bm"><i class="nav-main-link-icon fa fa-hand-holding"></i>
+                <a class="nav-main-link" href="/order?type=BM"><i class="nav-main-link-icon fa fa-hand-holding"></i>
                     <span class="nav-main-link-name">BM đã mua</span>
                     <span class="nav-main-link-badge badge badge-pill badge-primary">0</span>
                 </a>
@@ -137,7 +136,7 @@
                         </a>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="/order?type=via">
+                        <a class="nav-main-link" href="/order?type=VIA">
                             <i class="nav-main-link-icon fa fa-history"></i>
                             <span class="nav-main-link-name">Lịch sử mua Via</span>
                         </a>
@@ -158,7 +157,7 @@
                         </a>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="/order?type=clone">
+                        <a class="nav-main-link" href="/order?type=CLONE">
                             <i class="nav-main-link-icon fa fa-history"></i>
                             <span class="nav-main-link-name">Lịch sử mua Clone</span>
                         </a>
@@ -225,60 +224,7 @@
                     <span class="nav-main-link-name">Get Code 2FA...</span>
                 </a>
             </li>
-            {{-- <li class="nav-main-item">
-                <a class="nav-main-link" href="/tool-mien-phi"><i class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Tool Miễn Phí + Lưu ý </span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/mua-proxy"><i class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name text-success">Mua Proxy <3 </span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/share-clone-to-via"><i
-                        class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Share Tkqc Clone =>Via </span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/check-limit-ads"><i
-                        class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name text-danger">Quản Lý Ads Meta</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/share-clone-to-bm"><i
-                        class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Share Tkqc Clone =>BM</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/check-info-via"><i class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Check Info Via</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/reg-bm"><i class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Reg BM </span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/check-sai-pass"><i class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Check Sai Pass Via</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/change-info-ads"><i
-                        class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Change Info TKQC</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="/len-camp"><i class="nav-main-link-icon fa fa-hand-holding"></i>
-                    <span class="nav-main-link-name">Add thẻ +Set Camp SLL</span>
-                </a>
-            </li> --}}
+           
 
         </ul>
 

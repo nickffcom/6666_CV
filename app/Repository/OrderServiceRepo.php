@@ -32,7 +32,7 @@ class OrderServiceRepo extends BaseRepo{
                     ->select('order_service.*','service.name as service_name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
                     ->where('service.type',$type)
                     ->whereRaw('order_service.user_id = ?',[$userID])
-                    ->groupByRaw('order_service.code')
+                    ->groupBy('code')
                     ->orderByRaw('order_service.id DESC')
                     ->get()
             ;

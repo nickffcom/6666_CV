@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\US;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ViewOrderDetailRequest;
+use App\Http\Requests\ViewOrderRequest;
 use App\Repository\DataRepo;
 use App\Repository\OrderServiceRepo;
 use Carbon\Carbon;
@@ -20,15 +22,15 @@ class OrderController extends Controller
         $this->dataRepo = $dataRepo;
     }
 
-    public function getviewOrder(Request $request)
+    public function getviewOrder(ViewOrderRequest $request)
     {
         $userId = Auth::user()->id;
-        $type = $request->query('type','via');
+        $type = $request->query('type');
         $lists_order = $this->orderRepo->getOrder($type);
         $getHistoryOrder = $this->orderRepo->getHistoryOrder($type,$userId);
         $haha = $this->orderRepo->getHistoryOrderAPI($type,$userId);
         $rs = collect([$getHistoryOrder,$haha])->collapse();
-        // dd($getHistoryOrder,$haha,$rs);
+        dd($getHistoryOrder,$haha);
         return view('User.order',[
             'lists_order'=>$lists_order,
             'type'=>$type,
@@ -37,7 +39,7 @@ class OrderController extends Controller
     }
 
     
-    public function getViewOrderDetailByCode(Request $request){ 
+    public function getViewOrderDetailByCode(ViewOrderDetailRequest $request){ 
         $code = $request->query("code");
         $type = $request->query("type");
         $lists = $this->dataRepo->getAllDataOrder($code,$type);
@@ -46,12 +48,15 @@ class OrderController extends Controller
         return $view;
     }
     
-    public function downloadOrderByCode(Request $request){ // file Txt
+    public function downloadOrderByCode(ViewOrderDetailRequest $request){ // file Txt
         $code = $request->query("code");
         $type = $request->query("type");
         $typeFile = $request->query('typeFile','txt');
-
-        $lists = $this->dataRepo->getAllDataOrder($code,$type)->map(function($item,$key){
+        $lists = $this->dataRepo->getAllDataOrder($code,$type);
+        if(!isset($lists)){
+            return response()->json(["message"=>"Sai"]);
+        }
+        $lists = $lists->map(function($item,$key){
             if(isset($item->attr)){
                 $data = $item->attr->uid . '|' . $item->attr->pass . '|' . $item->attr->key2fa.'|' . $item->attr->email . '|' . $item->attr->passmail. '|'.$item->attr->note    ;
                 return $data;

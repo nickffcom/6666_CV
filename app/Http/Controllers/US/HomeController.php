@@ -61,7 +61,7 @@ class HomeController extends Controller
                     'me'=>$me,
             ]);
         }catch(Exception $e){
-            return "Vui lòng ấn load lại trang ! Xin cảm ơnnn".$e;
+            return "Vui lòng ấn load lại trang ! Xin cảm ơnnn";
             addLogg('HomeController',Conver_ToString($e->getMessage()),LEVEL_EXCEPTION);
         }
     }
