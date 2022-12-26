@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {  // api sancutum
 
 
-    Route::get('/user/detail',[HomeController::class,'index']);
-    Route::get('delete/token/xxx',function(Request $request){
-        $request->user()->tokens()->delete(); // delete all token
-        $request->user()->currentAccessToken()->delete(); //  delete token current
-        // $user->tokens()->where('id', $tokenId)->delete();  // token id cụ thể
-    });
+    // Route::get('/user/detail',[HomeController::class,'index']);
+    // Route::get('delete/token/xxx',function(Request $request){
+    //     $request->user()->tokens()->delete(); // delete all token
+    //     $request->user()->currentAccessToken()->delete(); //  delete token current
+    //     // $user->tokens()->where('id', $tokenId)->delete();  // token id cụ thể
+    // });
 
 
 });

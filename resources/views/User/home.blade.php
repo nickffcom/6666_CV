@@ -28,7 +28,7 @@
     <div class="row main-filter">
             <div class="col col-xl-3 text-primary bg-success" style="width:25px;height:35px;"> 
                 <a style="display:block;text-align:center;height: 100%;display: flex;justify-content: center;align-items: center;" href="">
-                Via Xác Minh Danh Tính 
+                Via Xmdt
                 </a> 
             </div>
             <div class="col col-xl-3 text-primary bg-success" style="width:25px;height:35px;"> 
