@@ -25,7 +25,28 @@
             </div>
         </div>
     </div>
-
+    <div class="row main-filter">
+            <div class="col col-xl-3 text-primary bg-success" style="width:25px;height:35px;"> 
+                <a style="display:block;text-align:center;height: 100%;display: flex;justify-content: center;align-items: center;" href="">
+                Via Xác Minh Danh Tính 
+                </a> 
+            </div>
+            <div class="col col-xl-3 text-primary bg-success" style="width:25px;height:35px;"> 
+                 <a style="display:block;text-align:center;height: 100%;display: flex;justify-content: center;align-items: center;" href="">
+                Via Limit
+                </a>
+            </div>
+            <div class="col col-xl-3 text-primary bg-success" style="width:25px;height:35px;"> 
+                 <a style="display:block;text-align:center;height: 100%;display: flex;justify-content: center;align-items: center;" href="">
+                Via Ngoại
+                </a>
+            </div>
+             <div class="col col-xl-3 text-primary bg-success" style="width:25px;height:35px;"> 
+                 <a style="display:block;text-align:center;height: 100%;display: flex;justify-content: center;align-items: center;" href="">
+                Via 902
+                </a>
+            </div>         
+    </div>
     {{-- Main HomePage  --}}
     @isset($services)
         @foreach ($services as $key => $service)
@@ -33,7 +54,7 @@
                 <div class="col-12">
                     <div class="block block-rounded block-themed block-fx-pop">
                         <div class="block-header bg-gd-sea">
-                            <h3 class="block-title">Danh sách {{ strtoupper($key) }}</h3>
+                            <h3 class="block-title">Danh sách {{ strtoupper($key) }} : {{ count($services[$key]) }} loại</h3>
                             <div class="block-options">
                                 <a class="btn btn-block-option" href="order?type=bm"> <i class="si si-settings"></i> {{ strtoupper($key) }} của tôi</a>
                             </div>
@@ -242,9 +263,9 @@
     </script>
     <script type="text/javascript">
         swal({
-            title: "Website mới làm lại từ đầu",
+            title: "Gần 100 loại nguyên liệu ae ghẹo lựa đê",
             html: true,
-            text: "Ae nếu gặp lỗi gì thì báo mình nhé ! Website đang được viết lại và hứa hẹn sẽ có các chức năng xịn xò nhất !!!<br>",
+            text: "Chú ý phải đọc kĩ thông tin khi mua ở dấu ??? . Nếu Không có  thì khả năng cao đó là via clone spam ( ko live ads ) !",
             showConfirmButton: true
 
         }, function() {

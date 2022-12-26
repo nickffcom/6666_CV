@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/change_password',[LoginController::class,'UpdateInfoUser']);
     Route::get('/dang-xuat',[LoginController::class,'logout']);
+    Route::view('/check-live_uid','User.checkLiveUid');
+    Route::view('/get_code_2fa','User.get_code_2fa');
+
 
 });
 Route::get('/auth/delete',[SocialController::class,"delete"]);

@@ -210,17 +210,22 @@
                 </a>
             </li>
             <li class="nav-main-heading">Ae Fan Chè Xanh</li>
-            <li class="nav-main-item">
+            {{-- <li class="nav-main-item">
                 <a class="nav-main-link" href="/note-tool"><i class="nav-main-link-icon fa fa-comment-dollar"></i>
                     <span class="nav-main-link-name">Cần biết về Tool</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-main-item">
-                <a class="nav-main-link" href="/check-live-uid"><i class="nav-main-link-icon fa fa-hand-holding"></i>
+                <a class="nav-main-link" href="/check-live_uid"><i class="nav-main-link-icon fa fa-hand-holding"></i>
                     <span class="nav-main-link-name">Check Live UID</span>
                 </a>
             </li>
-            <li class="nav-main-item">
+             <li class="nav-main-item">
+                <a class="nav-main-link" href="/get_code_2fa"><i class="nav-main-link-icon fa fa-hand-holding"></i>
+                    <span class="nav-main-link-name">Get Code 2FA...</span>
+                </a>
+            </li>
+            {{-- <li class="nav-main-item">
                 <a class="nav-main-link" href="/tool-mien-phi"><i class="nav-main-link-icon fa fa-hand-holding"></i>
                     <span class="nav-main-link-name">Tool Miễn Phí + Lưu ý </span>
                 </a>
@@ -273,7 +278,7 @@
                 <a class="nav-main-link" href="/len-camp"><i class="nav-main-link-icon fa fa-hand-holding"></i>
                     <span class="nav-main-link-name">Add thẻ +Set Camp SLL</span>
                 </a>
-            </li>
+            </li> --}}
 
         </ul>
 
