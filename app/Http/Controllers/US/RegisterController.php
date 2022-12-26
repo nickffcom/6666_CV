@@ -32,7 +32,7 @@ class RegisterController extends Controller
         }
 
         try{
-          
+            
             $temp = User::create(
                [ 
                 'username'=>$request->username,

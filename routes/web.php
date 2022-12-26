@@ -9,6 +9,8 @@ use App\Http\Controllers\US\RegisterController;
 use App\Http\Controllers\US\SocialController;
 use App\Http\Controllers\US\TestController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 //  View For User *******************************
 
@@ -44,6 +46,13 @@ Route::middleware('auth')->group(function(){
     Route::get('/dang-xuat',[LoginController::class,'logout']);
     Route::view('/check-live_uid','User.checkLiveUid');
     Route::view('/get_code_2fa','User.get_code_2fa');
+
+
+
+    Route::post('/tokens/create', function (Request $request) {
+        $token = $request->user()->createToken($request->token_name,['muahang']);  // if ($user->tokenCan('muahang')) {
+        return response()->json(['token' => $token->plainTextToken]);
+    });
 
 
 });
