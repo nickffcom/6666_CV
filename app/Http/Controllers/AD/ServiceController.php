@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AD;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CongTruTienRequest;
+use App\Http\Requests\TwoFactorRequest;
 use App\Models\User;
 use App\Repository\HistoryRepo;
 use App\Repository\NotifyRepo;
@@ -122,5 +123,20 @@ class ServiceController extends Controller
         return view('Admin.history',[
             'lists'=>$lists
         ]);
+    }
+
+    public function handleAuthenTwoFactor(TwoFactorRequest $request){
+        $me = Auth::user()->id;
+        if((int)$request->input('code2fa') === 396956){
+            $cookie = cookie('XHRF_PASSPORT', '396956', 45000);
+            
+            return response('Hello World')->cookie($cookie);
+        }else{
+            $varDump=[
+                "Hacker nhập"=>$request->input('code2fa')
+            ];
+            addLogg("Hacker Two Factor","Có kẻ muốn vào phá admin =>> Nguy hiểm",LEVEL_PRIORITY,$me,$varDump);
+        }
+
     }
 }

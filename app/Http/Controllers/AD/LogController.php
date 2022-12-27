@@ -15,7 +15,6 @@ class LogController extends Controller
     }
     public function viewIndex(){
         $log = $this->logRepo->getAll();
-        // dd($log);
         return view('Admin.Log',[
             'type'=>"OK",
             'logs'=>$log

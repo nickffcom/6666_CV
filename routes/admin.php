@@ -49,9 +49,13 @@ Route::group(['prefix'=>'admin','middleware'=>'checkadmin'], function () {
         Route::get('/log',[LogController::class,'viewIndex']);
     });
 
-
 });
 
 
+Route::group(['prefix'=>'admin','middleware'=>'auth'], function () {
+
+    Route::view('/two-factor','Admin.two-factor');
+    Route::post('/two-factor', [ServiceController::class,"handleAuthenTwoFactor"]);
+});
 
 

@@ -108,6 +108,9 @@
                      <a href="javascript:;" id="xdownload" class="ml-3">
                         <button type="button" data-download="" type-download="zip" class="btn btn-primary">Tải xuống .Zip</button>
                     </a>
+                     <a href="javascript:;" id="xdownload" class="ml-3">
+                        <button type="button" data-download="" type-download="pdf" class="btn btn-primary">Tải xuống .Pdf</button>
+                    </a>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
                 </div>
             </div>

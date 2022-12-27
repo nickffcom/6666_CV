@@ -4,14 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUser extends FormRequest
+class TwoFactorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    protected $stopOnFirstFailure = true;
     public function authorize()
     {
         return true;
@@ -25,9 +24,7 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
-           'password'=>'required|string|',
-           'new_password'=>'required|confirmed|string|max:50|min:6'
-
+            'code2fa'=>'required|numeric|max:999999'
         ];
     }
 }

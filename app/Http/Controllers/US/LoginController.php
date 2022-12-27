@@ -22,6 +22,7 @@ class LoginController extends Controller
     public function login(Request $request){
 
         $credentials = $request->only('username','password');
+        $credentials['social_id'] =  null ;  // prevent account social login with username and password
         $REMEMBER_ME = true;
         if ($this->hasTooManyAttempts($request)) {
             return $this->sendLockoutResponse($request);
@@ -42,7 +43,7 @@ class LoginController extends Controller
     public function logout(){
         Auth::logout();
         Session::flush();
-        return redirect('/login');
+        return redirect('/login')->withCookie(cookie()->forget('XHRF_PASSPORT'));
     }
     public function UpdateInfoUser(UpdateUser $request){
         $me = Auth::user();
