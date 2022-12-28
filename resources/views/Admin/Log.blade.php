@@ -146,9 +146,7 @@ tinymce.init({
             $that = $(this);
             $id = $that.data('update');
             let idnek = $that.data('update')
-            console.log("id",idnek);
             $.get(`/admin/{{ $type }}/${idnek}`,function(a) {
-                console.log("a",a);
                  $('form#update_data').find('[name="id"]').val(a.id);
                 $.each(a.attr, (k, v) => {
                     $('form#update_data').find('[name="' + k + '"]').val(v);
@@ -163,7 +161,6 @@ tinymce.init({
             type: 'PATCH',
             data:$('form#update_data').serialize(),
             success: function (result) {
-                console.log("rs nek",result);
                 showNotify((result.status == true ? 'success' : 'error'), result.message);
             }
         });

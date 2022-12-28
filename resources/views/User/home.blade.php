@@ -225,7 +225,6 @@
 
             $id = $('[name="type"]:checked').val();
             $idBuy = $(this).attr('id-buy-nek');
-            console.log($id,$idBuy);
             $dataType = $('[name="type"]:checked').attr("data-type");
             $typeScret = $('[name="type"]:checked').attr("type_secret");
             if (!$id || !$idBuy) {

@@ -61,7 +61,6 @@
                 showNotify(a.status === true ? 'success' : 'error',"Thêm thành công");
               
             }
-            console.log(a.message);
         });
         e.preventDefault();
     });

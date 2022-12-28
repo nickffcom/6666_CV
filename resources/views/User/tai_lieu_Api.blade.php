@@ -64,7 +64,6 @@
 <script>
     function get_code_2fa(){
         var key2fa = $('#key-2fa').val().trim();
-        console.log("key2fa",key2fa);
         $.get(`https://2fa.live/tok/${key2fa}`, function(data, status){
             alert("Data: " + data + "\nStatus: " + status);
         });
