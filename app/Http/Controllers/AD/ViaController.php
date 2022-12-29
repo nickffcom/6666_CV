@@ -38,7 +38,7 @@ class ViaController extends Controller
     {
   
         $services = $this->serviceRepo->getServiceWeb();
-        return view('Admin.Service.add',[
+        return view('Admin.service.add',[
             'services'=>$services,
             'type'=>$this->type
         ]);

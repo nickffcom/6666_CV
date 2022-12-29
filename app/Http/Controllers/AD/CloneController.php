@@ -35,7 +35,7 @@ class CloneController extends Controller
     public function create() // view thêm clone
     {
         $services = $this->serviceRepo->getServiceWeb();
-        return view('Admin.Service.add',[
+        return view('Admin.service.add',[
             'services'=>$services,
             'type'=>$this->type
         ]);

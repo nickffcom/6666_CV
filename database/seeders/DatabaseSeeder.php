@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
 
         DB::table('user')->insert([
-            "username" => "nickffcom",
+            "username" => "hainao9tk",
             "is_admin" => IS_ADMIN,
             "money" => 25000,
-            "password"=>Hash::make("noname2d")
+            "password"=>Hash::make("Nqdiencuboy99**")
         ]);
         DB::table('service')->insert([
             "name" => "Via XMDT 2029-2022",

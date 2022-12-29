@@ -33,7 +33,7 @@ class BMController extends Controller
     public function create()
     {
         $services = $this->serviceRepo->getServiceWeb();
-        return view('Admin.Service.add',[
+        return view('Admin.service.add',[
             'services'=>$services,
             'type'=>$this->type
         ]);

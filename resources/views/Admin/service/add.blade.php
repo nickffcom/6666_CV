@@ -28,7 +28,7 @@
                 		<label>Loại :</label>
                 		<select name="type_id" class="form-control">
                             @foreach($services[$type] as $x)
-                            <option value="{{ $x['id'] }}">{{  $x['name'] }}- Giá : {{   number_format($x['price']) }} VNĐ ( Số lượng : {{   number_format($x['amount']) }} )</option>
+                            <option value="{{ $x->id }}">{{  $x->name }}- Giá : {{   number_format($x->price) }} VNĐ ( Số lượng : {{   number_format($x->amount) }} )</option>
                             @endforeach
                
                         </select>
