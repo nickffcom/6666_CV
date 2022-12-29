@@ -32,7 +32,7 @@ class ServiceController extends Controller
     public function type($type='VIA'){   // phân loại
         
         $service = $this->serviceRepo->getServiceWeb($type);
-        return view('Admin.Service.type',[
+        return view('Admin.service.type',[
             'type'=>$type,
             'services'=>$service
         ]);

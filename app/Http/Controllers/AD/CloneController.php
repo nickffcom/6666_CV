@@ -25,7 +25,7 @@ class CloneController extends Controller
     {
         
         $listData = $this->dataRepo->getDataWithStatus(CON_HANG,$this->type);
-        return view('Admin.Service.manage',[
+        return view('Admin.service.manage',[
             'listData'=>$listData,
             'type'=> $this->type
         ]);
