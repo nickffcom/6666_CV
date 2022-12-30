@@ -3,7 +3,7 @@
 namespace App\Utils;
 
 
-class Utils
+class Generate
 {
     /**
      * generate Code

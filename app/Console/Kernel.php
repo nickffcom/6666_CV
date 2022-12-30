@@ -17,16 +17,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('run:momo')->cron('2 * * * *');  // cron job momo 2 phút lần
-        $schedule->command('run:vcb')->withoutOverlapping()->everyMinute();
-        // ->when(function(){
-        //     $listServices = Cache::get('');
-        //     if(isset($listServices)){
-        //         return true;
-        //     }else{
-        //         dd("else r");
-        //     }
-        // })
-        // ->runInBackground();  // cron job momo 2 phút lần   ->sendOutputTo($filePath);
+        $schedule->command('run:vcb')
+        ->withoutOverlapping()
+        ->everyMinute();
+        
 
         
 

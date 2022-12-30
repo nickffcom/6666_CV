@@ -16,27 +16,33 @@ class CheckTransaction
 
     public static function CheckDataFromVietComBank()
     {
-        addLogg("name","CALL VCB LỖI OY```! ",LEVEL_DEFAULT,null);
-        return ;
         DB::beginTransaction();
         try {
-            addLogg("Call VCB","CALL VCB LỖI OY```! ",LEVEL_DEFAULT,null);
-            $accountNumber = "1016650160";
-            $passwordVcb = "haizzzhuoccc";
-            $tokenVCB ="abcdxyz";
-            $urlApi = "https://api.web2m.com/historyapivcbv3/$passwordVcb/$accountNumber/$tokenVCB";
-            $result = Http::get($urlApi);
+            $begin = now()->addDay(-3)->format('d/m/Y'); // check tối đa 3 ngày
+            $end =  now()->format('d/m/Y');
+            $username ="0397619750";
+            $password = "Nqdiencuboy99**345";
+            $accountNumber ="1016650160";
+            $urlApi = "https://apibank.otpsystem.com/api/vcb/transactions";
+            $data=[
+                "begin"=>$begin,
+                "end"=>$end,
+                "username"=>$username,
+                "password"=>$password,
+                "accountNumber"=>$accountNumber
+            ];
+            $result = Http::post($urlApi,$data);
 
             if (!$result->body()) {
-                addLogg("Call VCB","CALL VCB LỖI OY```! ",LEVEL_DEFAULT,null);
+                addLogg("Call VCB","CALL VCB LỖI OY```! ",LEVEL_DEFAULT);
                 DB::commit();
-                return;
+                return "Call Lỗi";
             }
             $data = json_decode($result, true);
             if (!isset($data->status) || $data->status == false) {
                 addLogg("Call VCB","Không có kết quả ! ",LEVEL_DEFAULT,null,$data);
                 DB::commit();
-                return;
+                return "Không có kết quả";
             }
             foreach ($data->transactions as $x) {
 
@@ -45,7 +51,7 @@ class CheckTransaction
                     $amount = (int)$x->amount;
                     $description = $x->description;
                     $transactionDate = $x->transactionDate;
-                    $now = now()->format('d/m/Y');  // 30/12/2022
+                    $now = $end;  // 30/12/2022
                     if($transactionDate == $now && $amount > 30000){
                         if(preg_match('/naptien\s.*?.CT/',$description,$match)){
                             $username = preg_replace('/\s+/', '', $match[1]);
