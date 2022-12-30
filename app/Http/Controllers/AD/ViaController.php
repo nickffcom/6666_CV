@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AD;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateViaClone;
 use App\Models\Data;
 use App\Repository\DataRepo;
 use App\Repository\ServiceRepo;
@@ -29,7 +30,6 @@ class ViaController extends Controller
             'listData'=>$listData,
             'type'=>$this->type
         ]);
-        // dd($listData);
        
     }
 
@@ -48,7 +48,6 @@ class ViaController extends Controller
 
     public function store(Request $request) // thêm via
     {
-        // dd($request);
         $dataInput = $request->input('data',null);
         $typeId = $request->input('type_id',null);
         if(!isset($dataInput) || !is_numeric($typeId) ){
@@ -108,11 +107,10 @@ class ViaController extends Controller
     
     public function edit($id)
     {
-        dd("edit id");
     }
 
     
-    public function update(Request $request, $id)  // update via
+    public function update(UpdateViaClone $request, $id)  // update via
     {
         $uid = $request->input('uid');
         $pass= $request->input('pass');

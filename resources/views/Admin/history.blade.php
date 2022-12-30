@@ -30,7 +30,7 @@
                                 <td class="d-sm-table-cell">{{  $x['username'] }}</td>
                                 <td class="d-sm-table-cell">{{  $x['content'] }}</td>
                              
-                                <td class="d-sm-table-cell"><span class="badge badge-success">{{ number_format( $x['total_money']) }} VND </span></td>
+                                <td class="d-sm-table-cell"><span class="badge badge-success">{{ number_format( $x['total_money']) }} </span></td>
 
                                 <td class="d-sm-table-cell" data-toggle="tooltip" title="{{  date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}">{{   date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}</td>
                                 <td class="d-sm-table-cell">

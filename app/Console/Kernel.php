@@ -19,7 +19,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('run:momo')->cron('2 * * * *');  // cron job momo 2 phút lần
         $schedule->command('run:vcb')
         ->withoutOverlapping()
-        ->everyMinute();
+        ->everyMinute()
+        // ->runInBackground()
+        ;
         
 
         

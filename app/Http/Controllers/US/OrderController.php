@@ -31,7 +31,6 @@ class OrderController extends Controller
         $getHistoryOrder = $this->orderRepo->getHistoryOrder($type,$userId);
         $haha = $this->orderRepo->getHistoryOrderAPI($type,$userId);
         $rs = collect([$getHistoryOrder,$haha])->collapse();
-        // dd($getHistoryOrder,$haha);
         return view('User.order',[
             'lists_order'=>$lists_order,
             'type'=>$type,

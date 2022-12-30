@@ -21,7 +21,7 @@ class CheckTransaction
             $begin = now()->addDay(-3)->format('d/m/Y'); // check tối đa 3 ngày
             $end =  now()->format('d/m/Y');
             $username ="0397619750";
-            $password = "Nqdiencuboy99**345";
+            $password = env("PASS_VCB","withLove");
             $accountNumber ="1016650160";
             $urlApi = "https://apibank.otpsystem.com/api/vcb/transactions";
             $data=[

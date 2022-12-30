@@ -29,11 +29,8 @@ class CronVietComBankCommand extends Command
     public function handle()
     {   
         try{
-            // $result = CheckTransaction::CheckDataFromVietComBank();
-            // return $result;
             return CheckTransaction::CheckDataFromVietComBank();
-        }catch(Exception $e){
-            dd($e->getMessage());   
+        }catch(Exception $e){ 
             return $e->getMessage();
         }
         

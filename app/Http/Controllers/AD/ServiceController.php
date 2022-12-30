@@ -109,7 +109,6 @@ class ServiceController extends Controller
     }
     public function ThongKeDoanhThu(Request $request){
         $thongke = $this->historyRepo->getThongKeDoanhThu();
-        // dd($thongke);
         return view('Admin.statics',[
             'count_today'=>$thongke,
             'count_month'=>$thongke,
@@ -119,7 +118,6 @@ class ServiceController extends Controller
 
     public function LichSuHoatDong(Request $request){
         $lists = $this->historyRepo->getAllHistoryToManage();
-        dd($lists);
         return view('Admin.history',[
             'lists'=>$lists
         ]);
