@@ -77,11 +77,11 @@ class ServiceController extends Controller
             $result = $this->userRepo->updateMoneyByUserName($userName,$money,$action);
             $this->historyRepo->create([
                 'action_id'=>'Không có',
-                'action_content'=>'Không có',
+                'action_content'=>'Admin + tiền',
                 'content' => 'Nạp tiền vào tài khoản',
                 'total_money' => $money,
                 'type' => NAP_TIEN,
-                'user_id'=>$me->id
+                'user_id'=> $me->id
             ]);
             DB::commit();
             return response()->json(["status"=>true,"message"=>"Cập nhật tiền thành công"]);
@@ -119,7 +119,7 @@ class ServiceController extends Controller
 
     public function LichSuHoatDong(Request $request){
         $lists = $this->historyRepo->getAllHistoryToManage();
-        // dd($lists);
+        dd($lists);
         return view('Admin.history',[
             'lists'=>$lists
         ]);

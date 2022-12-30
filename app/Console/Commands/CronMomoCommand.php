@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class CronMomo extends Command
+class CronMomoCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'run:momo';
+    protected $signature = 'run momo';
 
     /**
      * The console command description.

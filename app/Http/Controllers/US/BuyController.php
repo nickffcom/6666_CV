@@ -7,18 +7,14 @@ use App\Http\Requests\BuyRequest;
 use App\Models\Data;
 use App\Models\History;
 use App\Models\Order_service;
-use App\Models\Service;
 use App\Repository\DataRepo;
 use App\Repository\ServiceRepo;
 use App\Repository\UserRepo;
-use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class BuyController extends Controller
 {
@@ -142,7 +138,7 @@ class BuyController extends Controller
                 'content' => $content,
                 'type' =>GIAO_DICH, 
                 'total_money' => $total_money,
-                'action_content' => '=))',
+                'action_content' => 'Mua Hàng tại web=))',
                 'user_id' => $me->id
 
             ]);

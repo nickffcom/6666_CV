@@ -10,11 +10,80 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class CheckMomo
+class CheckTransaction
 {
 
 
-    public function CheckDataFromMomo()
+    public static function CheckDataFromVietComBank()
+    {
+        addLogg("name","CALL VCB LỖI OY```! ",LEVEL_DEFAULT,null);
+        return ;
+        DB::beginTransaction();
+        try {
+            addLogg("Call VCB","CALL VCB LỖI OY```! ",LEVEL_DEFAULT,null);
+            $accountNumber = "1016650160";
+            $passwordVcb = "haizzzhuoccc";
+            $tokenVCB ="abcdxyz";
+            $urlApi = "https://api.web2m.com/historyapivcbv3/$passwordVcb/$accountNumber/$tokenVCB";
+            $result = Http::get($urlApi);
+
+            if (!$result->body()) {
+                addLogg("Call VCB","CALL VCB LỖI OY```! ",LEVEL_DEFAULT,null);
+                DB::commit();
+                return;
+            }
+            $data = json_decode($result, true);
+            if (!isset($data->status) || $data->status == false) {
+                addLogg("Call VCB","Không có kết quả ! ",LEVEL_DEFAULT,null,$data);
+                DB::commit();
+                return;
+            }
+            foreach ($data->transactions as $x) {
+
+                if (isset($x->description) && $x->type == "IN") {
+                    $transactionID = preg_replace('/\s+/', '', $x->transactionID);
+                    $amount = (int)$x->amount;
+                    $description = $x->description;
+                    $transactionDate = $x->transactionDate;
+                    $now = now()->format('d/m/Y');  // 30/12/2022
+                    if($transactionDate == $now && $amount > 30000){
+                        if(preg_match('/naptien\s.*?.CT/',$description,$match)){
+                            $username = preg_replace('/\s+/', '', $match[1]);
+                            $user = User::where('username', trim($username))->first();
+                            if (isset($user->id)) {
+                                $check = History::where(
+                                    [
+                                    'user_id'=>$user->id,
+                                    'action_id'=>$transactionID,
+                                    ])->whereDate('created_at','=',Carbon::today()->toDateString())->first();
+                                $money = (int)$amount;
+                                if (!isset($check->id)) {
+                                    $resultUpdate = $user->increment('money', $money);
+                                    if ($resultUpdate) {
+                                        History::create('history', array(
+                                            'action_id' => $transactionID,
+                                            'content' => 'Nạp tiền qua VCB',
+                                            'total_money' => $money,
+                                            'type' => NAP_TIEN,
+                                            'user_id' => $user->id
+                                        ));
+                                        DB::commit();
+                                    }
+                                }
+                            }
+                        }
+                       
+                    }
+                    
+                }
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            addLogg("Exception VCB","=>>Lỗi là:" . $e->getMessage(),LEVEL_EXCEPTION,null,null);
+        }
+    }
+
+    public static function CheckDataFromMomo()
     {
 
         $now = Carbon::now();
@@ -22,67 +91,6 @@ class CheckMomo
         DB::beginTransaction();
         try {
             $urlApi = "https://sieulike.me/api/utilities/momo";
-            $email = "cuboy99x@gmail.com";
-            $passMomo = "haizzzhuoccc";
-            $dataPost = [
-                'email' => $email,
-                'password' => $passMomo
-            ];
-            $result = Http::post($urlApi, $dataPost);
-
-            if (!$result->body()) {
-
-                Log::error("Get API MOMO Không Thành Công Lúc =>>" . $time);
-                return;
-            }
-            $data = json_decode($result, true);
-            if (empty($data['data'])) {
-                return;
-            }
-            $arr_id = "Cũng éo biết lun =)) ";
-            $reg = "Éo biết là cái gì luôn";
-            foreach ($data['data'] as $x) {
-
-                if (preg_match($reg, mb_strtolower($x['comment']), $match)) {
-                    $username = $match[1];
-                    $username = explode(' ', $username);
-                    $username = trim(end($username));
-                    $info = User::where('username', $username)->first();
-                    if (!empty($info['id'])) {
-                        $id = $info['id'];
-                        $money = $x['amount'];
-                        // fwrite($fp, implode('|', $x) . '|' . date('H:i:s - d/m/Y', time()) . "\n");
-                        if (is_numeric($money) && $money > 0) {
-                            $update = "UPDATE users SET money = money + $money WHERE uid = " . $id;
-                            $resultUpdate = User::where('id', $id)->increment('money', $money);
-                            if ($resultUpdate) {
-                                History::insert('history', array(
-                                    'action_id' => $x['tranId'],
-                                    'content' => 'Nạp tiền qua Momo',
-                                    'total_money' => $money,
-                                    'type' => NAP_TIEN,
-                                    'id' => $id
-                                ));
-                                DB::commit();
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception $e) {
-            DB::rollback();
-            Log::error("Exception đoạn CheckData Momo lúc:" . $time . "=>>Lỗi là:" . $e);
-        }
-    }
-
-    public function CheckDataFromVietComBank()
-    {
-
-        $now = Carbon::now();
-        $time = date('d-m-Y', strtotime($now));
-        DB::beginTransaction();
-        try {
-            $urlApi = "https://sieulike.me/api/utilities/vietcombank";
             $email = "cuboy99x@gmail.com";
             $passMomo = "haizzzhuoccc";
             $dataPost = [
