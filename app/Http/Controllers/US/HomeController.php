@@ -26,7 +26,6 @@ class HomeController extends Controller
     public function home()
     {
         try{ 
-
             $ListServiceAds69  = $this->serviceRepo->getServiceWeb();
             // dd($ListServiceAds69);
             $ListNotify = $this->notify->select('content')->get();

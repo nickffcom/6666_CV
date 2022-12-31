@@ -262,7 +262,7 @@
     </script>
     <script type="text/javascript">
         swal({
-            title: "Gần 100 loại nguyên liệu ae ghẹo lựa đê",
+            title: "Hơn 120 loại nguyên liệu ae ghẹo lựa đê",
             html: true,
             text: "Chú ý phải đọc kĩ thông tin khi mua ở dấu ??? . Nếu Không có  thì khả năng cao đó là via clone spam ( ko live ads ) !",
             showConfirmButton: true
