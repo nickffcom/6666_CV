@@ -26,6 +26,10 @@
                         <input type="number" name="money" class="form-control" placeholder="Nhập số tiền">
                     </div>
                     <div class="form-group">
+                        <label>TransactionID (Nếu có) :</label>
+                        <input type="text" name="transactionID" class="form-control" placeholder="Nhập Id Transaction">
+                    </div>
+                    <div class="form-group">
                         <label>Thao tác :</label>
                         <select name="action" class="form-control">
                             <option value="plus">Cộng tiền</option>

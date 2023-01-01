@@ -45,6 +45,8 @@ Route::group(['prefix'=>'admin','middleware'=>'checkadmin'], function () {
     Route::post('/notify/delete', [NotifyController::class,"XoaThongBao"]);
     Route::post('/notify/detail', [NotifyController::class,"getDetailNotify"]);
     
+    // Route::view('/history-bank','Admin.history_bank');
+    Route::get('/history-bank',[ServiceController::class,'viewHistoryBank']);
     Route::group(['prefix'=>'manage'],function(){
         Route::get('/log',[LogController::class,'viewIndex']);
         Route::post('/log/{id}/delete',[LogController::class,'delete']);

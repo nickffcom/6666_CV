@@ -48,11 +48,11 @@ class CheckTransaction
                         $description = $x['Description'];
                         $transactionDate = $x['TransactionDate'];
                         $now = $end;  // 30/12/2022
-                        if($transactionDate == $now && $amount > 5000){
+                        if($transactionDate == $now && $amount > 30000){
                             $userAdd = null;
-                            if(preg_match('/naptien\s(.*?)\s/i',$description,$match)){ // naptien hainao\s
+                            if(preg_match('/naptien\s(.*?)\W/i',$description,$match)){ // naptien hainao\s
                                 $userAdd = $match[1];
-                            }else if(preg_match('/nap\stien\s(.*?)\s/i',$description,$match)){
+                            }else if(preg_match('/nap\stien\s(.*?)\W/i',$description,$match)){
                                 $userAdd = $match[1];
                             }
                             else if(preg_match('/naptien(.*?)\Z/',$description,$match)){
@@ -65,14 +65,13 @@ class CheckTransaction
                                 $username = preg_replace('/\s+/', '', $match[1]);
                                 $user = User::where('username', trim($username))->first();
                                 if (isset($user->id)) {
-                                    $now = now();
                                     $check = History::where(
                                         [
                                         'user_id'=>$user->id,
                                         'action_id'=>$transactionID,
                                         ])
                                         // ->whereDate('created_at','=',Carbon::today()->toDateString())->toSql()
-                                        ->whereRaw("DATE_FORMAT(created_at, '%Y%m%d') = {$now->format('Ymd')}")
+                                        // ->whereRaw("DATE_FORMAT(created_at, '%Y%m%d') = {$now->format('Ymd')}")
                                         ->first()
                                         ;
                                     $money = (int)$amount;
@@ -81,7 +80,7 @@ class CheckTransaction
                                         if ($resultUpdate) {
                                             $resultCreate = History::create([
                                                 'action_id' => $transactionID,
-                                                'content' => 'Nạp tiền qua VCB',
+                                                'content' => 'Nạp tiền Auto qua VCB',
                                                 'total_money' => $money,
                                                 'type' => NAP_TIEN,
                                                 'user_id' => $user->id

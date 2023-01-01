@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class ServiceController extends Controller
 {
@@ -88,9 +89,11 @@ class ServiceController extends Controller
             $userName = $request->input('username');
             $money = $request->input('money');
             $action = $request->input('action',TRU_TIEN);
-            $result = $this->userRepo->updateMoneyByUserName($userName,$money,$action);
+            $TransactionID = $request->input('transactionID',null);
+            $TransactionID = preg_replace('/\s+/', '', $TransactionID);
+            $this->userRepo->updateMoneyByUserName($userName,$money,$action);
             $this->historyRepo->create([
-                'action_id'=>'Không có',
+                'action_id'=>$TransactionID,
                 'action_content'=>'Admin + tiền',
                 'content' => 'Nạp tiền vào tài khoản',
                 'total_money' => $money,
@@ -154,5 +157,39 @@ class ServiceController extends Controller
             addLogg("Hacker Two Factor","Có kẻ muốn vào phá admin =>> Nguy hiểm",LEVEL_PRIORITY,$me,$varDump);
         }
 
+    }
+
+    public function viewHistoryBank(){
+        try{
+
+    
+        $begin = now()->addDay(0)->format('d/m/Y'); // check tối đa 3 ngày
+        $end =  now()->format('d/m/Y');
+        $username ="0397619750";
+        $password = env("PASS_VCB","withLove");
+        $accountNumber ="1016650160";
+        $urlApi = "https://apibank.otpsystem.com/api/vcb/transactions";
+        $data=[
+            "begin"=>$begin,
+            "end"=>$end,
+            "username"=>$username,
+            "password"=>$password,
+            "accountNumber"=>$accountNumber
+        ];
+        $result = Http::post($urlApi,$data);
+
+        if (!$result->body()) {
+            addLogg("Call VCB","CALL VCB LỖI OY```! ",LEVEL_DEFAULT);
+            DB::commit();
+            return "Call Lỗi";
+        }
+        $data = json_decode($result, true);
+        $banks = isset($data['transactions']) ? $data['transactions'] : [];
+        return view("Admin.history_bank",[
+            "banks"=> $banks
+        ]);
+        }catch(Exception $e){
+
+        }
     }
 }

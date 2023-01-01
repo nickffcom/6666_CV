@@ -15,7 +15,7 @@
                         <thead>
                             <tr>
                                 <th class="d-sm-table-cell" style="width: 15%;">Thời gian</th>
-                                <th class="d-sm-table-cell text-center" style="width: 20%;">Mã giao dịch</th>
+                                <th class="d-sm-table-cell text-center" style="width: 20%;">Nội dung</th>
                                 <th class="d-sm-table-cell text-center" style="width: 20%;">Số tiền</th>
                             </tr>
                         </thead>
@@ -24,7 +24,7 @@
                             @foreach($historyPayment as $x)
                             <tr>
                                 <td class="d-sm-table-cell" style="width: 30%;">{{   date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}</td>
-                                <td class="d-sm-table-cell text-center" style="width: 30%;">{{  (!empty($x['action_id']) ? $x['action_id'] : $x['id']) }}</td>
+                                <td class="d-sm-table-cell text-center" style="width: 30%;">{{  (!empty($x['content']) ? $x['content'] : $x['id']) }}</td>
                                 <td class="d-sm-table-cell text-center" style="width: 30%;">{{  number_format($x['total_money']) }} VNĐ</td>
                             </tr>
                             @endforeach

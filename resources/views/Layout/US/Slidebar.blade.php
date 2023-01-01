@@ -79,6 +79,12 @@
                                 <span class="nav-main-link-name">Two Factor</span>
                             </a>
                         </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" href="/admin/history-bank">
+                                <i class="nav-main-link-icon fa fa-list"></i>
+                                <span class="nav-main-link-name">Lịch sử Bank</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </li>

@@ -5,8 +5,8 @@
     <div class="col-12">
         <div class="block block-rounded block-themed block-fx-pop">
             <div class="block-header bg-gd-sea">
-                <h3 class="block-title">Nạp tiền Tự Động - Tự động cộng tiền sau 1 phút ! Ae nên nạp qua VietComBank nhé , momo hay lỗi !!! Nạp xong nên chát giúp mình</h3>
-
+                <h3 class="block-title">Nạp tiền Tự Động - Tự động cộng tiền sau 1-3 phút ! Ae nên nạp qua VietComBank nhé , momo hay lỗi !!! Nạp xong nên chát giúp mình</h3>
+                <h3 class="block-title" >Ae nên dùng Quét Mã QR trong app ngân hàng để quét mã để nội dung chuyển tiền đúng nhất nhé ! Tránh sự cố</h3>
             </div>
             <div class="block-content">
                 <div class="kt-section mb-5">

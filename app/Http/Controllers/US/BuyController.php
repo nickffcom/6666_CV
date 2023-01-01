@@ -63,7 +63,7 @@ class BuyController extends Controller
     
                     $me = Auth::user();
                     $total_money = $quantity* (int)$data->price;
-                    if(!($me->money > (int)$total_money)){
+                    if(!($me->money >= (int)$total_money)){
                         return RESULT(false,"Không đủ tiền thì đừng mua shop ơiiiii");
                     }
                     $domain = $type_API == 2 ? 'muafb.net' : 'muaviabm.vn';
@@ -76,7 +76,7 @@ class BuyController extends Controller
                     $getDataFromApi = json_decode($getDataFromApi);
                     addLogg("Call Api MuaFB",Conver_ToString($getDataFromApi),LEVEL_PRIORITY,$me->id);
                     if(!$getDataFromApi->status == "success"){
-                        return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
+                        return RESULT(false,"Lỗi Hệ thống =>> Báo Admin liền giúp mình nha fb zalo 0397619750");
                     }else if(!isset($getDataFromApi->data->trans_id)){
                         return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
                     }
@@ -113,6 +113,7 @@ class BuyController extends Controller
                 $note = isset($arrAccount[3]) ? $arrAccount[3] :'';
                 $email = isset($arrAccount[4]) ? $arrAccount[4] :'';
                 $password_email = isset($arrAccount[5]) ? $arrAccount[5] :'';
+                $haizz = DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name,$typeOrder);
                 $dataItem = Data::create([
                     'status'=>HET_HANG,
                     'attr'=>json_encode(DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name,$typeOrder)),
