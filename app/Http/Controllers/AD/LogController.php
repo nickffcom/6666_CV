@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\AD;
 
 use App\Http\Controllers\Controller;
+use App\Models\Logg;
 use App\Repository\LogRepo;
-use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
@@ -19,5 +19,9 @@ class LogController extends Controller
             'type'=>"OK",
             'logs'=>$log
         ]);
+    }
+    public function delete(Logg $log){
+        $log->delete();
+        return response()->json(["status"=>true,"message"=>"Xóa thành công"]);
     }
 }
