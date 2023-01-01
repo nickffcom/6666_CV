@@ -55,7 +55,7 @@
 
                                 @foreach ($logs as $key => $item)
                                 
-                                    <tr>
+                                    <tr id="tr{{ $item->id }}">
                                         <td class="d-sm-table-cell">{{ $item->id }}</td>
                                         <td class="d-sm-table-cell">{{ $item->name }}</td>
                                         <td class="d-sm-table-cell">
@@ -63,7 +63,11 @@
                                             {{ $item->description }}
                                             </textarea>
                                         </td>
-                                        <td class="d-sm-table-cell">{{ $item->var_dump }} VNĐ</td>
+                                        <td class="d-sm-table-cell">
+                                            <textarea name="varDump" id="" cols="20" rows="5">
+                                                {{ $item->var_dump }}
+                                            </textarea>
+                                        </td>
                                         <td class="d-sm-table-cell"><span class="badge badge-success">{{ $item->level }}</span></td>
                                         <td class="d-sm-table-cell">{{ $item->user_id }}</td>
                                         <td class="d-sm-table-cell">
@@ -117,13 +121,13 @@
 @section('script')
 {{-- <script src="{{ asset('tinymce/tinymce.js') }}"></script>
 <script> --}}
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>   
+{{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>   
 <script>
 tinymce.init({
     selector:'textarea.description',
     width: 900,
     height: 300
-});
+}); --}}
 </script>
 </script>
     <script>
@@ -133,10 +137,11 @@ tinymce.init({
                 $id = $that.data('delete');
                 let idnek = $that.data('delete');
                  $.ajax({
-                url: `/admin/{{ $type}}/${idnek}`,
-                type: 'DELETE',
+                url: `/admin/manage/log/${idnek}/delete`,
+                type: 'POST',
                 data:$('form#update_data').serialize(),
                 success: function (result) {
+                    $( `#tr${idnek}` ).remove();
                     showNotify((result.status == true ? 'success' : 'error'), result.message);
                 }
             });
@@ -157,7 +162,7 @@ tinymce.init({
         $('form#update_data').bind('submit', function(e) {
             let idnek= $('form#update_data input[name=id]').val();
             $.ajax({
-            url: `/admin/{{ $type}}/${idnek}`,
+            url: `/admin/manage/log/${idnek}/delete`,
             type: 'PATCH',
             data:$('form#update_data').serialize(),
             success: function (result) {

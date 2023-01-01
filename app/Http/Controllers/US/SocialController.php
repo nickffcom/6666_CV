@@ -4,7 +4,6 @@ namespace App\Http\Controllers\US;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Repository\DataRepo;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,6 @@ class SocialController extends Controller
         {
             $user = Socialite::driver($type)->user();
             // 3362005910793713
-            $numberRd = mt_rand(10000,99000);
             $idUser = $user->getId();
             $email = $user->getEmail();
             $nickName = $user->getName();
@@ -47,6 +45,7 @@ class SocialController extends Controller
                 return redirect('/');
             
         } catch (Exception $e) {
+            addLogg("handleSocial","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
             return "Lỗi".$e;
         }
 

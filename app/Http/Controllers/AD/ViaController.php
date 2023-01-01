@@ -112,6 +112,7 @@ class ViaController extends Controller
     
     public function update(UpdateViaClone $request, $id)  // update via
     {
+        try{    
         $uid = $request->input('uid');
         $pass= $request->input('pass');
         $key2fa = $request->input('key2fa');
@@ -123,6 +124,9 @@ class ViaController extends Controller
             'attr'=>json_encode(DB_VIA($uid,$pass,$key2fa,$email,$passmail,$note))
         ]);
         return response()->json(["status"=>true,"message"=>"Cập nhật thành công"]);
+        }catch(Exception $e){
+            addLogg("Update VIA","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
+        }
     }
 
   

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AD;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CongTruTienRequest;
 use App\Http\Requests\TwoFactorRequest;
+use App\Http\Traits\ThrottlesAttempts;
 use App\Models\User;
 use App\Repository\HistoryRepo;
 use App\Repository\NotifyRepo;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
+    use ThrottlesAttempts;
     protected $serviceRepo;
     protected $userRepo;
     protected $historyRepo;
@@ -39,21 +41,33 @@ class ServiceController extends Controller
     }
 
     public function HandleService(Request $request){ // update service
-
+        try{
         $id = $request->input('id');
         $this->serviceRepo->update($id,$request->only('name','description','price'));
         return response()->json(["status"=>true,"message"=>"Cập nhật thành công nhé a trai"]);
+        }catch(Exception $e){
+            addLogg("HandleService","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
+        }
     }
 
     public function addService(Request $request, $type){
+        try{
         $rs = $this->serviceRepo->create($request->all());
         return response()->json(["status"=>true,"message"=>"Thêm Service $type Thành công"]);
+        }catch(Exception $e){
+            addLogg("addService","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
+        }
     }
 
     public function deleteService(Request $request){
+        try{
         $id = $request->input('id');
         $this->serviceRepo->delete($id);
         return response()->json(["status"=>true,"message"=>"Xóa service Ok nha con vợ"]);
+        
+        }catch(Exception $e){
+            addLogg("deleteService","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
+        }
     }
 
     public function detailService(Request $request,$id){
@@ -125,11 +139,15 @@ class ServiceController extends Controller
 
     public function handleAuthenTwoFactor(TwoFactorRequest $request){
         $me = Auth::user()->id;
+        if($this->hasTooManyAttempts($request)){
+            return $this->sendLockoutResponse($request);
+        }
         if((int)$request->input('code2fa') === 396956){
             $cookie = cookie('XHRF_PASSPORT', '396956', 45000);
-            
+            $this->clearAttempts($request);
             return response('Hello World')->cookie($cookie);
         }else{
+            $this->incrementAttempts($request);
             $varDump=[
                 "Hacker nhập"=>$request->input('code2fa')
             ];

@@ -7,9 +7,7 @@ use App\Http\Controllers\US\OrderController;
 use App\Http\Controllers\US\ProxyController;
 use App\Http\Controllers\US\RegisterController;
 use App\Http\Controllers\US\SocialController;
-use App\Http\Controllers\US\TestController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 
 //  View For User *******************************
@@ -19,8 +17,6 @@ Route::view('/login','User.login')->name('userLogin');
 Route::post('/register',[RegisterController::class,'register']);
 Route::post('/login',[LoginController::class,'login']);
 
-
-Route::get('/test', [TestController::class,"index"]);
 
 
 

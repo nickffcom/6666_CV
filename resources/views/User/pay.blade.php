@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6" style="padding: 10px;">
+                            {{-- <div class="col-lg-6" style="padding: 10px;">
                                 <div class="text-center">
                                     <img src="/images/momo.png" width="65px">
                                 </div><br>
@@ -55,7 +55,7 @@
                                     <div class="col-6 text-primary-dark font-weight-bold"><span class="text-danger">nap tien {{ Auth::user()->username}} </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         
                     </div>

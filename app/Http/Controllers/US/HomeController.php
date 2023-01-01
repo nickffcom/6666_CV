@@ -36,10 +36,12 @@ class HomeController extends Controller
             $listServiceFromMuaViaBm = Cache::get('muaviabm.vn');
             // dd($listServiceFromMuaViaBm);
             if(!isset($listServiceFromMuaFbNet)){
-                $listServiceFromMuaFbNet = $this->getDataAndCache('muafb.net');
+                $priceIncrement = 1.07;
+                $listServiceFromMuaFbNet = $this->getDataAndCache('muafb.net',$priceIncrement);
             }
             if(!isset($listServiceFromMuaViaBm)){
-                $listServiceFromMuaViaBm = $this->getDataAndCache('muaviabm.vn');
+                $priceIncrement = 1.07;
+                $listServiceFromMuaViaBm = $this->getDataAndCache('muaviabm.vn',$priceIncrement);
             }
 
             if(isset($listServiceFromMuaFbNet)){
@@ -72,7 +74,6 @@ class HomeController extends Controller
     public function lichSuNapTien(){
         $me = Auth::user();
         $historyPayment = $this->historyRepo->getHistoryByUser($me->id,NAP_TIEN);
-        // dd($historyPayment);
         return view('User.history_pay')->with('historyPayment',$historyPayment);
     }
     public function Hotro(){
@@ -93,7 +94,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getDataAndCache($domain){
+    public function getDataAndCache($domain,$incrementPrice){
         $getDataFromApi = Http::get("https://$domain/api/ListResource.php?username=nickffcom&password=Nqdiencuboy99**");
                     if($getDataFromApi->ok()){
                         $data = json_decode($getDataFromApi->body());
@@ -110,10 +111,12 @@ class HomeController extends Controller
                                     ||str_contains(mb_strtoupper($item->name),'BM'))
                                     { 
 
-                                        if((int)$valueTemp->amount > 5){
+                                        if((int)$valueTemp->amount > 3){
                                             foreach(SERVICE as $service ){  // via bm clone
                                                 if(str_contains(mb_strtoupper($valueTemp->name), $service)){
                                                     $valueTemp->type_Api = $domain === 'muafb.net' ? 2 : 3;
+                                                    $priceLast = intval($valueTemp->price) * $incrementPrice;
+                                                    $valueTemp->price = $priceLast > 0 ? $priceLast : 333333;
                                                     array_push($dataFromAPI[$service],$valueTemp);
                                                 }
                                             }
@@ -121,7 +124,7 @@ class HomeController extends Controller
                                     }
                                 }
                         }
-                        $expiresAt = Carbon::now()->addMinutes(10);
+                        $expiresAt = Carbon::now()->addMinutes(15);
                         Cache::add($domain, json_encode($dataFromAPI), $expiresAt);
                     }
                     return empty($dataFromAPI['VIA']) ? null : json_encode($dataFromAPI);

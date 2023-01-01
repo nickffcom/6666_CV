@@ -20,6 +20,13 @@ class Kernel extends ConsoleKernel
         $schedule->command('run:vcb')
         ->withoutOverlapping()
         ->everyMinute()
+        ->when(function(){
+            $listServiceFromMuaFbNet = Cache::get('muafb.net');
+            $dataAPI = isset($listServiceFromMuaFbNet) ? json_decode($listServiceFromMuaFbNet) : null;
+            if($dataAPI){
+                return true;
+            }
+        })
         // ->runInBackground()
         ;
         

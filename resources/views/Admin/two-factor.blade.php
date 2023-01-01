@@ -54,7 +54,11 @@
             alert("OK: " + data);
         });
     }
-
+        $(document).keypress(function (e) {
+                if (e.which == 13 || event.keyCode == 13) {
+                    post_code_2fa();
+                }
+        });
 </script>
    
 @endsection

@@ -42,6 +42,7 @@ class RegisterController extends Controller
             $msg="Đăng ký thành công nhé ck iuu";
             return response()->json(["status"=>true,"message"=>$msg]);
         }catch(Exception $e){
+            addLogg("Register Controller","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
             return response()->json(["status"=>false,"message"=>"Thất bại-> Vui lòng Đăng ký tài khoản khác"]);
         }
     }

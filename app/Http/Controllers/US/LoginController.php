@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUser;
 use App\Http\Traits\ThrottlesAttempts;
 use App\Repository\UserRepo;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -46,6 +47,9 @@ class LoginController extends Controller
         return redirect('/login')->withCookie(cookie()->forget('XHRF_PASSPORT'));
     }
     public function UpdateInfoUser(UpdateUser $request){
+        try{
+
+       
         $me = Auth::user();
         $pass =$request->input('password');
         $newPass = $request->input('new_password');
@@ -59,6 +63,10 @@ class LoginController extends Controller
 
         }else{
             return response()->json(["status"=>false,"message"=>"Cập nhật thất bại =>>MK cũ không hợp lệ"]);
+        }
+
+        }catch(Exception $e){
+            addLogg("Update Info User","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION,$me->id);
         }
         
     }
