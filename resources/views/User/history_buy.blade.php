@@ -25,7 +25,7 @@
                                 <td class="d-sm-table-cell">{{   $counts }}</td>
                                 <td class="d-sm-table-cell">{{ $x['content'] }}</td>
                                 <td class="d-sm-table-cell text-center">{{ number_format($x['total_money']) }} VNĐ</td>
-                                <td class="d-sm-table-cell">{{ date('H:i:s - d/m/Y', strtotime($x['time'])) }}</td>
+                                <td class="d-sm-table-cell">{{ date('H:i:s - d/m/Y', strtotime($x['created_at'])) }}</td>
                             </tr>
                             @endforeach
                       
