@@ -31,6 +31,15 @@ class HistoryRepo extends BaseRepo{
          return $value;
     }
 
+    public function getThongKeDoanhThuBy($time=null){
+        $query = $this->model->where('type',NAP_TIEN);
+        if($time){
+            $query->whereRaw("DATE_FORMAT(created_at, '%Y%m%d') = {$time}");
+            // $query->whereTime('created_at','=',$time);
+        }
+        return $query->sum('total_money');
+    }
+
    public function getAllHistoryToManage(){ 
 
         $value = $this->model->join('user','user.id','history.user_id')

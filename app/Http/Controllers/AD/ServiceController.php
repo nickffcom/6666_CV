@@ -124,14 +124,6 @@ class ServiceController extends Controller
         $list_notify = $this->notifyRepo->getAll();
         return view('Admin.notify')->with('lists',$list_notify);
     }
-    public function ThongKeDoanhThu(Request $request){
-        $thongke = $this->historyRepo->getThongKeDoanhThu();
-        return view('Admin.statics',[
-            'count_today'=>$thongke,
-            'count_month'=>$thongke,
-            'count_all'=>$thongke,
-        ]);
-    }
 
     public function LichSuHoatDong(Request $request){
         $lists = $this->historyRepo->getAllHistoryToManage();
