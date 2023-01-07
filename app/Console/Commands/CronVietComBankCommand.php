@@ -29,6 +29,7 @@ class CronVietComBankCommand extends Command
     public function handle()
     {   
         try{
+            $this->info("da chay");
             return CheckTransaction::CheckDataFromVietComBank();
         }catch(Exception $e){ 
             return $e->getMessage();

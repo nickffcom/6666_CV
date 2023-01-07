@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-lg-6" style="padding: 10px;">
                                 <div class="text-center">
-                                    <img style="width:50%;height:100%;"  src="https://apiqr.web2m.com/api/generate/VCB/1016650160/LUU%20VAN%20AN?amount=300000&memo=nap tien{{ Auth::user()->username }}&is_mask=0&bg=1" >
+                                    <img style="width:50%;height:100%;"  src="https://apiqr.web2m.com/api/generate/VCB/1016650160/LUU%20VAN%20AN?amount=300000&memo=naptien {{ Auth::user()->username }}&is_mask=0&bg=1" >
                                 </div><br>
                                 <div class="row mb-1">
                                     <div class="col-6 text-right">Tên tài khoản:</div>

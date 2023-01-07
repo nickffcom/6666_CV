@@ -39,7 +39,9 @@ class CheckTransaction
                     return "Call Lỗi";
                 }
                 $data = json_decode($result, true);
-
+                if(!isset($data['transactions'])){
+                    return ;
+                }
                 foreach ($data['transactions'] as $x) {
 
                     if (isset($x['Description']) && $x['CD'] == "+") {

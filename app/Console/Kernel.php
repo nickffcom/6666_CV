@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Cache;
@@ -27,8 +28,7 @@ class Kernel extends ConsoleKernel
                 return true;
             }
         })
-        // ->runInBackground()
-        ;
+        ->sendOutputTo(storage_path('logs/checkVcb-' . Carbon::now()->format('Y-m-d') . '.txt'),true);
         
 
         

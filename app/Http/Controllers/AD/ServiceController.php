@@ -92,13 +92,14 @@ class ServiceController extends Controller
             $TransactionID = $request->input('transactionID',null);
             $TransactionID = preg_replace('/\s+/', '', $TransactionID);
             $this->userRepo->updateMoneyByUserName($userName,$money,$action);
+            $userCongTien = User::where('username',$userName)->firstOrFail();
             $this->historyRepo->create([
                 'action_id'=>$TransactionID,
                 'action_content'=>'Admin + tiền',
                 'content' => 'Nạp tiền vào tài khoản',
                 'total_money' => $money,
                 'type' => NAP_TIEN,
-                'user_id'=> $me->id
+                'user_id'=> $userCongTien->id
             ]);
             DB::commit();
             return response()->json(["status"=>true,"message"=>"Cập nhật tiền thành công"]);
