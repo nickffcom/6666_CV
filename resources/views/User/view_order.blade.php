@@ -12,7 +12,7 @@
             <tr>
                 <td>{{ $k + 1 }}</td>
                 <td><a href="#">OK</a></td>
-                <td>{{ $x->attr->uid . '|' . $x->attr->pass . '|' . $x->attr->key2fa.'|' . $x->attr->email . '|' . $x->attr->passmail  }}
+                <td>{{ $x->attr->uid . '|' . $x->attr->pass . '|' . $x->attr->key2fa.'|' . $x->attr->email . '|' . $x->attr->passmail. '|'.$x->attr->note  }}
                 </td>
             </tr>
         @endforeach
