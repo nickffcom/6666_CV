@@ -4,6 +4,7 @@ namespace App\Repository;
 use App\Repository\BaseRepo;
 use App\Models\Order_service;
 use App\Models\Service;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -23,20 +24,29 @@ class OrderServiceRepo extends BaseRepo{
             ->get();
     }
     public function getHistoryOrder($type,$userID){  // xem order bn lần và giá cả sao
-        DB::statement("SET SQL_MODE=''");
-        $haha = DB::table('order_service')
-                    ->join('data','data.id','=','order_service.ref_id')
-                    ->join('service',function($join){
-                        $join->on('service.id','=','data.service_id');
-                    })
-                    ->select('order_service.*','service.name as service_name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
-                    ->where('service.type',$type)
-                    ->whereRaw('order_service.user_id = ?',[$userID])
-                    ->groupBy('code')
-                    ->orderByRaw('order_service.id DESC')
-                    ->get()
-            ;
-        return $haha;
+        try{
+            DB::statement("SET SQL_MODE=''");
+            $haha = DB::table('order_service')
+                        ->join('data','data.id','=','order_service.ref_id')
+                        ->join('service',function($join){
+                            $join->on('service.id','=','data.service_id');
+                        })
+                        ->select('order_service.*','service.name as service_name','service.type',DB::raw('COUNT(*) AS total_buy'), DB::raw('SUM(order_service.price_buy) AS total_price'))
+                        ->where('service.type',$type)
+                        ->whereRaw('order_service.user_id = ?',[$userID])
+                        ->groupBy('code')
+                        ->orderByRaw('order_service.id DESC')
+                        ->get()
+                ;
+            DB::statement('SET sql_mode = true;');    
+            return $haha;
+            // 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+
+        }catch(Exception $e){
+            addLogg("SQL MODE NGUY HIỂM","Lỗi:".$e->getMessage(),LEVEL_BUG,Auth::user()->id);
+            DB::statement('SET sql_mode = true;');    
+        }
+      
     }
 
 

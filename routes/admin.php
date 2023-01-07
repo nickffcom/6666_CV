@@ -6,6 +6,7 @@ use App\Http\Controllers\AD\LogController;
 use App\Http\Controllers\AD\ManageUserController;
 use App\Http\Controllers\AD\NotifyController;
 use App\Http\Controllers\AD\ServiceController;
+use App\Http\Controllers\AD\ThongKeController;
 use App\Http\Controllers\AD\ViaController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,7 @@ Route::group(['prefix'=>'admin','middleware'=>'checkadmin'], function () {
 
     Route::get('/settings',[ServiceController::class,'Settings']);
     Route::get('/notify',[ServiceController::class,'notify']);
-    Route::get('/thong-ke',[ServiceController::class,'ThongKeDoanhThu']);
+    Route::get('/thong-ke',[ThongKeController::class,'ThongKeDoanhThu']);
     Route::get('/lich_su_hoat_dong',[ServiceController::class,'LichSuHoatDong']);
     
 
