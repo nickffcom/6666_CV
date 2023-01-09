@@ -44,7 +44,7 @@ class HistoryRepo extends BaseRepo{
 
         $value = $this->model->join('user','user.id','history.user_id')
                              ->select('history.*','user.username')
-                             ->orderBy('history.created_at','desc')
+                             ->orderBy('history.created_at','asc')
                              ->get();
         return $value;
    }
