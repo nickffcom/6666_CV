@@ -30,7 +30,7 @@ class LoginController extends Controller
         }
         if(Auth::attempt($credentials,$REMEMBER_ME)){
             $this->clearAttempts($request);
-            return response()->json(["status"=>true,"message"=>"Đăng nhập thành côngg"]);
+            return response()->json(["status"=>true,"message"=>"Đăng nhập thành côngg ! Vui lòng chờ load trang"]);
         }
         $this->incrementAttempts($request);
         $msg= "Tài khoản / Mật khẩu không chính xác";

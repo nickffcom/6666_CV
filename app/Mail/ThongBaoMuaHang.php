@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ThongBaoNapTien extends Mailable 
+class ThongBaoMuaHang extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,15 +18,15 @@ class ThongBaoNapTien extends Mailable
      *
      * @return void
      */
-    public $soTienDaNap;
+    public $content;
     public $userName;
-    public $thongtinthem;
-    public function __construct($userName,$soTienDaNap,$thongtinthem)
+    public $tongtien;
+    public function __construct($userName,$content,$tongtien)
     {
         
         $this->userName = $userName;
-        $this->soTienDaNap = $soTienDaNap;
-        $this->thongtinthem = $thongtinthem;
+        $this->content = $content;
+        $this->tongtien = $tongtien;
 
     }
 
@@ -62,11 +62,11 @@ class ThongBaoNapTien extends Mailable
     public function build()
     {
         // dd($this->userName);
-        return $this->subject($this->thongtinthem)->view('Mail.ThongBaoNapTien')
+        return $this->subject($this->userName." Shopping Tại Web")->view('Mail.ThongBaoMuaHang')
        ->with([
-                    'userName'    => $this->userName,
-                    'soTienDaNap' => $this->soTienDaNap,
-                    'thongtinthem' => $this->thongtinthem
+                    'userName' => $this->userName,
+                    'content'  => $this->content,
+                    'tongtien' => $this->tongtien,
         ]);
     }
 

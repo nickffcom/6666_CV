@@ -15,7 +15,9 @@
 <body>
     <div id="Ads69.net">
         <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-fixed page-header-dark main-content-narrow side-trans-enabled">
-           {{ $userName }} Đã nạp  số tiền {{ number_format($soTienDaNap) }} nhé người anh =>> Vào lúc : {{ now()->format('d-m-Y h:s') }}
+            
+       Vào lúc : {{ now()->format('d-m-Y h:s') }} Admin đã  cộng số tiền {{ number_format($tongtien)}} cho User: {{$userName}}
+       <h4>Nếu không làm điều này , vui lòng kiểm tra lại ngay lập tức</h4>
         </div>
     </div>
 

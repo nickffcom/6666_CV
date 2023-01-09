@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use App\Jobs\SendThongBaoNapTienQueue;
 use App\Models\History;
 use App\Models\User;
 use Carbon\Carbon;
@@ -87,8 +88,12 @@ class CheckTransaction
                                                 'type' => NAP_TIEN,
                                                 'user_id' => $user->id
                                             ]);
-                                        
+                                            
                                         }
+                                        $dataSend['username'] = $username;
+                                        $dataSend['sotiendanap']= $money;
+                                        $dataSend['thongtinthem'] = "Nạp tiền Auto Qua VCB";
+                                        dispatch(new SendThongBaoNapTienQueue($dataSend));
                                     }
                                 }
                             }

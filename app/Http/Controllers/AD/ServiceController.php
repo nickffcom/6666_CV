@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CongTruTienRequest;
 use App\Http\Requests\TwoFactorRequest;
 use App\Http\Traits\ThrottlesAttempts;
+use App\Jobs\SendThongBaoCongTienAdminQueue;
 use App\Models\User;
 use App\Repository\HistoryRepo;
 use App\Repository\NotifyRepo;
@@ -102,6 +103,9 @@ class ServiceController extends Controller
                 'user_id'=> $userCongTien->id
             ]);
             DB::commit();
+            $data['username'] = $me->username;
+            $data['tongtien']= $money;
+            dispatch(new SendThongBaoCongTienAdminQueue($data));
             return response()->json(["status"=>true,"message"=>"Cập nhật tiền thành công"]);
         }catch(Exception $e){
             DB::rollBack();

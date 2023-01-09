@@ -4,6 +4,7 @@ namespace App\Http\Controllers\US;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BuyRequest;
+use App\Jobs\SendThongBaoMuaHangQueue;
 use App\Models\Data;
 use App\Models\History;
 use App\Models\Order_service;
@@ -146,6 +147,10 @@ class BuyController extends Controller
             $moneyRemain = $me->money  - $total_money;
             $this->userRepo->updateMoney($moneyRemain);
             $move_location='/order?type='.$type;
+            $data['username'] = $me->username;
+            $data['content'] = "=>> ".$content;
+            $data['tongtien']= $total_money;
+            dispatch(new SendThongBaoMuaHangQueue($data));
             DB::commit();
             return ["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location];
         }catch(Exception $e){
@@ -201,7 +206,12 @@ class BuyController extends Controller
                 $moneyRemain = $me->money  - $total_money;
                 $resultMoney = $this->userRepo->updateMoney($moneyRemain);
                 DB::commit();
+                
                 $move_location='/order?type='.$service->type;
+                $dataSend['username'] = $me->username;
+                $dataSend['content'] = "=>> ".$content;
+                $dataSend['tongtien']= $total_money;
+                dispatch(new SendThongBaoMuaHangQueue($dataSend));
                 return ["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location];
             } else {
                 return ["status"=>false,"message"=>'Bạn không đủ ' . number_format($total_money) . ' VNĐ để thực hiện giao dịch!'];
