@@ -182,8 +182,10 @@ class ServiceController extends Controller
         }
         $data = json_decode($result, true);
         $banks = isset($data['transactions']) ? $data['transactions'] : [];
+        $messageErr = $data['message'];
         return view("Admin.history_bank",[
-            "banks"=> $banks
+            "banks"=> $banks,
+            "messageErr"=>$messageErr
         ]);
         }catch(Exception $e){
 
