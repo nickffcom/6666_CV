@@ -21,7 +21,7 @@ class LogController extends Controller
         ]);
     }
     public function delete(Logg $log){
-        $log->delete();
+        $result = $log->delete();
         return response()->json(["status"=>true,"message"=>"Xóa thành công"]);
     }
 }

@@ -50,7 +50,7 @@ Route::group(['prefix'=>'admin','middleware'=>'checkadmin'], function () {
     Route::get('/history-bank',[ServiceController::class,'viewHistoryBank']);
     Route::group(['prefix'=>'manage'],function(){
         Route::get('/log',[LogController::class,'viewIndex']);
-        Route::post('/log/{id}/delete',[LogController::class,'delete']);
+        Route::post('/log/{log}/delete',[LogController::class,'delete']);
     });
 
 });
