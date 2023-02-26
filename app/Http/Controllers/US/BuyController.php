@@ -81,7 +81,9 @@ class BuyController extends Controller
                     }else if(!isset($getDataFromApi->data->trans_id)){
                         return RESULT(false,"Lỗi server =>> Báo Admin liền giúp mình 0397619750");
                     }
-    
+                    $moneyRemain = $me->money  - $total_money;
+                    $resultUpdate = $this->userRepo->updateMoney($moneyRemain);
+                    $check = 1;
                     $result = $this->BuyDataFromMuaFbNet($quantity,$type,$getDataFromApi,$total_money,$data,$type_API);// mua từ API Muafb.Net 
                     break;
                 default:
@@ -89,7 +91,8 @@ class BuyController extends Controller
             }
             return response()->json($result);
         }catch(Exception $e){
-                addLogg("Func HandleBuy Main",$e->getMessage(),LEVEL_EXCEPTION,Auth::user()->id);
+                $description = isset($check) ? 'Đã trừ tiền user nhưng bị lỗi' : '';
+                addLogg("Func HandleBuy Main".$description,$e->getMessage(),LEVEL_EXCEPTION,Auth::user()->id);
                 return RESULT(false,"Báo cho admin gấp nếu thấy có lỗi");
         }
        
@@ -114,7 +117,6 @@ class BuyController extends Controller
                 $note = isset($arrAccount[3]) ? $arrAccount[3] :'';
                 $email = isset($arrAccount[4]) ? $arrAccount[4] :'';
                 $password_email = isset($arrAccount[5]) ? $arrAccount[5] :'';
-                $haizz = DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name,$typeOrder);
                 $dataItem = Data::create([
                     'status'=>HET_HANG,
                     'attr'=>json_encode(DB_VIA_API($uid,$password,$twofa,$email,$password_email,$note,$type,$data->name,$typeOrder)),
@@ -144,17 +146,16 @@ class BuyController extends Controller
                 'user_id' => $me->id
 
             ]);
-            $moneyRemain = $me->money  - $total_money;
-            $this->userRepo->updateMoney($moneyRemain);
             $move_location='/order?type='.$type;
-            $data['username'] = $me->username;
-            $data['content'] = "=>> ".$content;
-            $data['tongtien']= $total_money;
-            dispatch(new SendThongBaoMuaHangQueue($data));
+            $dataJob['username'] = $me->username;
+            $dataJob['content'] = "=>> ".$content;
+            $dataJob['tongtien']= $total_money;
             DB::commit();
+            dispatch(new SendThongBaoMuaHangQueue($dataJob));
             return ["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location];
         }catch(Exception $e){
             DB::rollBack();
+            // $this->userRepo->updateMoney($moneyRemain);
             addLogg("Funciton BuyDataFromMuaFbNet",$e->getMessage(),LEVEL_EXCEPTION,Auth::user()->id);
             return ["status"=>false,"message"=>"Báo ngay cho Admin để xử lý gấp"];
         }
@@ -205,12 +206,12 @@ class BuyController extends Controller
                 ]);
                 $moneyRemain = $me->money  - $total_money;
                 $resultMoney = $this->userRepo->updateMoney($moneyRemain);
-                DB::commit();
                 
                 $move_location='/order?type='.$service->type;
                 $dataSend['username'] = $me->username;
                 $dataSend['content'] = "=>> ".$content;
                 $dataSend['tongtien']= $total_money;
+                DB::commit();
                 dispatch(new SendThongBaoMuaHangQueue($dataSend));
                 return ["status"=>true,"message"=>"Mua thành công => Vào lịch sử Gd để xem","move_location"=>$move_location];
             } else {
