@@ -95,7 +95,9 @@ class HomeController extends Controller
     }
 
     public function getDataAndCache($domain,$incrementPrice){
-        $getDataFromApi = Http::get("https://$domain/api/ListResource.php?username=nickffcom&password=Nqdiencuboy99**");
+        $tk = env("USER_API");
+        $mk = env("PASS_API");
+        $getDataFromApi = Http::get("https://$domain/api/ListResource.php?username=$tk&password=$mk");
                     if($getDataFromApi->ok()){
                         $data = json_decode($getDataFromApi->body());
                         $dataFromAPI=[

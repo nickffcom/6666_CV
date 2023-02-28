@@ -103,12 +103,13 @@ class ServiceController extends Controller
                 'user_id'=> $userCongTien->id
             ]);
             DB::commit();
-            $data['username'] = $me->username;
+            $data['username'] = $userCongTien->username;
             $data['tongtien']= $money;
             dispatch(new SendThongBaoCongTienAdminQueue($data));
             return response()->json(["status"=>true,"message"=>"Cập nhật tiền thành công"]);
         }catch(Exception $e){
             DB::rollBack();
+            addLogg("HandleCongTruTien","Lỗi:".$e->getMessage(),LEVEL_EXCEPTION);
             return response()->json(["status"=>false,"message"=>"Thất bại rồi người anh ơiii".$e]);
         }
         

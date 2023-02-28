@@ -11,7 +11,7 @@
             <div class="block block-rounded block-themed block-fx-pop">
                 <div class="block-header bg-info">
                     <h3 class="block-title">
-                        History Bank Của Tài Khoản 1016650160  {{$messageErr}}
+                        History Bank Của Tài Khoản 1016650160  =>>  {{$messageErr}}
                         <span style="width: 250px;">
                             <select id="status" class="form-control">
                                 <option value="{{ CON_HANG }}">Hiển thị</option>

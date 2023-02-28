@@ -34,7 +34,8 @@ class SendThongBaoNapTienQueue implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to("18130002@st.hcmuaf.edu.vn")->send(
+        $address = env("MAIL_ADMIN");
+        Mail::to($address)->send(
             new ThongBaoNapTien
             (
                 $this->data['username'],

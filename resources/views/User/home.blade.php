@@ -238,7 +238,7 @@
             }
             const $notice = showNotify({
                 type: 'info',
-                text: 'Đang thực hiện giao dịch..',
+                text: 'Đang thực hiện giao dịch.... Vui lòng chờ xong =>> K nên mua tiếp khi chưa xong, dễ gây ra lỗi',
                 hide: false,
                 clickToClose: false
             });
